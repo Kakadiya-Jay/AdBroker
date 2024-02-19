@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "807171167314",
+    "project_id": "adbrokers-86765",
+    "storage_bucket": "adbrokers-86765.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:807171167314:android:d41e5a6218555e6fee7b8b",
+        "android_client_info": {
+          "package_name": "com.example.ad_brokers"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwgHraxUIqs6F0QjKoVK7jPid-6-VrcAg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
