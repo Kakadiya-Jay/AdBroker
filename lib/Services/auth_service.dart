@@ -20,6 +20,12 @@ class AuthService {
           .user!;
 
       if (user != null) {
+        try {
+          var response = "";
+        } on APIException catch (ex) {
+          return ex.printErrorMessage();
+        }
+
         return true;
       }
     } on FirebaseAuthException catch (ex) {
