@@ -1,0 +1,131 @@
+{
+	"info": {
+		"_postman_id": "1ced935d-d3d5-42aa-9d86-2856571724c2",
+		"name": "hosted AdProject",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "23960906",
+		"_collection_link": "https://grey-comet-653110.postman.co/workspace/Team-Workspace~4cef47c6-33c7-4375-8fdf-69a7c1b5ef35/collection/27627409-1ced935d-d3d5-42aa-9d86-2856571724c2?action=share&source=collection_link&creator=23960906"
+	},
+	"item": [
+		{
+			"name": "signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "form-data",
+					"raw": "{\r\n    \"name\":\"aa\",\r\n    \"email\":\"aa@aa.com\",\r\n    \"contactNo\":\"9876543212\",\r\n    \"role\":\"Advertiser\",\r\n    \"password\":\"aa\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://adproject-apis.onrender.com/user/signup"
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"aa@aa.com\",\r\n    \"password\":\"ss\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://adproject-apis.onrender.com/user/login"
+			},
+			"response": []
+		},
+		{
+			"name": "get all user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://adproject-apis.onrender.com/user/getall"
+			},
+			"response": []
+		},
+		{
+			"name": "reset password",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"newPassword\":\"aa\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://adproject-apis.onrender.com/user/resetpassword?email=aa@aa.com?email",
+					"protocol": "https",
+					"host": [
+						"adproject-apis",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"user",
+						"resetpassword"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "aa@aa.com?email"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "find, update, delete user",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"aa\",\r\n    \"email\":\"aa@aa.com\",\r\n    \"contactNo\":\"9876543212\",\r\n    \"role\":\"Advertiser\",\r\n    \"password\":\"aa\",\r\n    \"profileUrl\":\"testProfileUrl\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://adproject-apis.onrender.com/user/getby?id=65bfd011d5a25b4763e1bf7e",
+					"protocol": "https",
+					"host": [
+						"adproject-apis",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"user",
+						"getby"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "65bfd011d5a25b4763e1bf7e"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,3 +1,4 @@
+import 'package:ad_brokers/UI/Pages/show_ads_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -5,11 +6,11 @@ class AdsTemplateCard extends StatelessWidget {
   final num noOfDaysLeft;
   final IconData icon;
   final String imagePath;
-  final num? noOfViews;
+  final num noOfViews;
   final String brandName;
-  final num? noOfPlatforms;
+  final num noOfPlatforms;
   final String adsStatus;
-  final num? price;
+  final num price;
 
   const AdsTemplateCard(
       {super.key,
@@ -25,20 +26,28 @@ class AdsTemplateCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 10,
+      elevation: 1,
       shadowColor: adsStatus == "Pending"
           ? Colors.redAccent
           : adsStatus == "OnGoing"
-              ? Colors.greenAccent
-              : Colors.yellowAccent,
+              ? Colors.green
+              : Colors.blue,
       clipBehavior: Clip.antiAlias,
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 2.0),
       color: Theme.of(context).cardColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
+        side: BorderSide(
+          width: 1,
+          color: adsStatus == "Pending"
+              ? Colors.redAccent
+              : adsStatus == "OnGoing"
+                  ? Colors.green
+                  : Colors.blue,
+        ),
       ),
       child: SizedBox(
-        height: 335,
+        height: 320,
         width: 275,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -52,6 +61,7 @@ class AdsTemplateCard extends StatelessWidget {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       fit: BoxFit.fill,
+                      filterQuality: FilterQuality.high,
                       image: AssetImage(imagePath),
                     ),
                   ),
@@ -71,19 +81,41 @@ class AdsTemplateCard extends StatelessWidget {
                           ),
                           child: Text(
                             "$noOfDaysLeft Days Left",
-                            style: Theme.of(context).textTheme.headlineSmall,
+                            style: const TextStyle(
+                              color: Color(0xFFF9F9F9),
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ).pSymmetric(h: 8, v: 4),
                         ),
                         const Spacer(),
-                        Icon(
-                          icon,
-                          color: Colors.white,
-                          shadows: const [
-                            Shadow(
-                                blurRadius: 4.0,
-                                offset: Offset(1, 2),
-                                color: Colors.grey)
-                          ],
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (contaxt) => ShowAdsDetailsPage(
+                                  brandName: brandName,
+                                  noOfPlatforms: noOfPlatforms,
+                                  noOfDaysLeft: noOfDaysLeft,
+                                  noOfViews: noOfViews,
+                                  imagePath: imagePath,
+                                  adsStatus: adsStatus,
+                                  price: price,
+                                ),
+                              ),
+                            );
+                          },
+                          child: Icon(
+                            icon,
+                            color: Colors.white,
+                            shadows: const [
+                              Shadow(
+                                  blurRadius: 4.0,
+                                  offset: Offset(1, 2),
+                                  color: Colors.grey)
+                            ],
+                          ),
                         ).pSymmetric(h: 16),
                       ],
                     ),
@@ -124,11 +156,11 @@ class AdsTemplateCard extends StatelessWidget {
                                   ? Theme.of(context)
                                       .textTheme
                                       .titleSmall!
-                                      .copyWith(color: Colors.greenAccent)
+                                      .copyWith(color: Colors.green)
                                   : Theme.of(context)
                                       .textTheme
                                       .titleSmall!
-                                      .copyWith(color: Colors.yellowAccent),
+                                      .copyWith(color: Colors.blue),
                         ),
                         Text(
                           "$price ₹",
@@ -152,7 +184,7 @@ class AdsTemplateCard extends StatelessWidget {
                   ],
                 ),
               ],
-            ).p(8),
+            ).pSymmetric(v: 4, h: 8),
           ],
         ),
       ),

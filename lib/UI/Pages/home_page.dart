@@ -196,7 +196,7 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       AdsTemplateCard(
                         imagePath: "assets/images/Sample-Ad-Image-1.jpg",
-                        noOfDaysLeft: 28,
+                        noOfDaysLeft: 21,
                         icon: Icons.visibility,
                         brandName: "ABCD Company",
                         adsStatus: "OnGoing",
@@ -211,16 +211,39 @@ class _HomePageState extends State<HomePage> {
                         brandName: "Brand Factory",
                         adsStatus: "Pending",
                       ),
+                      AdsTemplateCard(
+                        imagePath: "assets/images/Sample-Ad-Image-3.jpg",
+                        icon: Icons.visibility,
+                        noOfDaysLeft: 84,
+                        brandName: "Web Developers",
+                        adsStatus: "Upcoming",
+                        price: 3499,
+                      )
                     ],
                   ),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
+                const Divider(
+                  thickness: 0.5,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
                 Text(
-                  "To be Continued..",
+                  "Apply For New Ad",
+                  textAlign: TextAlign.left,
                   style: Theme.of(context).textTheme.displayMedium,
                 ),
+                const SizedBox(
+                  height: 20,
+                ),
+                CupertinoButton(
+                  onPressed: () {},
+                  color: Colors.purple,
+                  child: const Text("Click Here"),
+                ).centered(),
               ],
             ).pSymmetric(h: 24),
           ],

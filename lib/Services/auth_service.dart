@@ -1,6 +1,12 @@
+import 'dart:convert';
+
 import 'package:ad_brokers/Helpers/helper_function.dart';
 import 'package:ad_brokers/Services/database_service.dart';
+import 'package:ad_brokers/Shared/constant.dart';
+import 'package:ad_brokers/Shared/exceptions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import 'package:http/http.dart' as http;
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -33,7 +39,25 @@ class AuthService {
       if (user != null) {
         await DatabaseService(uid: user!.uid)
             .savingUserData(name, email, contact, role);
-        return true;
+        try {
+          var response = await http.post(
+              Uri.parse(APIConstant.baseURL + APIConstant.signUPEndPoint),
+              body: jsonEncode({
+                'name': name,
+                'email': email,
+                'contactNo': contact,
+                'role': role,
+                'password': password
+              }));
+
+          if (response.statusCode == 200) {
+            return true;
+          } else {
+            throw APIException();
+          }
+        } on APIException catch (ex) {
+          return ex.printErrorMessage();
+        }
       }
     } on FirebaseAuthException catch (ex) {
       return ex.message;
