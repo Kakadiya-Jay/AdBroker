@@ -2,9 +2,6 @@
 
 import 'package:ad_brokers/Helpers/helper_function.dart';
 import 'package:ad_brokers/Services/auth_service.dart';
-import 'package:ad_brokers/Services/database_service.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -280,21 +277,20 @@ class _LoginPageState extends State<LoginPage> {
         .loginWithEmailandPassword(
             emailText.text.toString(), passwordText.text.toString())
         .then((value) async {
-      if (value == true) {
-        QuerySnapshot snapshot =
-            await DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid)
-                .gettingUserData(emailText.text.toString());
-        //saving values in SharedPreferences
-
+      if (value != null) {
+        
         await HelperFunctions.saveUserLoggedInStatus(true);
         await HelperFunctions.saveUserEmailSF(emailText.text.toString());
-        await HelperFunctions.saveUserNameSF(snapshot.docs[0]["name"]);
-        await HelperFunctions.saveUserContactSF(snapshot.docs[0]["contact"]);
-        await HelperFunctions.saveUserRoleSF(snapshot.docs[0]["role"]);
+        await HelperFunctions.saveUserNameSF(value["name"].toString());
+        await HelperFunctions.saveUserContactSF(value["contactNo"].toString());
+        await HelperFunctions.saveUserRoleSF(value["role"].toString());
 
         Navigator.pushNamedAndRemoveUntil(
             context, "/frontPage", (route) => false);
       } else {
+        setState(() {
+          isLoading = false;
+        });
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(

@@ -348,6 +348,9 @@ class _SignUpPageState extends State<SignUpPage> {
         Navigator.pushNamedAndRemoveUntil(
             context, "/frontPage", (route) => false);
       } else {
+        setState(() {
+          _isLoading = false;
+        });
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
