@@ -33,30 +33,30 @@ class _ChatPageState extends State<ChatPage> {
                 Align(
                   alignment: Alignment.bottomLeft,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          height: 48,
-                          width: 48,
-                          decoration: ShapeDecoration(
-                            color: const Color(0xFFF5F5F5),
-                            shape: RoundedRectangleBorder(
-                              side: const BorderSide(
-                                  width: 1.0, color: Colors.black),
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                          ),
-                          child: const Icon(
-                            Icons.attach_file_rounded,
-                            color: Color(0xFF163648),
-                          ),
-                        ),
-                      ),
-                      const Spacer(),
+                      // GestureDetector(
+                      //   onTap: () {},
+                      //   child: Container(
+                      //     height: 48,
+                      //     width: 48,
+                      //     decoration: ShapeDecoration(
+                      //       color: const Color(0xFFF5F5F5),
+                      //       shape: RoundedRectangleBorder(
+                      //         side: const BorderSide(
+                      //             width: 1.0, color: Colors.black),
+                      //         borderRadius: BorderRadius.circular(16),
+                      //       ),
+                      //     ),
+                      //     child: const Icon(
+                      //       Icons.attach_file_rounded,
+                      //       color: Color(0xFF163648),
+                      //     ),
+                      //   ),
+                      // ),
+                      // const Spacer(),
                       SizedBox(
-                        width: MediaQuery.of(context).size.width / 1.30,
+                        width: MediaQuery.of(context).size.width / 1.1,
                         height: 48,
                         child: TextFormField(
                           controller: messageText,

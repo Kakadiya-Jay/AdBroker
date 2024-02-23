@@ -50,7 +50,8 @@ class _NavigationBarTemplateState extends State<NavigationBarTemplate> {
           },
           currentIndex: myIndex,
           type: BottomNavigationBarType.fixed,
-          backgroundColor: const Color(0xff163648),
+          backgroundColor: const Color(0xFF3C096C),
+          // backgroundColor: const Color(0xff163648),
           selectedItemColor: Colors.white,
           unselectedItemColor: const Color.fromARGB(255, 134, 159, 173),
           items: const [
