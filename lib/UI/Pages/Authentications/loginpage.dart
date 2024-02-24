@@ -2,6 +2,7 @@
 
 import 'package:ad_brokers/Helpers/helper_function.dart';
 import 'package:ad_brokers/Services/auth_service.dart';
+import 'package:ad_brokers/UI/Pages/Authentications/forget_password.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -190,7 +191,34 @@ class _LoginPageState extends State<LoginPage> {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     TextButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        if (emailText.text.isEmpty) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                            content: Text(
+                                              "Enter your Email which is associated with our service",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelMedium,
+                                            ),
+                                            backgroundColor:
+                                                const Color.fromARGB(
+                                                    255, 242, 154, 154),
+                                            elevation: 6.0,
+                                          ));
+                                        } else {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (contaxt) =>
+                                                  ForgetPasswordPage(
+                                                userEmail:
+                                                    emailText.text.toString(),
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                      },
                                       child: const Text(
                                         "Forgot your password?",
                                         style: TextStyle(
@@ -278,7 +306,6 @@ class _LoginPageState extends State<LoginPage> {
             emailText.text.toString(), passwordText.text.toString())
         .then((value) async {
       if (value != null) {
-        
         await HelperFunctions.saveUserLoggedInStatus(true);
         await HelperFunctions.saveUserEmailSF(emailText.text.toString());
         await HelperFunctions.saveUserNameSF(value["name"].toString());

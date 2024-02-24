@@ -1,5 +1,6 @@
 import 'package:ad_brokers/Helpers/helper_function.dart';
 import 'package:ad_brokers/Services/auth_service.dart';
+import 'package:ad_brokers/UI/Pages/edit_profile_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -54,7 +55,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: Text(
           "Profile",
           style: Theme.of(context).textTheme.titleLarge,
@@ -120,7 +121,19 @@ class _ProfilePageState extends State<ProfilePage> {
               width: 200,
               height: 50,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (contaxt) => EditProfilePage(
+                        userName: userName.toString(),
+                        userEmail: userEmail.toString(),
+                        userContact: userPhone.toString(),
+                        userRole: userRole.toString(),
+                      ),
+                    ),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xffFFE501),
                   side: BorderSide.none,
