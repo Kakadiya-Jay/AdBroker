@@ -41,7 +41,7 @@ class _ShowAdsDetailsPageState extends State<ShowAdsDetailsPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Hero(
-              tag: "show-ad-detail",
+              tag: "id of Advertisement",
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height / 2,
