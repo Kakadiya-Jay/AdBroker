@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:ad_brokers/UI/Pages/Authentications/check_user_status.dart';
+import 'package:ad_brokers/UI/Pages/add_new_advertisement.dart';
 import 'package:ad_brokers/UI/Pages/chat_page.dart';
 import 'package:ad_brokers/UI/Pages/home_page.dart';
 import 'package:ad_brokers/UI/Pages/Authentications/loginpage.dart';
@@ -19,4 +20,5 @@ var AppRoutes = <String, WidgetBuilder>{
   "/reservationPage": (context) => const MyAdsPage(),
   "/chatPage": (context) => const ChatPage(),
   "/profilePage": (context) => const ProfilePage(),
+  "/addNewAdPage": (context) => const AddNewAdvertisement(),
 };

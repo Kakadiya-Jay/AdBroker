@@ -240,17 +240,24 @@ class _HomePageState extends State<HomePage> {
                   height: 20,
                 ),
                 CupertinoButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, "/addNewAdPage");
+                  },
                   color: Colors.purple,
                   child: const Text("Click Here"),
                 ).centered(),
+                const SizedBox(
+                  height: 20,
+                ),
               ],
             ).pSymmetric(h: 24),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, "/addNewAdPage");
+        },
         backgroundColor: const Color(0xFF50227B),
         elevation: 0.0,
         tooltip: "Add new Advertisement",

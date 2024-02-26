@@ -63,6 +63,7 @@ class AuthService {
                 'Content-Type': 'application/json; charset=UTF-8',
               },
               body: jsonEncode(<String, dynamic>{
+                'uid': user!.uid.toString(),
                 'name': name,
                 'email': email,
                 'contactNo': contact,

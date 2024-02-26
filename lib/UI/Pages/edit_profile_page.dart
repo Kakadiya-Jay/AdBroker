@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, must_be_immutable
 
 import 'dart:io';
 
@@ -9,12 +9,12 @@ import 'package:image_picker/image_picker.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class EditProfilePage extends StatefulWidget {
-  final String userName;
-  final String userEmail;
-  final String userContact;
-  final String userRole;
+  String userName;
+  String userEmail;
+  String userContact;
+  String userRole;
 
-  const EditProfilePage(
+  EditProfilePage(
       {super.key,
       required this.userName,
       required this.userEmail,
@@ -73,28 +73,29 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 },
                 child: Stack(
                   children: [
-                    Container(
-                      height: 140,
-                      width: 140,
-                      decoration: ShapeDecoration(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(100),
-                        ),
-                      ),
+                    SizedBox(
+                      height: 120,
+                      width: 120,
                       child: image != null
-                          ? Image.file(
-                              image!,
-                              fit: BoxFit.fill,
-                              filterQuality: FilterQuality.high,
-                              height: 120,
-                              width: 120,
+                          ? ClipRRect(
+                              borderRadius: BorderRadius.circular(100),
+                              child: Image.file(
+                                image!,
+                                fit: BoxFit.fill,
+                                filterQuality: FilterQuality.high,
+                                height: 120,
+                                width: 120,
+                              ),
                             )
-                          : Image.asset(
-                              "assets/images/Google.png",
-                              fit: BoxFit.fill,
-                              filterQuality: FilterQuality.high,
-                              height: 120,
-                              width: 120,
+                          : ClipRRect(
+                              borderRadius: BorderRadius.circular(100),
+                              child: Image.asset(
+                                "assets/images/Google.png",
+                                fit: BoxFit.fill,
+                                filterQuality: FilterQuality.high,
+                                height: 120,
+                                width: 120,
+                              ),
                             ),
                     ),
                     Positioned(
@@ -108,7 +109,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           color: const Color(0xffFFE501),
                         ),
                         child: IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            pickProfileImage(ImageSource.gallery);
+                          },
                           icon: const Icon(
                             Icons.add_a_photo,
                             color: Colors.black,
@@ -126,12 +129,19 @@ class _EditProfilePageState extends State<EditProfilePage> {
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 20),
+            const Divider(height: 1, thickness: 0.1),
+            const SizedBox(height: 30),
             ListView(
               shrinkWrap: true,
               scrollDirection: Axis.vertical,
               children: [
                 TextFormField(
                   initialValue: widget.userName,
+                  onChanged: (value) {
+                    setState(() {
+                      widget.userName = value;
+                    });
+                  },
                   decoration: InputDecoration(
                     labelText: "User Name",
                     filled: true,
@@ -147,6 +157,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 const SizedBox(height: 20),
                 TextFormField(
                   initialValue: widget.userEmail,
+                  keyboardType: TextInputType.emailAddress,
+                  onChanged: (value) {
+                    widget.userEmail = value;
+                  },
                   decoration: InputDecoration(
                     labelText: "Email",
                     filled: true,
@@ -161,6 +175,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
+                  onChanged: (value) {
+                    widget.userContact = value;
+                  },
+                  keyboardType: TextInputType.phone,
                   initialValue: widget.userContact,
                   decoration: InputDecoration(
                     labelText: "Contact",
@@ -183,7 +201,24 @@ class _EditProfilePageState extends State<EditProfilePage> {
               width: MediaQuery.of(context).size.width,
               height: 48,
               child: CupertinoButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (widget.userName == "" &&
+                      widget.userEmail == "" &&
+                      widget.userContact == "") {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          "Please fill all the fields",
+                          style: Theme.of(context).textTheme.displayMedium,
+                        ),
+                        backgroundColor: Colors.redAccent,
+                        elevation: 4.0,
+                      ),
+                    );
+                  } else {
+                    Navigator.pop(context);
+                  }
+                },
                 color: const Color(0xffFFE501),
                 child: const Text(
                   "Edit Profile",
