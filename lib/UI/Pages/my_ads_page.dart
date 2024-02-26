@@ -1,3 +1,6 @@
+import 'package:ad_brokers/UI/Pages/ongoing_ads_page.dart';
+import 'package:ad_brokers/UI/Pages/pending_ads_page.dart';
+import 'package:ad_brokers/UI/Pages/upcoming_ads_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -38,20 +41,11 @@ class _MyAdsPageState extends State<MyAdsPage> {
             ],
           ),
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: [
-            Icon(
-              CupertinoIcons.star,
-              color: Theme.of(context).shadowColor,
-            ).centered(),
-            Icon(
-              Icons.add,
-              color: Theme.of(context).shadowColor,
-            ).centered(),
-            Icon(
-              Icons.history,
-              color: Theme.of(context).shadowColor,
-            ).centered(),
+            OnGoingAdsPage(),
+            UpComingAdsPage(),
+            PendingAdsPage(),
           ],
         ),
       ),
