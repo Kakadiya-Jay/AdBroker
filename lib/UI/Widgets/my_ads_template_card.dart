@@ -60,6 +60,7 @@ class MyAdsTemplate extends StatelessWidget {
                       ),
                       Text(
                         "No of Days: $noOfDays",
+                        textAlign: TextAlign.left,
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       const SizedBox(
@@ -67,6 +68,7 @@ class MyAdsTemplate extends StatelessWidget {
                       ),
                       Text(
                         "No of Viwes: $noOfViwes",
+                        textAlign: TextAlign.left,
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       const SizedBox(
@@ -74,6 +76,7 @@ class MyAdsTemplate extends StatelessWidget {
                       ),
                       Text(
                         "No of Plateforms: $noOfPlateforms",
+                        textAlign: TextAlign.left,
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       const SizedBox(
