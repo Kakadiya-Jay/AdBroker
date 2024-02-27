@@ -14,7 +14,10 @@ class UiHelper {
             TextButton(
               child: const Text(
                 "Ok",
-                style: TextStyle(color: Colors.red),
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 16,
+                ),
               ),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -23,6 +26,19 @@ class UiHelper {
           ],
         );
       },
+    );
+  }
+
+  static customSnackBar(BuildContext context, String text) {
+    return ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          text,
+          style: Theme.of(context).textTheme.displayMedium,
+        ),
+        backgroundColor: Colors.grey,
+        elevation: 4.0,
+      ),
     );
   }
 }
