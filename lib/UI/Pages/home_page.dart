@@ -59,9 +59,10 @@ class _HomePageState extends State<HomePage> {
         title: const Text(
           "AdBrokers",
           style: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.w700,
-              color: Colors.yellowAccent),
+            fontSize: 28,
+            fontWeight: FontWeight.w700,
+            color: Colors.yellowAccent,
+          ),
         ),
         actions: [
           IconButton(
