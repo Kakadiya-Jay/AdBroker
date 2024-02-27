@@ -182,8 +182,7 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
               CupertinoButton(
                 onPressed: () {
                   if (image == null) {
-                    UiHelper.customAlertBox(
-                        context, "Please Select an Image");
+                    UiHelper.customAlertBox(context, "Please Select an Image");
                   } else if (enterpriseNameText == "" && categoryText == "") {
                     UiHelper.customAlertBox(context, "Please Enter All Fields");
                   } else {
@@ -193,6 +192,8 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
                           "Ad Uploaded Successfully",
                           style: Theme.of(context).textTheme.displayMedium,
                         ),
+                        backgroundColor: Colors.grey,
+                        elevation: 2.0,
                       ),
                     );
                     Navigator.pop(context);

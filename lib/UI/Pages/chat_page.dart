@@ -60,6 +60,7 @@ class _ChatPageState extends State<ChatPage> {
                         height: 48,
                         child: TextFormField(
                           controller: messageText,
+                          maxLines: 5,
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
                             suffixIcon: IconButton(
