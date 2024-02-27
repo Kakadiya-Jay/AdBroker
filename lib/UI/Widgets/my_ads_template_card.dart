@@ -43,10 +43,13 @@ class MyAdsTemplate extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
-              child: Image.asset(
-                imagePath,
-                fit: BoxFit.fill,
-                filterQuality: FilterQuality.high,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.asset(
+                  imagePath,
+                  fit: BoxFit.fill,
+                  filterQuality: FilterQuality.high,
+                ),
               ),
             ).px(8),
             Column(
