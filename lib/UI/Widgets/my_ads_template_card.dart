@@ -34,7 +34,7 @@ class MyAdsTemplate extends StatelessWidget {
               decoration: ShapeDecoration(
                 shape: RoundedRectangleBorder(
                   side: BorderSide(
-                      width: 1,
+                      width: 1.7,
                       color: adStatus == "ongoing"
                           ? Colors.green
                           : adStatus == "upcoming"
@@ -44,7 +44,7 @@ class MyAdsTemplate extends StatelessWidget {
                 ),
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(6),
                 child: Image.asset(
                   imagePath,
                   fit: BoxFit.fill,
@@ -53,6 +53,7 @@ class MyAdsTemplate extends StatelessWidget {
               ),
             ).px(8),
             Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Expanded(
                   child: Column(
@@ -62,24 +63,21 @@ class MyAdsTemplate extends StatelessWidget {
                         height: 10,
                       ),
                       Text(
-                        "No of Days: $noOfDays",
-                        textAlign: TextAlign.left,
+                        "Days Left: $noOfDays",
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       const SizedBox(
                         height: 10,
                       ),
                       Text(
-                        "No of Viwes: $noOfViwes",
-                        textAlign: TextAlign.left,
+                        "Viwes: $noOfViwes",
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       const SizedBox(
                         height: 10,
                       ),
                       Text(
-                        "No of Plateforms: $noOfPlateforms",
-                        textAlign: TextAlign.left,
+                        "Plateforms: $noOfPlateforms",
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       const SizedBox(
@@ -102,21 +100,36 @@ class MyAdsTemplate extends StatelessWidget {
                                     .titleSmall!
                                     .copyWith(color: Colors.red),
                       ),
+                      TextButton(
+                        onPressed: () {},
+                        style: TextButton.styleFrom(
+                          backgroundColor: Colors.deepPurple,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: const Row(
+                          children: [
+                            Text(
+                              "View ",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Icon(
+                              CupertinoIcons.arrow_right,
+                              color: Colors.white,
+                              size: 14,
+                            ),
+                          ],
+                        ),
+                      ).pOnly(left: 16, right: 0, top: 4, bottom: 4),
                     ],
                   ),
                 ),
-                TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    "View Details",
-                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                          color: Colors.deepPurple,
-                          fontWeight: FontWeight.bold,
-                        ),
-                  ),
-                ),
               ],
-            ).p(8),
+            ).pSymmetric(h: 8, v: 6),
           ],
         ),
       ),
