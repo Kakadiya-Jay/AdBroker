@@ -33,10 +33,9 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
         this.image = imageTemporary;
       });
     } on PlatformException catch (ex) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(ex.message.toString()),
-        ),
+      UiHelper.customErrorSnackBar(
+        context,
+        ex.message.toString(),
       );
     }
   }
@@ -186,15 +185,9 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
                   } else if (enterpriseNameText == "" && categoryText == "") {
                     UiHelper.customAlertBox(context, "Please Enter All Fields");
                   } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          "Ad Uploaded Successfully",
-                          style: Theme.of(context).textTheme.displayMedium,
-                        ),
-                        backgroundColor: Colors.grey,
-                        elevation: 2.0,
-                      ),
+                    UiHelper.customErrorSnackBar(
+                      context,
+                      "Ad Uploaded Successfully",
                     );
                     Navigator.pop(context);
                   }

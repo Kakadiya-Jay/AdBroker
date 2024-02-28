@@ -1,17 +1,17 @@
 import 'package:ad_brokers/Helpers/helper_function.dart';
 import 'package:ad_brokers/Services/auth_service.dart';
-import 'package:ad_brokers/UI/Pages/edit_profile_page.dart';
+import 'package:ad_brokers/UI/Pages/Advertisers/adv_edit_profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+class AdvProfilePage extends StatefulWidget {
+  const AdvProfilePage({super.key});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  State<AdvProfilePage> createState() => _AdvProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _AdvProfilePageState extends State<AdvProfilePage> {
   String userName = "";
   String userEmail = "";
   String userPhone = "";
@@ -101,7 +101,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (contaxt) => EditProfilePage(
+                      builder: (contaxt) => AdvEditProfilePage(
                         userName: userName.toString(),
                         userEmail: userEmail.toString(),
                         userContact: userPhone.toString(),
@@ -135,7 +135,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 onPressed: () {
                   authService.signOut();
                   Navigator.pushNamedAndRemoveUntil(
-                      context, "/loginPage", (route) => false);
+                      context, "/checkUserStatus", (route) => false);
                 },
                 icon: const Icon(
                   Icons.logout,
@@ -146,7 +146,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 onTap: () {
                   authService.signOut();
                   Navigator.pushNamedAndRemoveUntil(
-                      context, "/loginPage", (route) => false);
+                      context, "/checkUserStatus", (route) => false);
                 },
                 child: Text(
                   "Logout",

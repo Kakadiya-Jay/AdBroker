@@ -36,8 +36,23 @@ class UiHelper {
           text,
           style: Theme.of(context).textTheme.displayMedium,
         ),
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.grey[500],
+        elevation: 2.0,
+      ),
+    );
+  }
+
+  static customErrorSnackBar(BuildContext context, String text) {
+    return ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          text,
+          style: Theme.of(context).textTheme.displayMedium,
+        ),
+        backgroundColor: Colors.redAccent,
         elevation: 4.0,
+        // backgroundColor: const Color.fromARGB(255, 242, 154, 154),
+        //     elevation: 6.0,
       ),
     );
   }

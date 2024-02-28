@@ -4,14 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class AdvHomePage extends StatefulWidget {
+  const AdvHomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<AdvHomePage> createState() => _AdvHomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _AdvHomePageState extends State<AdvHomePage> {
   String userName = "";
   String userRole = "";
 
@@ -242,7 +242,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 CupertinoButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, "/addNewAdPage");
+                    Navigator.pushNamed(context, "/adv/addNewAdPage");
                   },
                   color: Colors.purple,
                   child: const Text("Click Here"),
@@ -257,7 +257,7 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, "/addNewAdPage");
+          Navigator.pushNamed(context, "/adv/addNewAdPage");
         },
         backgroundColor: const Color(0xFF50227B),
         elevation: 0.0,

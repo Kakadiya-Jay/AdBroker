@@ -27,7 +27,7 @@ class _MyAppState extends State<MyApp> {
       themeMode: ThemeMode.system,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      initialRoute: "/chaekUserStatus",
+      initialRoute: "/checkUserStatus",
       routes: AppRoutes,
     );
   }

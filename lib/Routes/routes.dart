@@ -1,26 +1,30 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:ad_brokers/UI/Pages/Authentications/check_user_status.dart';
-import 'package:ad_brokers/UI/Pages/add_new_advertisement.dart';
-import 'package:ad_brokers/UI/Pages/chat_page.dart';
-import 'package:ad_brokers/UI/Pages/home_page.dart';
-import 'package:ad_brokers/UI/Pages/Authentications/loginpage.dart';
-import 'package:ad_brokers/UI/Pages/profile_page.dart';
-import 'package:ad_brokers/UI/Pages/my_ads_page.dart';
-import 'package:ad_brokers/UI/Pages/Authentications/signuppage.dart';
-import 'package:ad_brokers/UI/Pages/visitors_page.dart';
-import 'package:ad_brokers/UI/Widgets/navigation_bar.dart';
+import 'package:ad_brokers/UI/Pages/Advertisers/add_new_advertisement.dart';
+import 'package:ad_brokers/UI/Pages/Advertisers/adv_chat_page.dart';
+import 'package:ad_brokers/UI/Pages/Advertisers/adv_home_page.dart';
+import 'package:ad_brokers/UI/Pages/Authentications/adv_loginpage.dart';
+import 'package:ad_brokers/UI/Pages/Advertisers/adv_profile_page.dart';
+import 'package:ad_brokers/UI/Pages/Advertisers/my_ads_page.dart';
+import 'package:ad_brokers/UI/Pages/Authentications/adv_signuppage.dart';
+import 'package:ad_brokers/UI/Pages/Visitors/visiters_about_us_page.dart';
+import 'package:ad_brokers/UI/Pages/Visitors/visiters_contact_us_page.dart';
+import 'package:ad_brokers/UI/Pages/Visitors/visiters_home_page.dart';
+import 'package:ad_brokers/UI/Widgets/adv_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 var AppRoutes = <String, WidgetBuilder>{
-  "/chaekUserStatus": (context) => const CheckUserLoginStatus(),
-  "/visitorHomePage": (context) => const VisitorSideHomePage(),
-  "/loginPage": (context) => const LoginPage(),
-  "/signupPage": (context) => const SignUpPage(),
-  "/frontPage": (context) => const NavigationBarTemplate(),
-  "/homePage": (context) => const HomePage(),
-  "/reservationPage": (context) => const MyAdsPage(),
-  "/chatPage": (context) => const ChatPage(),
-  "/profilePage": (context) => const ProfilePage(),
-  "/addNewAdPage": (context) => const AddNewAdvertisement(),
+  "/checkUserStatus": (context) => const CheckUserLoginStatus(),
+  "/visitor/homePage": (context) => const VisitorSideHomePage(),
+  "/visitor/aboutUsPage": (context) => const VisitorSideAboutUsPage(),
+  "/visitor/contactUsPage": (context) => const VisitorSideContactUsPage(),
+  "/adv/loginPage": (context) => const AdvLoginPage(),
+  "/adv/signupPage": (context) => const AdvSignUpPage(),
+  "/adv/frontPage": (context) => const AdvNavigationBarTemplate(),
+  "/adv/homePage": (context) => const AdvHomePage(),
+  "/adv/reservationPage": (context) => const MyAdsPage(),
+  "/adv/chatPage": (context) => const AdvChatPage(),
+  "/adv/profilePage": (context) => const AdvProfilePage(),
+  "/adv/addNewAdPage": (context) => const AddNewAdvertisement(),
 };

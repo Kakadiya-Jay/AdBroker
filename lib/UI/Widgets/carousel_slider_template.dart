@@ -12,7 +12,7 @@ class CarouselSliderItems extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        UiHelper.customSnackBar(context, "Please Register With Us");
+        UiHelper.customSnackBar(context, "Please Register With Us...");
       },
       child: Container(
         margin: const EdgeInsets.all(4.0),

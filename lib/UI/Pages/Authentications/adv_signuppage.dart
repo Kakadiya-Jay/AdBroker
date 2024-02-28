@@ -2,24 +2,27 @@
 
 import 'package:ad_brokers/Helpers/helper_function.dart';
 import 'package:ad_brokers/Services/auth_service.dart';
-import 'package:ad_brokers/UI/Pages/Authentications/forget_password.dart';
+import 'package:ad_brokers/UI/Widgets/uihelper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class AdvSignUpPage extends StatefulWidget {
+  const AdvSignUpPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<AdvSignUpPage> createState() => _AdvSignUpPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _AdvSignUpPageState extends State<AdvSignUpPage> {
+  var nameText = TextEditingController();
   var emailText = TextEditingController();
+  var phoneText = TextEditingController();
   var passwordText = TextEditingController();
   final _formkey = GlobalKey<FormState>();
   late bool _isVisible;
-  AuthService authService = AuthService();
-  bool isLoading = false;
+  bool _isLoading = false;
+  final AuthService _auth = AuthService();
+
   @override
   void initState() {
     _isVisible = false;
@@ -30,11 +33,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).canvasColor,
-      // appBar: AppBar(
-      //   backgroundColor: Colors.transparent,
-      //   elevation: 0.0,
-      // ),
-      body: isLoading
+      body: _isLoading
           ? const Center(
               child: CircularProgressIndicator(
                 color: Colors.purple,
@@ -45,30 +44,30 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   children: [
                     const SizedBox(
-                      height: 20,
+                      height: 15,
                     ),
                     Center(
                       child: Text(
-                        "Wel-Come Back!",
+                        "Let's Start",
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                     ),
                     Center(
                       child: Text(
-                        "Log in to your Account",
+                        "Create an Account",
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.displaySmall,
                       ),
                     ),
                     const SizedBox(
-                      height: 55,
+                      height: 25,
                     ),
                     Stack(
                       children: [
                         Container(
-                          height: MediaQuery.of(context).size.height,
                           width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height,
                           decoration: const ShapeDecoration(
                             color: Colors.white,
                             shape: RoundedRectangleBorder(
@@ -87,18 +86,54 @@ class _LoginPageState extends State<LoginPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const SizedBox(
-                                  height: 18,
+                                  height: 11,
                                 ),
                                 Text(
-                                  "Login",
+                                  "Register",
                                   textAlign: TextAlign.left,
                                   style: Theme.of(context).textTheme.labelLarge,
                                 ),
                                 const SizedBox(
-                                  height: 30,
+                                  height: 20,
                                 ),
                                 Text(
-                                  "Your Email",
+                                  "Full Name",
+                                  textAlign: TextAlign.left,
+                                  style:
+                                      Theme.of(context).textTheme.labelMedium,
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                TextFormField(
+                                  controller: nameText,
+                                  keyboardType: TextInputType.text,
+                                  validator: (value) {
+                                    if (value!.isEmpty || value == "") {
+                                      return "Name Can't be Empty!!";
+                                    }
+                                    if (!value
+                                        .contains(RegExp(r'[A-Z,a-z,0-9]'))) {
+                                      return "Name should be in Alphanumeric form";
+                                    }
+                                    return null;
+                                  },
+                                  decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: const Color(0xFFE6E3E9),
+                                    hintText: "Peter Benjamen Parker",
+                                    prefixIcon:
+                                        const Icon(CupertinoIcons.person),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  "Email Address",
                                   textAlign: TextAlign.left,
                                   style:
                                       Theme.of(context).textTheme.labelMedium,
@@ -130,7 +165,40 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                 ),
                                 const SizedBox(
-                                  height: 25,
+                                  height: 10,
+                                ),
+                                Text(
+                                  "Phone",
+                                  textAlign: TextAlign.left,
+                                  style:
+                                      Theme.of(context).textTheme.labelMedium,
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                TextFormField(
+                                  controller: phoneText,
+                                  keyboardType: TextInputType.phone,
+                                  maxLength: 10,
+                                  validator: (value) {
+                                    if (value!.isEmpty || value == "") {
+                                      return "Phone number Can't be Empty!!";
+                                    }
+                                    if (value.length < 10) {
+                                      return "Phone number should be have 10 numbers";
+                                    }
+                                    return null;
+                                  },
+                                  decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: const Color(0xFFE6E3E9),
+                                    hintText: "9313******",
+                                    prefixIcon:
+                                        const Icon(CupertinoIcons.phone),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  ),
                                 ),
                                 Text(
                                   "Password",
@@ -187,51 +255,11 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                   ),
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    TextButton(
-                                      onPressed: () {
-                                        if (emailText.text.isEmpty) {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(SnackBar(
-                                            content: Text(
-                                              "Enter your Email which is associated with our service",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .labelMedium,
-                                            ),
-                                            backgroundColor:
-                                                const Color.fromARGB(
-                                                    255, 242, 154, 154),
-                                            elevation: 6.0,
-                                          ));
-                                        } else {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (contaxt) =>
-                                                  ForgetPasswordPage(
-                                                userEmail:
-                                                    emailText.text.toString(),
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                      },
-                                      child: const Text(
-                                        "Forgot your password?",
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                                const SizedBox(
+                                  height: 5,
                                 ),
                                 const SizedBox(
-                                  height: 30,
+                                  height: 20,
                                 ),
                                 SizedBox(
                                   width: MediaQuery.of(context).size.width,
@@ -239,12 +267,12 @@ class _LoginPageState extends State<LoginPage> {
                                   child: CupertinoButton(
                                     onPressed: () {
                                       if (_formkey.currentState!.validate()) {
-                                        loginUser();
+                                        signUpUser();
                                       }
                                     },
                                     color: const Color(0xFF163648),
                                     child: const Text(
-                                      "Login",
+                                      "Create Account",
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 20,
@@ -254,14 +282,13 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                 ),
                                 const SizedBox(
-                                  height: 20,
+                                  height: 10,
                                 ),
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     const Text(
-                                      "Don’t have an account?",
+                                      "Already have an account?",
                                       style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 18,
@@ -270,11 +297,14 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                     TextButton(
                                       onPressed: () {
-                                        Navigator.pushNamed(
-                                            context, "/signupPage");
+                                        Navigator.pushNamedAndRemoveUntil(
+                                          context,
+                                          "/adv/loginPage",
+                                          (route) => false,
+                                        );
                                       },
                                       child: const Text(
-                                        "Register",
+                                        "Login",
                                         style: TextStyle(
                                           color: Color(0xFF163648),
                                           fontSize: 18,
@@ -283,7 +313,7 @@ class _LoginPageState extends State<LoginPage> {
                                       ),
                                     ),
                                   ],
-                                )
+                                ),
                               ],
                             ),
                           ),
@@ -297,40 +327,35 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  loginUser() async {
+  signUpUser() async {
     setState(() {
-      isLoading = true;
+      _isLoading = true;
     });
-    await authService
-        .loginWithEmailandPassword(
-            emailText.text.toString(), passwordText.text.toString())
+    await _auth
+        .registerWithEmailandPassword(
+            nameText.text.toString(),
+            emailText.text.toString(),
+            phoneText.text.toString(),
+            "Advertiser",
+            passwordText.text.toString())
         .then((value) async {
-      if (value != null) {
+      if (value == true) {
+        //saving data into the shared preferences
         await HelperFunctions.saveUserLoggedInStatus(true);
+        await HelperFunctions.saveUserNameSF(nameText.text.toString());
         await HelperFunctions.saveUserEmailSF(emailText.text.toString());
-        await HelperFunctions.saveUserNameSF(value["name"].toString());
-        await HelperFunctions.saveUserContactSF(value["contactNo"].toString());
-        await HelperFunctions.saveUserRoleSF(value["role"].toString());
-
+        await HelperFunctions.saveUserContactSF(phoneText.text.toString());
+        await HelperFunctions.saveUserRoleSF("Advertiser");
         Navigator.pushNamedAndRemoveUntil(
-            context, "/frontPage", (route) => false);
+            context, "/adv/frontPage", (route) => false);
       } else {
         setState(() {
-          isLoading = false;
+          _isLoading = false;
         });
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              value.toString(),
-              style: Theme.of(context).textTheme.labelMedium,
-            ),
-            backgroundColor: const Color.fromARGB(255, 242, 154, 154),
-            elevation: 6.0,
-          ),
+        UiHelper.customErrorSnackBar(
+          context,
+          value.toString(),
         );
-        setState(() {
-          isLoading = false;
-        });
       }
     });
   }

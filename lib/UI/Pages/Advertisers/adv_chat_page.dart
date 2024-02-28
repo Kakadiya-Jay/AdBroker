@@ -1,14 +1,15 @@
+import 'package:ad_brokers/UI/Widgets/uihelper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ChatPage extends StatefulWidget {
-  const ChatPage({super.key});
+class AdvChatPage extends StatefulWidget {
+  const AdvChatPage({super.key});
 
   @override
-  State<ChatPage> createState() => _ChatPageState();
+  State<AdvChatPage> createState() => _AdvChatPageState();
 }
 
-class _ChatPageState extends State<ChatPage> {
+class _AdvChatPageState extends State<AdvChatPage> {
   var messageText = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -69,18 +70,9 @@ class _ChatPageState extends State<ChatPage> {
                               onPressed: () {
                                 if (messageText.text.isNotEmpty ||
                                     messageText.text != "") {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        "Message Send Successfully....",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelMedium,
-                                      ),
-                                      backgroundColor: const Color.fromARGB(
-                                          255, 159, 187, 203),
-                                      elevation: 6.0,
-                                    ),
+                                  UiHelper.customSnackBar(
+                                    context,
+                                    "Message Send Successfully....",
                                   );
                                 } else {
                                   showDialog(

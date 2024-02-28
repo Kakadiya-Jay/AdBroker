@@ -1,6 +1,6 @@
-import 'package:ad_brokers/UI/Pages/ongoing_ads_page.dart';
-import 'package:ad_brokers/UI/Pages/pending_ads_page.dart';
-import 'package:ad_brokers/UI/Pages/upcoming_ads_page.dart';
+import 'package:ad_brokers/UI/Pages/Advertisers/ongoing_ads_page.dart';
+import 'package:ad_brokers/UI/Pages/Advertisers/pending_ads_page.dart';
+import 'package:ad_brokers/UI/Pages/Advertisers/upcoming_ads_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
