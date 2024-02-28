@@ -37,7 +37,7 @@ class UiHelper {
           style: Theme.of(context).textTheme.displayMedium,
         ),
         backgroundColor: Colors.grey[500],
-        elevation: 2.0,
+        elevation: 4.0,
       ),
     );
   }
