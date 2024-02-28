@@ -6,4 +6,4 @@ ui-branch-3 :- Ui Purpose Branch 3.
 ui-branch-4 :- Ui Purpose Branch 4 (Add new Ad Form , Image Picker etc..).
 ui-branch-5 :- Ui Purpose Branch 5 (My Ads Section).
 ui-branch-6 :- Ui Purpose Branch 6 (Visitor front page Design, Snackbar ui changed).
-new-structre :- Chnage the lib folder structure
+new-structre :- Chnage the lib folder structure.
