@@ -1,6 +1,6 @@
 import 'package:ad_brokers/Helpers/helper_function.dart';
-import 'package:ad_brokers/UI/Pages/Authentications/loginpage.dart';
-import 'package:ad_brokers/UI/Widgets/navigation_bar.dart';
+import 'package:ad_brokers/UI/Pages/Visitors/visiters_home_page.dart';
+import 'package:ad_brokers/UI/Widgets/adv_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 class CheckUserLoginStatus extends StatefulWidget {
@@ -32,7 +32,10 @@ class _CheckUserLoginStatusState extends State<CheckUserLoginStatus> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isUserLoggedin ? const NavigationBarTemplate() : const LoginPage(),
+      body: isUserLoggedin
+          ? const AdvNavigationBarTemplate()
+          : const VisitorSideHomePage(),
+      // body: isUserLoggedin ? const NavigationBarTemplate() : const LoginPage(),
     );
   }
 }

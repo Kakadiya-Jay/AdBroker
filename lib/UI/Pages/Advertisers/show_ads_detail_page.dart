@@ -1,3 +1,4 @@
+import 'package:ad_brokers/UI/Widgets/uihelper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -131,15 +132,9 @@ class _ShowAdsDetailsPageState extends State<ShowAdsDetailsPage> {
               alignment: Alignment.bottomRight,
               child: CupertinoButton(
                 onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        "Analaysis Page Coming soon",
-                        style: Theme.of(context).textTheme.labelMedium,
-                      ),
-                      backgroundColor: const Color.fromARGB(255, 242, 154, 154),
-                      elevation: 6.0,
-                    ),
+                  UiHelper.customSnackBar(
+                    context,
+                    "Analaysis Page Coming soon..",
                   );
                 },
                 color: Colors.purple,

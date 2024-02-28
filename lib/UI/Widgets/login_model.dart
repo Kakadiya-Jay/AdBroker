@@ -11,6 +11,7 @@ class LoginModel extends StatelessWidget {
       onTap: () {
         showModalBottomSheet(
           context: context,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           builder: (context) {
             return Wrap(
               children: [
@@ -21,7 +22,7 @@ class LoginModel extends StatelessWidget {
                     style: Theme.of(context).textTheme.displaySmall,
                   ),
                   onTap: () {
-                    Navigator.pushNamed(context, "/loginPage");
+                    Navigator.pushNamed(context, "/adv/loginPage");
                   },
                 ),
                 ListTile(
@@ -31,7 +32,7 @@ class LoginModel extends StatelessWidget {
                     style: Theme.of(context).textTheme.displaySmall,
                   ),
                   onTap: () {
-                    Navigator.pushNamed(context, "/loginPage");
+                    Navigator.pushNamed(context, "/adv/loginPage");
                   },
                 ),
               ],
@@ -43,12 +44,16 @@ class LoginModel extends StatelessWidget {
         width: MediaQuery.of(context).size.width / 2.5,
         height: 48,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(4),
-          color: Theme.of(context).scaffoldBackgroundColor,
+          borderRadius: BorderRadius.circular(8),
+          color: Colors.deepPurple,
         ),
-        child: Text(
+        child: const Text(
           "Login",
-          style: Theme.of(context).textTheme.displayMedium,
+          style: TextStyle(
+            fontSize: 18,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
         ).centered(),
       ),
     );
