@@ -14,11 +14,14 @@ class AdvHomePage extends StatefulWidget {
 class _AdvHomePageState extends State<AdvHomePage> {
   String userName = "";
   String userRole = "";
+  String userImageUrl = "";
+  bool isImageLoaded = true;
 
   @override
   void initState() {
     super.initState();
     gettingUserData();
+    loadImage();
   }
 
   gettingUserData() async {
@@ -30,6 +33,11 @@ class _AdvHomePageState extends State<AdvHomePage> {
     await HelperFunctions.getUserRoleFromSF().then((val) {
       setState(() {
         userRole = val!;
+      });
+    });
+    await HelperFunctions.getUserImageUrlSF().then((val) {
+      setState(() {
+        userImageUrl = val!;
       });
     });
   }
@@ -46,6 +54,47 @@ class _AdvHomePageState extends State<AdvHomePage> {
     } else {
       return 'Sweet Dreams';
     }
+  }
+
+  loadImage() async {
+    setState(() {
+      isImageLoaded = false;
+    });
+    await Future.delayed(
+      const Duration(seconds: 2),
+      () => loadUserProfileImage(),
+    );
+    setState(() {
+      isImageLoaded = true;
+    });
+  }
+
+  Widget loadUserProfileImage() {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(100),
+      child: Image.network(
+        userImageUrl,
+        fit: BoxFit.fill,
+        height: 41,
+        width: 41,
+        filterQuality: FilterQuality.high,
+        loadingBuilder: (BuildContext context, Widget child,
+            ImageChunkEvent? loadingProgress) {
+          if (loadingProgress == null) {
+            return child;
+          }
+          return Center(
+            child: CircularProgressIndicator(
+              color: Colors.grey[400],
+              value: loadingProgress.expectedTotalBytes != null
+                  ? loadingProgress.cumulativeBytesLoaded /
+                      loadingProgress.expectedTotalBytes!
+                  : null,
+            ),
+          );
+        },
+      ),
+    );
   }
 
   @override
@@ -102,15 +151,27 @@ class _AdvHomePageState extends State<AdvHomePage> {
                     ),
                   ),
                   child: ListTile(
-                    leading: ClipRRect(
-                      borderRadius: BorderRadius.circular(4),
-                      child: Image.asset(
-                        "assets/images/Google.png",
-                        fit: BoxFit.cover,
-                        height: 41,
-                        width: 41,
-                      ),
-                    ),
+                    leading: isImageLoaded != true
+                        ? const CupertinoActivityIndicator(
+                            color: Colors.grey,
+                          )
+                        : userImageUrl == ""
+                            ? CircleAvatar(
+                                backgroundColor: const Color(0xFFF9F9F9),
+                                foregroundColor: const Color(0XFF3C096C),
+                                child: Text(
+                                  userName[0].toUpperCase(),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 26,
+                                  ),
+                                ),
+                              )
+                            : SizedBox(
+                                height: 41,
+                                width: 41,
+                                child: loadUserProfileImage(),
+                              ),
                     title: Text(
                       greetMessage,
                       style: const TextStyle(
@@ -165,23 +226,28 @@ class _AdvHomePageState extends State<AdvHomePage> {
                       style: Theme.of(context).textTheme.displayMedium,
                     ),
                     const Spacer(),
-                    Row(
-                      children: [
-                        const Text(
-                          "View All",
-                          textAlign: TextAlign.right,
-                          style: TextStyle(
-                            color: Color(0xFFFFC228),
-                            fontSize: 14,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w500,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, "/adv/myAdsPage");
+                      },
+                      child: Row(
+                        children: [
+                          const Text(
+                            "View All",
+                            textAlign: TextAlign.right,
+                            style: TextStyle(
+                              color: Color(0xFFFFC228),
+                              fontSize: 14,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
-                        ),
-                        const Icon(
-                          CupertinoIcons.arrow_right,
-                          color: Color(0xFFFFC228),
-                        ).scale(scaleValue: 0.8)
-                      ],
+                          const Icon(
+                            CupertinoIcons.arrow_right,
+                            color: Color(0xFFFFC228),
+                          ).scale(scaleValue: 0.8)
+                        ],
+                      ),
                     )
                   ],
                 ),
@@ -230,28 +296,10 @@ class _AdvHomePageState extends State<AdvHomePage> {
                   thickness: 0.5,
                 ),
                 const SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  "Apply For New Ad",
-                  textAlign: TextAlign.left,
-                  style: Theme.of(context).textTheme.displayMedium,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                CupertinoButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, "/adv/addNewAdPage");
-                  },
-                  color: Colors.purple,
-                  child: const Text("Click Here"),
-                ).centered(),
-                const SizedBox(
                   height: 20,
                 ),
               ],
-            ).pSymmetric(h: 24),
+            ).pSymmetric(h: 16),
           ],
         ),
       ),

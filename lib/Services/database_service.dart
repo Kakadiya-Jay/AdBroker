@@ -7,7 +7,7 @@ class DatabaseService {
   DatabaseService({this.uid});
 
   final CollectionReference userCollection =
-      FirebaseFirestore.instance.collection("users");
+      FirebaseFirestore.instance.collection("Advertisers");
 
   //saving the user Data in Collection
   Future savingUserData(

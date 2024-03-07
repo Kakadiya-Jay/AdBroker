@@ -1,0 +1,12 @@
+Branch Log : (Here All branches are maintained)
+main :- Default Branch.
+init :- inital Branch.
+new-structre :- Chnage the lib folder structure.
+
+Commit Log : (Here Only main commits are maintained)
+ui-commit-1 :- Ui Purpose Commit 1.
+ui-commit-2 :- Ui Purpose Commit 2 (Forget password,Update Profile,Image Picker).
+ui-commit-3 :- Ui Purpose Commit 3.
+ui-commit-4 :- Ui Purpose Commit 4 (Add new Ad Form , Image Picker etc..).
+ui-commit-5 :- Ui Purpose Commit 5 (My Ads Section).
+ui-commit-6 :- Ui Purpose Commit 6 (Visitor front page Design, Snackbar ui changed).

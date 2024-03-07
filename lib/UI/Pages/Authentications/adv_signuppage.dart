@@ -32,7 +32,7 @@ class _AdvSignUpPageState extends State<AdvSignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).canvasColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: _isLoading
           ? const Center(
               child: CircularProgressIndicator(
@@ -150,7 +150,7 @@ class _AdvSignUpPageState extends State<AdvSignUpPage> {
                                     }
                                     if (!value.contains(RegExp(
                                         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"))) {
-                                      return "Email Format is invailed";
+                                      return "Email Format is invalid";
                                     }
                                     return null;
                                   },
@@ -218,7 +218,7 @@ class _AdvSignUpPageState extends State<AdvSignUpPage> {
                                       return "Password Can't be Empty!!";
                                     }
                                     if (value.length < 8) {
-                                      return "Password contains Atleast 8 characters";
+                                      return "Password contains At least 8 characters";
                                     }
                                     if (!value.contains(RegExp(r'[A-Z]'))) {
                                       return "One character should be Capital";
@@ -333,11 +333,12 @@ class _AdvSignUpPageState extends State<AdvSignUpPage> {
     });
     await _auth
         .registerWithEmailandPassword(
-            nameText.text.toString(),
-            emailText.text.toString(),
-            phoneText.text.toString(),
-            "Advertiser",
-            passwordText.text.toString())
+      nameText.text.trim().toString(),
+      emailText.text.trim().toString(),
+      phoneText.text.trim().toString(),
+      "Advertiser",
+      passwordText.text.trim().toString(),
+    )
         .then((value) async {
       if (value == true) {
         //saving data into the shared preferences
@@ -346,6 +347,7 @@ class _AdvSignUpPageState extends State<AdvSignUpPage> {
         await HelperFunctions.saveUserEmailSF(emailText.text.toString());
         await HelperFunctions.saveUserContactSF(phoneText.text.toString());
         await HelperFunctions.saveUserRoleSF("Advertiser");
+        await HelperFunctions.saveUserImageURLSF("");
         Navigator.pushNamedAndRemoveUntil(
             context, "/adv/frontPage", (route) => false);
       } else {

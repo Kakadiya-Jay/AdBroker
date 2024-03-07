@@ -1,14 +1,12 @@
-import 'dart:convert';
-
 import 'package:ad_brokers/Helpers/helper_function.dart';
-import 'package:ad_brokers/Shared/constant.dart';
-import 'package:ad_brokers/Shared/exceptions.dart';
+import 'package:ad_brokers/Services/database_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-import 'package:http/http.dart' as http;
+import 'package:flutter/services.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final _fireStore = FirebaseFirestore.instance;
   User? user;
 
   //login
@@ -16,72 +14,90 @@ class AuthService {
     try {
       user = (await _auth.signInWithEmailAndPassword(
               email: email, password: password))
-          .user!;
+          .user;
 
       if (user != null) {
-        try {
-          var response = await http.post(
-            Uri.parse(APIConstant.baseURL + APIConstant.loginEndPoint),
-            headers: <String, String>{
-              'Content-Type': 'application/json; charset=UTF-8',
-            },
-            body: jsonEncode(<String, dynamic>{
-              'email': email,
-              'password': password,
-            }),
-          );
-
-          if (response.statusCode == 200) {
-            var resonsedata = jsonDecode(response.body);
-            return resonsedata;
-          } else {
-            throw APIException();
-          }
-        } on APIException catch (ex) {
-          return ex.printErrorMessage();
-        }
+        await _fireStore.collection("Advertisers").doc(user!.uid).update(
+          {
+            "last_sign_in": DateTime.now(),
+            "user_status_active": true,
+          },
+        );
+        return true;
       }
     } on FirebaseAuthException catch (ex) {
       return ex.message;
+    } on FormatException catch (ex) {
+      return ex.message;
+    } on PlatformException catch (ex) {
+      return ex.message;
+    } catch (ex) {
+      return "Something went wrong";
     }
   }
 
   //Sign up
-
   Future registerWithEmailandPassword(String name, String email, String contact,
       String role, String password) async {
     try {
       user = (await _auth.createUserWithEmailAndPassword(
               email: email, password: password))
-          .user!;
+          .user;
 
       if (user != null) {
-        try {
-          var response = await http.post(
-              Uri.parse(APIConstant.baseURL + APIConstant.signUPEndPoint),
-              headers: <String, String>{
-                'Content-Type': 'application/json; charset=UTF-8',
-              },
-              body: jsonEncode(<String, dynamic>{
-                'uid': user!.uid.toString(),
-                'name': name,
-                'email': email,
-                'contactNo': contact,
-                'role': role,
-                'password': password,
-              }));
-
-          if (response.statusCode == 200) {
-            return true;
-          } else {
-            throw APIException();
-          }
-        } on APIException catch (ex) {
-          return ex.printErrorMessage();
-        }
+        await DatabaseService(uid: user!.uid)
+            .savingUserData(name, email, contact, role);
+        return true;
       }
     } on FirebaseAuthException catch (ex) {
       return ex.message;
+    } on FormatException catch (ex) {
+      return ex.message;
+    } on PlatformException catch (ex) {
+      return ex.message;
+    } catch (ex) {
+      return "Something went wrong";
+    }
+  }
+
+  //update Advertiser Profile
+  Future updateAdvertiserProfile(
+      String uid,String username, String email, String contact, String imageUrl) async {
+    try {
+      await _fireStore.collection("Advertisers").doc(uid).update(
+        {
+          "name": username,
+          "email": email,
+          "contact": contact,
+          "profile_pic": imageUrl.toString(),
+        },
+      );
+      return true;
+    } on FirebaseAuthException catch (ex) {
+      return ex.message.toString();
+    } on FormatException catch (ex) {
+      return ex.message.toString();
+    } on PlatformException catch (ex) {
+      return ex.message.toString();
+    } catch (ex) {
+      return ex.toString();
+    }
+  }
+
+  //Forgot Password
+  Future forgotPassword(String email) async{
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      // _auth.confirmPasswordReset(code: code, newPassword: newPassword)
+      return true;
+    } on FirebaseAuthException catch (ex) {
+      return ex.message.toString();
+    } on FormatException catch (ex) {
+      return ex.message.toString();
+    } on PlatformException catch (ex) {
+      return ex.message.toString();
+    } catch (ex) {
+      return ex.toString();
     }
   }
 
@@ -93,6 +109,7 @@ class AuthService {
       await HelperFunctions.saveUserEmailSF("");
       await HelperFunctions.saveUserContactSF("");
       await HelperFunctions.saveUserRoleSF("");
+      await HelperFunctions.saveUserImageURLSF("");
       await _auth.signOut();
     } catch (ex) {
       return null;

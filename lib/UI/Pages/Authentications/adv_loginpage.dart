@@ -2,8 +2,11 @@
 
 import 'package:ad_brokers/Helpers/helper_function.dart';
 import 'package:ad_brokers/Services/auth_service.dart';
+import 'package:ad_brokers/Services/database_service.dart';
 import 'package:ad_brokers/UI/Pages/Authentications/forget_password.dart';
 import 'package:ad_brokers/UI/Widgets/uihelper.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -30,7 +33,7 @@ class _AdvLoginPageState extends State<AdvLoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).canvasColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       // appBar: AppBar(
       //   backgroundColor: Colors.transparent,
       //   elevation: 0.0,
@@ -116,7 +119,7 @@ class _AdvLoginPageState extends State<AdvLoginPage> {
                                     }
                                     if (!value.contains(RegExp(
                                         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"))) {
-                                      return "Email Format is invailed";
+                                      return "Email Format is invalid";
                                     }
                                     return null;
                                   },
@@ -151,7 +154,7 @@ class _AdvLoginPageState extends State<AdvLoginPage> {
                                       return "Password Can't be Empty!!";
                                     }
                                     if (value.length < 8) {
-                                      return "Password contains Atleast 8 characters";
+                                      return "Password contains At least 8 characters";
                                     }
                                     if (!value.contains(RegExp(r'[A-Z]'))) {
                                       return "One character should be Capital";
@@ -295,14 +298,19 @@ class _AdvLoginPageState extends State<AdvLoginPage> {
     });
     await authService
         .loginWithEmailandPassword(
-            emailText.text.toString(), passwordText.text.toString())
+            emailText.text.trim().toString(), passwordText.text.trim().toString())
         .then((value) async {
-      if (value != null) {
+      if (value == true) {
+        QuerySnapshot snapshot =
+            await DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid)
+                .gettingUserData(emailText.text.toString());
+
         await HelperFunctions.saveUserLoggedInStatus(true);
         await HelperFunctions.saveUserEmailSF(emailText.text.toString());
-        await HelperFunctions.saveUserNameSF(value["name"].toString());
-        await HelperFunctions.saveUserContactSF(value["contactNo"].toString());
-        await HelperFunctions.saveUserRoleSF(value["role"].toString());
+        await HelperFunctions.saveUserNameSF(snapshot.docs[0]["name"]);
+        await HelperFunctions.saveUserContactSF(snapshot.docs[0]["contact"]);
+        await HelperFunctions.saveUserRoleSF(snapshot.docs[0]["role"]);
+        await HelperFunctions.saveUserImageURLSF(snapshot.docs[0]["profile_pic"]);
 
         Navigator.pushNamedAndRemoveUntil(
             context, "/adv/frontPage", (route) => false);
@@ -311,9 +319,6 @@ class _AdvLoginPageState extends State<AdvLoginPage> {
           isLoading = false;
         });
         UiHelper.customErrorSnackBar(context, value.toString());
-        setState(() {
-          isLoading = false;
-        });
       }
     });
   }
