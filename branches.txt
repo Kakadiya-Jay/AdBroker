@@ -10,3 +10,6 @@ ui-commit-3 :- Ui Purpose Commit 3.
 ui-commit-4 :- Ui Purpose Commit 4 (Add new Ad Form , Image Picker etc..).
 ui-commit-5 :- Ui Purpose Commit 5 (My Ads Section).
 ui-commit-6 :- Ui Purpose Commit 6 (Visitor front page Design, Snackbar ui changed).
+
+new-structre-1 :- These is the commit in which the new structure is created and also new 
+                  Functionality is attached like edit profile, pick profile image, set up firebase storage etc..
