@@ -1,6 +1,8 @@
 import 'package:ad_brokers/Helpers/helper_function.dart';
 import 'package:ad_brokers/Services/auth_service.dart';
 import 'package:ad_brokers/UI/Pages/Advertisers/adv_edit_profile_page.dart';
+import 'package:ad_brokers/UI/Widgets/profile_option_list_template.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -16,12 +18,15 @@ class _AdvProfilePageState extends State<AdvProfilePage> {
   String userEmail = "";
   String userPhone = "";
   String userRole = "";
+  String userImageUrl = "";
   AuthService authService = AuthService();
+  bool isImageLoaded = false;
 
   @override
   void initState() {
     super.initState();
     gettingUserData();
+    loadImage();
   }
 
   gettingUserData() async {
@@ -48,6 +53,53 @@ class _AdvProfilePageState extends State<AdvProfilePage> {
         userRole = val!;
       });
     });
+
+    await HelperFunctions.getUserImageUrlSF().then((val) {
+      setState(() {
+        userImageUrl = val!;
+      });
+    });
+  }
+
+  loadImage() async {
+    setState(() {
+      isImageLoaded = false;
+    });
+    await Future.delayed(
+      const Duration(seconds: 2),
+      () => loadUserProfileImage(),
+    );
+    setState(() {
+      isImageLoaded = true;
+    });
+  }
+
+  Widget loadUserProfileImage() {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(100),
+      child: Image.network(
+        userImageUrl,
+        fit: BoxFit.fill,
+        height: 56,
+        width: 56,
+        filterQuality: FilterQuality.high,
+        loadingBuilder: (BuildContext context, Widget child,
+            ImageChunkEvent? loadingProgress) {
+          if (loadingProgress == null) {
+            return child;
+          }
+          return Center(
+            child: CircularProgressIndicator(
+              color: const Color(0xFF3C096C),
+              value: loadingProgress.expectedTotalBytes != null
+                  ? loadingProgress.cumulativeBytesLoaded /
+                      loadingProgress.expectedTotalBytes!
+                  : null,
+            ),
+          );
+        },
+      ),
+    );
   }
 
   @override
@@ -59,106 +111,171 @@ class _AdvProfilePageState extends State<AdvProfilePage> {
           "Profile",
           style: Theme.of(context).textTheme.titleLarge,
         ),
-        centerTitle: true,
+        elevation: 2.0,
       ),
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: 120,
-              width: 120,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(100),
-                child: Image.asset(
-                  "assets/images/Google.png",
-                ),
+            ListTile(
+              leading: SizedBox(
+                height: 56,
+                width: 56,
+                child: isImageLoaded != true
+                    ? const CupertinoActivityIndicator(
+                        color: Colors.grey,
+                      ).scale(scaleValue: 1.4)
+                    : userImageUrl == ""
+                        ? CircleAvatar(
+                            backgroundColor: const Color(0xFF3C096C),
+                            child: Text(
+                              userName[0].toUpperCase(),
+                              style: const TextStyle(
+                                color: Color(0xffFFE501),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 36,
+                              ),
+                            ),
+                          )
+                        : loadUserProfileImage(),
               ),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              userName,
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            Text(
-              userRole,
-              style: Theme.of(context).textTheme.displaySmall,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              userEmail,
-              style: Theme.of(context).textTheme.displaySmall,
-            ),
-            Text(
-              userPhone,
-              style: Theme.of(context).textTheme.displaySmall,
-            ),
-            const SizedBox(height: 20),
-            SizedBox(
-              width: 200,
-              height: 50,
-              child: ElevatedButton(
+              title: Text(
+                userName,
+                textAlign: TextAlign.left,
+                style: Theme.of(context)
+                    .textTheme
+                    .displaySmall!
+                    .copyWith(fontWeight: FontWeight.w700),
+              ),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    userEmail,
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                  Text(
+                    userPhone,
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                ],
+              ),
+              trailing: IconButton(
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (contaxt) => AdvEditProfilePage(
+                      builder: (context) => AdvEditProfilePage(
                         userName: userName.toString(),
                         userEmail: userEmail.toString(),
                         userContact: userPhone.toString(),
                         userRole: userRole.toString(),
+                        userImageUrl: userImageUrl.toString(),
                       ),
                     ),
                   );
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xffFFE501),
-                  side: BorderSide.none,
-                  elevation: 1.0,
-                  shape: const StadiumBorder(),
-                ),
-                child: Text(
-                  "Edit Profile",
-                  style: Theme.of(context)
-                      .textTheme
-                      .displaySmall!
-                      .copyWith(color: Colors.black),
+                icon: Icon(
+                  Icons.edit,
+                  color: Theme.of(context).shadowColor,
                 ),
               ),
             ),
-            const SizedBox(height: 30),
-            const Divider(height: 1, thickness: 0.1),
+            const SizedBox(height: 15),
+            const Divider(
+              thickness: 0.4,
+              color: Colors.blueGrey,
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Text(
+              "My Role",
+              textAlign: TextAlign.left,
+              style: Theme.of(context)
+                  .textTheme
+                  .displayMedium!
+                  .copyWith(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(
+              height: 5.0,
+            ),
+            ListTile(
+              leading: ImageIcon(
+                const AssetImage("assets/icons/user_role.png"),
+                color: Theme.of(context).shadowColor,
+              ).scale(scaleValue: 1.3),
+              title: Text(
+                userRole,
+                style: Theme.of(context).textTheme.displayMedium,
+              ),
+              trailing: Icon(
+                CupertinoIcons.info,
+                color: Theme.of(context).shadowColor,
+              ).scale(scaleValue: 1.1).tooltip("Information About Your Role"),
+            ),
             const SizedBox(
               height: 10,
             ),
-            ListTile(
-              leading: IconButton(
-                onPressed: () {
-                  authService.signOut();
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, "/checkUserStatus", (route) => false);
-                },
-                icon: const Icon(
+            const Divider(
+              thickness: 0.2,
+              color: Colors.blueGrey,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            ProfileOptionListTemplate(
+                icon: CupertinoIcons.settings,
+                menuName: "Settings",
+                callbackFunction: () {},),
+            ProfileOptionListTemplate(
+                icon: Icons.follow_the_signs,
+                menuName: "Follow Us",
+                callbackFunction: () {},),
+            ProfileOptionListTemplate(
+                icon: Icons.contact_support,
+                menuName: "Contact Us",
+                callbackFunction: () {},),
+            ProfileOptionListTemplate(
+                icon: CupertinoIcons.book_circle,
+                menuName: "Documentation",
+                callbackFunction: () {},),
+            ProfileOptionListTemplate(
+                icon: Icons.question_answer,
+                menuName: "FAQ",
+                callbackFunction: () {},),
+            ProfileOptionListTemplate(
+                icon: Icons.extension,
+                menuName: "Appearance",
+                callbackFunction: () {},),
+            const SizedBox(
+              height: 10,
+            ),
+            GestureDetector(
+              onTap: () {
+                authService.signOut();
+                Navigator.pushNamedAndRemoveUntil(
+                    context, "/checkUserStatus", (route) => false);
+              },
+              child: ListTile(
+                leading: const Icon(
                   Icons.logout,
                   color: Colors.redAccent,
-                ),
-              ),
-              title: GestureDetector(
-                onTap: () {
-                  authService.signOut();
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, "/checkUserStatus", (route) => false);
-                },
-                child: Text(
+                ).scale(scaleValue: 1.1),
+                title: Text(
                   "Logout",
-                  style: Theme.of(context)
-                      .textTheme
-                      .displaySmall!
-                      .copyWith(color: Colors.redAccent),
+                  style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                        color: Colors.redAccent,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 20,
+                      ),
                 ),
               ),
             ),
           ],
-        ).pSymmetric(v: 12.0, h: 24.0).centered(),
+        ).pSymmetric(v: 8.0, h: 16.0),
       ),
     );
   }

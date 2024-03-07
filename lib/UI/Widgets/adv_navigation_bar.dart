@@ -15,7 +15,7 @@ class AdvNavigationBarTemplate extends StatefulWidget {
 
 class _AdvNavigationBarTemplateState extends State<AdvNavigationBarTemplate> {
   int myIndex = 0;
-  List<Widget> PageList = [
+  List<Widget> pageList = [
     const AdvHomePage(),
     const MyAdsPage(),
     const AdvChatPage(),
@@ -26,7 +26,7 @@ class _AdvNavigationBarTemplateState extends State<AdvNavigationBarTemplate> {
     return Scaffold(
       body: IndexedStack(
         index: myIndex,
-        children: PageList,
+        children: pageList,
       ),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index) {
