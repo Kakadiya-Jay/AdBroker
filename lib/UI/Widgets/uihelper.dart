@@ -36,8 +36,8 @@ class UiHelper {
           text,
           style: Theme.of(context).textTheme.displayMedium,
         ),
-        backgroundColor: Colors.grey[500],
-        elevation: 4.0,
+        elevation: 8.0,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       ),
     );
   }

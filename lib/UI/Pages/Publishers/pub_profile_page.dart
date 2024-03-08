@@ -1,32 +1,31 @@
 import 'package:ad_brokers/Helpers/helper_function.dart';
 import 'package:ad_brokers/Services/auth_service.dart';
-import 'package:ad_brokers/UI/Pages/Advertisers/adv_edit_profile_page.dart';
 import 'package:ad_brokers/UI/Widgets/profile_option_list_template.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class AdvProfilePage extends StatefulWidget {
-  const AdvProfilePage({super.key});
+class PubProfilePage extends StatefulWidget {
+  const PubProfilePage({super.key});
 
   @override
-  State<AdvProfilePage> createState() => _AdvProfilePageState();
+  State<PubProfilePage> createState() => _PubProfilePageState();
 }
 
-class _AdvProfilePageState extends State<AdvProfilePage> {
+class _PubProfilePageState extends State<PubProfilePage> {
   String userName = "";
   String userEmail = "";
-  String userPhone = "";
+  String userContact = "";
   String userRole = "";
   String userImageUrl = "";
-  AuthService authService = AuthService();
   bool isImageLoaded = false;
+  final authService = AuthService();
 
-  @override
   void initState() {
-    super.initState();
+    // TODO: implement initState
     gettingUserData();
     loadImage();
+    super.initState();
   }
 
   gettingUserData() async {
@@ -35,25 +34,21 @@ class _AdvProfilePageState extends State<AdvProfilePage> {
         userName = val!;
       });
     });
-
     await HelperFunctions.getUserEmailFromSF().then((val) {
       setState(() {
         userEmail = val!;
       });
     });
-
     await HelperFunctions.getUserContactFromSF().then((val) {
       setState(() {
-        userPhone = val!;
+        userContact = val!;
       });
     });
-
     await HelperFunctions.getUserRoleFromSF().then((val) {
       setState(() {
         userRole = val!;
       });
     });
-
     await HelperFunctions.getUserImageUrlSF().then((val) {
       setState(() {
         userImageUrl = val!;
@@ -67,7 +62,7 @@ class _AdvProfilePageState extends State<AdvProfilePage> {
     });
     await Future.delayed(
       const Duration(seconds: 2),
-      () => loadUserProfileImage(),
+          () => loadUserProfileImage(),
     );
     setState(() {
       isImageLoaded = true;
@@ -93,7 +88,7 @@ class _AdvProfilePageState extends State<AdvProfilePage> {
               color: Colors.deepPurple,
               value: loadingProgress.expectedTotalBytes != null
                   ? loadingProgress.cumulativeBytesLoaded /
-                      loadingProgress.expectedTotalBytes!
+                  loadingProgress.expectedTotalBytes!
                   : null,
             ),
           );
@@ -124,21 +119,21 @@ class _AdvProfilePageState extends State<AdvProfilePage> {
                 width: 56,
                 child: isImageLoaded != true
                     ? const CupertinoActivityIndicator(
-                        color: Colors.grey,
-                      ).scale(scaleValue: 1.4)
+                  color: Colors.grey,
+                ).scale(scaleValue: 1.4)
                     : userImageUrl == ""
-                        ? CircleAvatar(
-                            backgroundColor: const Color(0xffFFE501),
-                            child: Text(
-                              userName[0].toUpperCase(),
-                              style: const TextStyle(
-                                color: Color(0xFF3C096C),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 36,
-                              ),
-                            ),
-                          )
-                        : loadUserProfileImage(),
+                    ? CircleAvatar(
+                  backgroundColor: const Color(0xffFFE501),
+                  child: Text(
+                    userName[0].toUpperCase(),
+                    style: const TextStyle(
+                      color: Color(0xFF3C096C),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 36,
+                    ),
+                  ),
+                )
+                    : loadUserProfileImage(),
               ),
               title: Text(
                 userName,
@@ -157,7 +152,7 @@ class _AdvProfilePageState extends State<AdvProfilePage> {
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
                   Text(
-                    userPhone,
+                    userContact,
                     textAlign: TextAlign.start,
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
@@ -165,18 +160,7 @@ class _AdvProfilePageState extends State<AdvProfilePage> {
               ),
               trailing: IconButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => AdvEditProfilePage(
-                        userName: userName.toString(),
-                        userEmail: userEmail.toString(),
-                        userContact: userPhone.toString(),
-                        userRole: userRole.toString(),
-                        userImageUrl: userImageUrl.toString(),
-                      ),
-                    ),
-                  );
+
                 },
                 icon: Icon(
                   Icons.edit,
@@ -228,29 +212,29 @@ class _AdvProfilePageState extends State<AdvProfilePage> {
               height: 5,
             ),
             ProfileOptionListTemplate(
-                icon: CupertinoIcons.settings,
-                menuName: "Settings",
-                callbackFunction: () {},),
+              icon: CupertinoIcons.settings,
+              menuName: "Settings",
+              callbackFunction: () {},),
             ProfileOptionListTemplate(
-                icon: Icons.follow_the_signs,
-                menuName: "Follow Us",
-                callbackFunction: () {},),
+              icon: Icons.monetization_on,
+              menuName: "Monetization",
+              callbackFunction: () {},),
             ProfileOptionListTemplate(
-                icon: Icons.contact_support,
-                menuName: "Contact Us",
-                callbackFunction: () {},),
+              icon: Icons.subscriptions,
+              menuName: "Subscription",
+              callbackFunction: () {},),
             ProfileOptionListTemplate(
-                icon: CupertinoIcons.book_circle,
-                menuName: "Documentation",
-                callbackFunction: () {},),
+              icon: CupertinoIcons.book_circle,
+              menuName: "Documentation",
+              callbackFunction: () {},),
             ProfileOptionListTemplate(
-                icon: Icons.question_answer,
-                menuName: "F&Q",
-                callbackFunction: () {},),
+              icon: Icons.question_answer,
+              menuName: "F&Q",
+              callbackFunction: () {},),
             ProfileOptionListTemplate(
-                icon: Icons.extension,
-                menuName: "Appearance",
-                callbackFunction: () {},),
+              icon: Icons.extension,
+              menuName: "Appearance",
+              callbackFunction: () {},),
             const SizedBox(
               height: 4,
             ),
@@ -268,9 +252,9 @@ class _AdvProfilePageState extends State<AdvProfilePage> {
                 title: Text(
                   "Logout",
                   style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                        color: Colors.redAccent,
-                        fontWeight: FontWeight.w700,
-                      ),
+                    color: Colors.redAccent,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
             ).px(6),

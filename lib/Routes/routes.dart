@@ -8,10 +8,17 @@ import 'package:ad_brokers/UI/Pages/Authentications/adv_loginpage.dart';
 import 'package:ad_brokers/UI/Pages/Advertisers/adv_profile_page.dart';
 import 'package:ad_brokers/UI/Pages/Advertisers/my_ads_page.dart';
 import 'package:ad_brokers/UI/Pages/Authentications/adv_signuppage.dart';
+import 'package:ad_brokers/UI/Pages/Authentications/pub_loginpage.dart';
+import 'package:ad_brokers/UI/Pages/Authentications/pub_signuppage.dart';
+import 'package:ad_brokers/UI/Pages/Publishers/pub_chat_page.dart';
+import 'package:ad_brokers/UI/Pages/Publishers/pub_home_page.dart';
+import 'package:ad_brokers/UI/Pages/Publishers/pub_profile_page.dart';
+import 'package:ad_brokers/UI/Pages/Publishers/pub_profit_page.dart';
 import 'package:ad_brokers/UI/Pages/Visitors/visiters_about_us_page.dart';
 import 'package:ad_brokers/UI/Pages/Visitors/visiters_contact_us_page.dart';
 import 'package:ad_brokers/UI/Pages/Visitors/visiters_home_page.dart';
 import 'package:ad_brokers/UI/Widgets/adv_navigation_bar.dart';
+import 'package:ad_brokers/UI/Widgets/pub_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 var AppRoutes = <String, WidgetBuilder>{
@@ -27,4 +34,11 @@ var AppRoutes = <String, WidgetBuilder>{
   "/adv/chatPage": (context) => const AdvChatPage(),
   "/adv/profilePage": (context) => const AdvProfilePage(),
   "/adv/addNewAdPage": (context) => const AddNewAdvertisement(),
+  "/pub/loginPage": (context) => const PubLoginPage(),
+  "/pub/signupPage": (context) => const PubSignUpPage(),
+  "/pub/frontPage": (context) => const PubNavigationBarTemplate(),
+  "/pub/homePage": (context) => const PubHomePage(),
+  "/pub/profitPage": (context) => const ProfitPage(),
+  "/pub/chatPage": (context) => const PubChatPage(),
+  "/pub/profilePage": (context) => const PubProfilePage(),
 };

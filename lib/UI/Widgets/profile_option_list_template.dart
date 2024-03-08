@@ -27,9 +27,8 @@ class ProfileOptionListTemplate extends StatelessWidget {
         ).scale(scaleValue: 1.1),
         title: Text(
           menuName,
-          style: Theme.of(context).textTheme.displaySmall!.copyWith(
+          style: Theme.of(context).textTheme.displayMedium!.copyWith(
                 fontWeight: FontWeight.w700,
-                fontSize: 20,
               ),
         ),
         trailing:  Icon(

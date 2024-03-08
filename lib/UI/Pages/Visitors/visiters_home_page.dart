@@ -123,18 +123,17 @@ class _VisitorSideHomePageState extends State<VisitorSideHomePage> {
               SizedBox(
                 width: MediaQuery.of(context).size.width,
                 child: Card(
-                  color: Colors.blueGrey[300],
-                  // color : Color(0xFF3C096C),
+                  color: Theme.of(context).cardColor,
+                  elevation: 8.0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
-                  elevation: 2.0,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Center(
                         child: Text(
-                          "Monitization section",
+                          "Monetization section",
                           style: Theme.of(context)
                               .textTheme
                               .displayMedium!
@@ -147,11 +146,11 @@ class _VisitorSideHomePageState extends State<VisitorSideHomePage> {
                         height: 10,
                       ),
                       ListTile(
-                        leading: const Icon(
+                        leading: Icon(
                           CupertinoIcons.group_solid,
-                          color: Colors.black54,
+                          color: Theme.of(context).shadowColor,
                         ).scale(scaleValue: 1.2),
-                        title: Text("Aquire More traffic",
+                        title: Text("Acquire More traffic",
                             style: Theme.of(context).textTheme.titleSmall),
                         subtitle: Text(
                           "Gain More traffics and publish your ad on various platforms",
@@ -159,7 +158,7 @@ class _VisitorSideHomePageState extends State<VisitorSideHomePage> {
                         ),
                         onTap: () {
                           UiHelper.customSnackBar(context,
-                              "Please Ragister with us As Advertiser..");
+                              "Please Register with us As Advertiser..");
                         },
                       ),
                       const Divider(
@@ -167,21 +166,21 @@ class _VisitorSideHomePageState extends State<VisitorSideHomePage> {
                         height: 1,
                       ),
                       ListTile(
-                        leading: const Icon(
+                        leading: Icon(
                           Icons.attach_money,
-                          color: Colors.black54,
+                          color: Theme.of(context).shadowColor,
                         ).scale(scaleValue: 1.2),
                         title: Text(
-                          "Monitise traffic",
+                          "Monetise traffic",
                           style: Theme.of(context).textTheme.titleSmall,
                         ),
                         subtitle: Text(
-                          "Increse number of traffic on your application and earned more money",
+                          "Increase number of traffic on your application and earned more money",
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         onTap: () {
                           UiHelper.customSnackBar(context,
-                              "Please Ragister with us As Publisher..");
+                              "Please Register with us As Publisher..");
                         },
                       )
                     ],
@@ -199,8 +198,8 @@ class _VisitorSideHomePageState extends State<VisitorSideHomePage> {
                 height: 10,
               ),
               Card(
-                color: Colors.grey[500],
-                elevation: 2.0,
+                color: Theme.of(context).cardColor,
+                elevation: 8.0,
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: Column(
@@ -233,8 +232,8 @@ class _VisitorSideHomePageState extends State<VisitorSideHomePage> {
                 height: 10,
               ),
               Card(
-                color: Colors.grey[500],
-                elevation: 2.0,
+                color: Theme.of(context).cardColor,
+                elevation: 8.0,
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: Column(
@@ -244,9 +243,10 @@ class _VisitorSideHomePageState extends State<VisitorSideHomePage> {
                       SizedBox(
                         height: 100,
                         width: MediaQuery.of(context).size.width / 3,
-                        child: const Icon(
+                        child: Icon(
                           CupertinoIcons.globe,
                           size: 100,
+                          color: Theme.of(context).shadowColor,
                         ),
                       ).p(8),
                       Text(
@@ -263,6 +263,25 @@ class _VisitorSideHomePageState extends State<VisitorSideHomePage> {
                 ).p8(),
               ),
               const SizedBox(
+                height: 20,
+              ),
+              Text(
+                "Note",
+                style: Theme.of(context).textTheme.titleLarge,
+              ).px8(),
+              const SizedBox(
+                height: 5,
+              ),
+              Card(
+                color: Theme.of(context).cardColor,
+                elevation: 8.0,
+                child: Text(
+                  "Our service provides \"Advertising Publishing Network\" so for user satisfaction purpose we provide 1 month free subscription facility for every role users.\n\nWe provide ₹499 free subscription for 1 month\n\nThis is valid on first registration.",
+                  textAlign: TextAlign.left,
+                  style: Theme.of(context).textTheme.displaySmall,
+                ).p16(),
+              ),
+              const SizedBox(
                 height: 10,
               ),
               const Divider(
@@ -272,7 +291,7 @@ class _VisitorSideHomePageState extends State<VisitorSideHomePage> {
                 height: 10,
               ),
               Text(
-                "For more info Ragister with us..",
+                "For more info Register with us..",
                 textAlign: TextAlign.left,
                 style: Theme.of(context).textTheme.displayMedium,
               ).centered(),

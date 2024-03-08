@@ -1,3 +1,6 @@
+import 'package:ad_brokers/UI/Pages/Authentications/adv_signuppage.dart';
+import 'package:ad_brokers/UI/Pages/Authentications/pub_loginpage.dart';
+import 'package:ad_brokers/UI/Pages/Authentications/pub_signuppage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -26,10 +29,20 @@ class SignUpDialog extends StatelessWidget {
                 ).centered(),
                 SimpleDialogOption(
                   onPressed: () {
-                    Navigator.pushNamed(context, "/adv/signupPage");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AdvSignUpPage(
+                          userRole: "Advertisers",
+                        ),
+                      ),
+                    );
                   },
                   child: ListTile(
-                    leading: const Icon(CupertinoIcons.person),
+                    leading: Icon(
+                      CupertinoIcons.person,
+                      color: Theme.of(context).shadowColor,
+                    ),
                     title: Text(
                       "Advertiser",
                       style: Theme.of(context).textTheme.displayMedium,
@@ -43,10 +56,20 @@ class SignUpDialog extends StatelessWidget {
                 const Divider().pSymmetric(h: 16),
                 SimpleDialogOption(
                   onPressed: () {
-                    Navigator.pushNamed(context, "/adv/signupPage");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const PubSignUpPage(
+                          userRole: "Publishers",
+                        ),
+                      ),
+                    );
                   },
                   child: ListTile(
-                    leading: const Icon(CupertinoIcons.globe),
+                    leading: Icon(
+                      CupertinoIcons.globe,
+                      color: Theme.of(context).shadowColor,
+                    ),
                     title: Text(
                       "Publisher",
                       style: Theme.of(context).textTheme.displayMedium,
@@ -79,7 +102,7 @@ class SignUpDialog extends StatelessWidget {
                       ),
                     ),
                   ),
-                ).pOnly(left: 16, right: 16,top: 2,bottom: 4),
+                ).pOnly(left: 16, right: 16, top: 2, bottom: 4),
               ],
             );
           },
@@ -90,7 +113,7 @@ class SignUpDialog extends StatelessWidget {
         height: 48,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: Colors.deepPurple,
+          color: const Color(0xFF3C096C),
         ),
         child: const Text(
           "Sign up",

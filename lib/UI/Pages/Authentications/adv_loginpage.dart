@@ -3,6 +3,7 @@
 import 'package:ad_brokers/Helpers/helper_function.dart';
 import 'package:ad_brokers/Services/auth_service.dart';
 import 'package:ad_brokers/Services/database_service.dart';
+import 'package:ad_brokers/UI/Pages/Authentications/adv_signuppage.dart';
 import 'package:ad_brokers/UI/Pages/Authentications/forget_password.dart';
 import 'package:ad_brokers/UI/Widgets/uihelper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -11,7 +12,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AdvLoginPage extends StatefulWidget {
-  const AdvLoginPage({super.key});
+  final String? userRole;
+
+  const AdvLoginPage({super.key, this.userRole});
 
   @override
   State<AdvLoginPage> createState() => _AdvLoginPageState();
@@ -24,6 +27,7 @@ class _AdvLoginPageState extends State<AdvLoginPage> {
   late bool _isVisible;
   AuthService authService = AuthService();
   bool isLoading = false;
+
   @override
   void initState() {
     _isVisible = false;
@@ -71,7 +75,7 @@ class _AdvLoginPageState extends State<AdvLoginPage> {
                     Stack(
                       children: [
                         Container(
-                          height: MediaQuery.of(context).size.height,
+                          height: MediaQuery.of(context).size.height * 0.80,
                           width: MediaQuery.of(context).size.width,
                           decoration: const ShapeDecoration(
                             color: Colors.white,
@@ -94,7 +98,7 @@ class _AdvLoginPageState extends State<AdvLoginPage> {
                                   height: 18,
                                 ),
                                 Text(
-                                  "Login",
+                                  "Login As Advertiser",
                                   textAlign: TextAlign.left,
                                   style: Theme.of(context).textTheme.labelLarge,
                                 ),
@@ -205,10 +209,12 @@ class _AdvLoginPageState extends State<AdvLoginPage> {
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                              builder: (contaxt) =>
+                                              builder: (context) =>
                                                   ForgetPasswordPage(
                                                 userEmail:
                                                     emailText.text.toString(),
+                                                userRole:
+                                                    widget.userRole.toString(),
                                               ),
                                             ),
                                           );
@@ -252,8 +258,7 @@ class _AdvLoginPageState extends State<AdvLoginPage> {
                                   height: 20,
                                 ),
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     const Text(
                                       "Don’t have an account?",
@@ -265,8 +270,14 @@ class _AdvLoginPageState extends State<AdvLoginPage> {
                                     ),
                                     TextButton(
                                       onPressed: () {
-                                        Navigator.pushNamed(
-                                            context, "/adv/signupPage");
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => const AdvSignUpPage(
+                                              userRole: "Advertisers",
+                                            ),
+                                          ),
+                                        );
                                       },
                                       child: const Text(
                                         "Register",
@@ -298,19 +309,26 @@ class _AdvLoginPageState extends State<AdvLoginPage> {
     });
     await authService
         .loginWithEmailandPassword(
-            emailText.text.trim().toString(), passwordText.text.trim().toString())
+      emailText.text.trim().toString(),
+      passwordText.text.trim().toString(),
+      widget.userRole.toString(),
+    )
         .then((value) async {
       if (value == true) {
-        QuerySnapshot snapshot =
-            await DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid)
-                .gettingUserData(emailText.text.toString());
+        QuerySnapshot snapshot = await DatabaseService(
+          uid: FirebaseAuth.instance.currentUser!.uid,
+          userRole: widget.userRole.toString(),
+        ).gettingAdvertisersData(
+          emailText.text.toString(),
+        );
 
         await HelperFunctions.saveUserLoggedInStatus(true);
         await HelperFunctions.saveUserEmailSF(emailText.text.toString());
         await HelperFunctions.saveUserNameSF(snapshot.docs[0]["name"]);
         await HelperFunctions.saveUserContactSF(snapshot.docs[0]["contact"]);
         await HelperFunctions.saveUserRoleSF(snapshot.docs[0]["role"]);
-        await HelperFunctions.saveUserImageURLSF(snapshot.docs[0]["profile_pic"]);
+        await HelperFunctions.saveUserImageURLSF(
+            snapshot.docs[0]["profile_pic"]);
 
         Navigator.pushNamedAndRemoveUntil(
             context, "/adv/frontPage", (route) => false);

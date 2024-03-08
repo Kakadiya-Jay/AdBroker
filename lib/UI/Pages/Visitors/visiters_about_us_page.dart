@@ -12,9 +12,14 @@ class _VisitorSideAboutUsPageState extends State<VisitorSideAboutUsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        elevation: 2.0,
+        title: Text("About Us",style: Theme.of(context).textTheme.displayMedium,),
+      ),
       body: Center(
         child: Text(
-          "Welcome to Contact Us",
+          "Welcome to About Us",
           style: Theme.of(context).textTheme.displayMedium,
         ),
       ),
