@@ -2,6 +2,7 @@
 import 'dart:io';
 import 'package:ad_brokers/Helpers/helper_function.dart';
 import 'package:ad_brokers/Services/auth_service.dart';
+import 'package:ad_brokers/Services/database_service.dart';
 import 'package:ad_brokers/UI/Widgets/uihelper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -147,11 +148,11 @@ class _AdvEditProfilePageState extends State<AdvEditProfilePage> {
                               )
                             : widget.userImageUrl == ""
                                 ? CircleAvatar(
-                                    backgroundColor: const Color(0xFF3C096C),
+                                    backgroundColor: const Color(0xffFFE501),
                                     child: Text(
                                       widget.userName[0].toUpperCase(),
                                       style: const TextStyle(
-                                        color: Color(0xffFFE501),
+                                        color: Color(0xFF3C096C),
                                         fontWeight: FontWeight.bold,
                                         fontSize: 72,
                                       ),
@@ -233,6 +234,7 @@ class _AdvEditProfilePageState extends State<AdvEditProfilePage> {
                   },
                   decoration: InputDecoration(
                     labelText: "User Name",
+                    hintText: "Peter Benjamen Parker",
                     filled: true,
                     fillColor: const Color.fromARGB(255, 194, 194, 194),
                     prefixIcon: const Icon(CupertinoIcons.person),
@@ -254,6 +256,7 @@ class _AdvEditProfilePageState extends State<AdvEditProfilePage> {
                   },
                   decoration: InputDecoration(
                     labelText: "Email",
+                    hintText: "helloNew77@gmail.com",
                     filled: true,
                     fillColor: const Color.fromARGB(255, 194, 194, 194),
                     prefixIcon: const Icon(CupertinoIcons.mail),
@@ -274,6 +277,7 @@ class _AdvEditProfilePageState extends State<AdvEditProfilePage> {
                   maxLength: 10,
                   decoration: InputDecoration(
                     labelText: "Contact",
+                    hintText: "9313******",
                     filled: true,
                     fillColor: const Color.fromARGB(255, 194, 194, 194),
                     prefixIcon: const Icon(CupertinoIcons.phone),
@@ -327,9 +331,10 @@ class _AdvEditProfilePageState extends State<AdvEditProfilePage> {
   updateAdvertiserProfile() async {
     UiHelper.customSnackBar(context,
         "Wait Your Profile Updated in few Second. \nDon't Close the Screen");
-    authService
+    DatabaseService(
+      uid: _auth.currentUser!.uid.toString(),
+    )
         .updateAdvertiserProfile(
-      _auth.currentUser!.uid.toString(),
       widget.userName,
       widget.userEmail,
       widget.userContact,

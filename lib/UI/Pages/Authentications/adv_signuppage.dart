@@ -2,12 +2,14 @@
 
 import 'package:ad_brokers/Helpers/helper_function.dart';
 import 'package:ad_brokers/Services/auth_service.dart';
+import 'package:ad_brokers/UI/Pages/Authentications/adv_loginpage.dart';
 import 'package:ad_brokers/UI/Widgets/uihelper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AdvSignUpPage extends StatefulWidget {
-  const AdvSignUpPage({super.key});
+  final String? userRole;
+  const AdvSignUpPage({super.key,this.userRole});
 
   @override
   State<AdvSignUpPage> createState() => _AdvSignUpPageState();
@@ -67,7 +69,7 @@ class _AdvSignUpPageState extends State<AdvSignUpPage> {
                       children: [
                         Container(
                           width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height,
+                          height: MediaQuery.of(context).size.height * 0.87,
                           decoration: const ShapeDecoration(
                             color: Colors.white,
                             shape: RoundedRectangleBorder(
@@ -256,10 +258,7 @@ class _AdvSignUpPageState extends State<AdvSignUpPage> {
                                   ),
                                 ),
                                 const SizedBox(
-                                  height: 5,
-                                ),
-                                const SizedBox(
-                                  height: 20,
+                                  height: 25,
                                 ),
                                 SizedBox(
                                   width: MediaQuery.of(context).size.width,
@@ -297,10 +296,13 @@ class _AdvSignUpPageState extends State<AdvSignUpPage> {
                                     ),
                                     TextButton(
                                       onPressed: () {
-                                        Navigator.pushNamedAndRemoveUntil(
+                                        Navigator.pushReplacement(
                                           context,
-                                          "/adv/loginPage",
-                                          (route) => false,
+                                          MaterialPageRoute(
+                                            builder: (context) => const AdvLoginPage(
+                                              userRole: "Advertisers",
+                                            ),
+                                          ),
                                         );
                                       },
                                       child: const Text(
@@ -336,7 +338,7 @@ class _AdvSignUpPageState extends State<AdvSignUpPage> {
       nameText.text.trim().toString(),
       emailText.text.trim().toString(),
       phoneText.text.trim().toString(),
-      "Advertiser",
+      widget.userRole.toString(),
       passwordText.text.trim().toString(),
     )
         .then((value) async {
@@ -346,7 +348,7 @@ class _AdvSignUpPageState extends State<AdvSignUpPage> {
         await HelperFunctions.saveUserNameSF(nameText.text.toString());
         await HelperFunctions.saveUserEmailSF(emailText.text.toString());
         await HelperFunctions.saveUserContactSF(phoneText.text.toString());
-        await HelperFunctions.saveUserRoleSF("Advertiser");
+        await HelperFunctions.saveUserRoleSF(widget.userRole.toString());
         await HelperFunctions.saveUserImageURLSF("");
         Navigator.pushNamedAndRemoveUntil(
             context, "/adv/frontPage", (route) => false);

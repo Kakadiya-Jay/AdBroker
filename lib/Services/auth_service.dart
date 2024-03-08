@@ -10,14 +10,15 @@ class AuthService {
   User? user;
 
   //login
-  Future loginWithEmailandPassword(String email, String password) async {
+  Future loginWithEmailandPassword(
+      String email, String password, String userRole) async {
     try {
       user = (await _auth.signInWithEmailAndPassword(
               email: email, password: password))
           .user;
 
       if (user != null) {
-        await _fireStore.collection("Advertisers").doc(user!.uid).update(
+        await _fireStore.collection(userRole).doc(user!.uid).update(
           {
             "last_sign_in": DateTime.now(),
             "user_status_active": true,
@@ -32,7 +33,7 @@ class AuthService {
     } on PlatformException catch (ex) {
       return ex.message;
     } catch (ex) {
-      return "Something went wrong";
+      return ex.toString();
     }
   }
 
@@ -45,8 +46,8 @@ class AuthService {
           .user;
 
       if (user != null) {
-        await DatabaseService(uid: user!.uid)
-            .savingUserData(name, email, contact, role);
+        await DatabaseService(uid: user!.uid, userRole: role)
+            .savingUserData(name, email, contact);
         return true;
       }
     } on FirebaseAuthException catch (ex) {
@@ -56,36 +57,12 @@ class AuthService {
     } on PlatformException catch (ex) {
       return ex.message;
     } catch (ex) {
-      return "Something went wrong";
-    }
-  }
-
-  //update Advertiser Profile
-  Future updateAdvertiserProfile(
-      String uid,String username, String email, String contact, String imageUrl) async {
-    try {
-      await _fireStore.collection("Advertisers").doc(uid).update(
-        {
-          "name": username,
-          "email": email,
-          "contact": contact,
-          "profile_pic": imageUrl.toString(),
-        },
-      );
-      return true;
-    } on FirebaseAuthException catch (ex) {
-      return ex.message.toString();
-    } on FormatException catch (ex) {
-      return ex.message.toString();
-    } on PlatformException catch (ex) {
-      return ex.message.toString();
-    } catch (ex) {
       return ex.toString();
     }
   }
 
   //Forgot Password
-  Future forgotPassword(String email) async{
+  Future forgotPassword(String email) async {
     try {
       await _auth.sendPasswordResetEmail(email: email);
       // _auth.confirmPasswordReset(code: code, newPassword: newPassword)
@@ -112,7 +89,7 @@ class AuthService {
       await HelperFunctions.saveUserImageURLSF("");
       await _auth.signOut();
     } catch (ex) {
-      return null;
+      return ex.toString();
     }
   }
 }

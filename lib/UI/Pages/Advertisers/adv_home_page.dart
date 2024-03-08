@@ -177,7 +177,6 @@ class _AdvHomePageState extends State<AdvHomePage> {
                       style: const TextStyle(
                         color: Color(0xFFCDCED0),
                         fontSize: 12,
-                        fontFamily: 'Poppins',
                         fontWeight: FontWeight.w400,
                       ),
                     ),
@@ -186,7 +185,6 @@ class _AdvHomePageState extends State<AdvHomePage> {
                       style: const TextStyle(
                         color: Color(0xFFECECED),
                         fontSize: 16,
-                        fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -195,7 +193,7 @@ class _AdvHomePageState extends State<AdvHomePage> {
                       color: Colors.white,
                     ),
                   ),
-                ).pSymmetric(h: 24, v: 6),
+                ).pSymmetric(h: 20, v: 6),
               ],
             ),
             Column(
@@ -210,10 +208,14 @@ class _AdvHomePageState extends State<AdvHomePage> {
                       const AssetImage("assets/icons/user_role.png"),
                       color: Theme.of(context).shadowColor,
                     ).scale(scaleValue: 1.5),
-                    title: Text("Your Role is",
-                        style: Theme.of(context).textTheme.labelSmall),
-                    subtitle: Text(userRole,
-                        style: Theme.of(context).textTheme.titleSmall),
+                    title: Text(
+                      "Your Role is",
+                      style: Theme.of(context).textTheme.labelSmall,
+                    ),
+                    subtitle: Text(
+                      userRole,
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
                   ),
                 ),
                 const SizedBox(
