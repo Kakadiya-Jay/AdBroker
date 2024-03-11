@@ -350,8 +350,8 @@ class _AdvSignUpPageState extends State<AdvSignUpPage> {
         await HelperFunctions.saveUserContactSF(phoneText.text.toString());
         await HelperFunctions.saveUserRoleSF(widget.userRole.toString());
         await HelperFunctions.saveUserImageURLSF("");
-        Navigator.pushNamedAndRemoveUntil(
-            context, "/adv/frontPage", (route) => false);
+        Navigator.pushNamed(
+            context, "/adv/registerBusinessPage");
       } else {
         setState(() {
           _isLoading = false;

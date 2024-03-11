@@ -1,5 +1,6 @@
 import 'package:ad_brokers/Helpers/helper_function.dart';
 import 'package:ad_brokers/Services/auth_service.dart';
+import 'package:ad_brokers/UI/Widgets/running_ads_template_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -219,6 +220,131 @@ class _PubHomePageState extends State<PubHomePage> {
                       userRole,
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Card(
+                  elevation: 4.0,
+                  shadowColor: Theme.of(context).shadowColor,
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: 200,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: Image.asset(
+                        "assets/images/subscription-banner-with-contant.png",
+                        fit: BoxFit.fill,
+                        filterQuality: FilterQuality.high,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      "Your Platforms",
+                      style: Theme.of(context).textTheme.displayMedium,
+                    ),
+                    const Spacer(),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Row(
+                        children: [
+                          const Text(
+                            "View All",
+                            textAlign: TextAlign.right,
+                            style: TextStyle(
+                              color: Color(0xFFFFC228),
+                              fontSize: 14,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const Icon(
+                            CupertinoIcons.arrow_right,
+                            color: Color(0xFFFFC228),
+                          ).scale(scaleValue: 0.8)
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Card(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  elevation: 2.0,
+                  child: ListTile(
+                    leading: Icon(
+                      CupertinoIcons.eye,
+                      color: Theme.of(context).shadowColor,
+                    ),
+                    title: Text(
+                      "AdBrokers",
+                      style: Theme.of(context).textTheme.displayMedium,
+                    ),
+                    subtitle: Text(
+                      "localhost/AdBrokers/pages/index.php",
+                      maxLines: 1,
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                  ).p4(),
+                ).pSymmetric(v: 2),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      "Running Ads",
+                      style: Theme.of(context).textTheme.displayMedium,
+                    ),
+                    const Spacer(),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Row(
+                        children: [
+                          const Text(
+                            "View All",
+                            textAlign: TextAlign.right,
+                            style: TextStyle(
+                              color: Color(0xFFFFC228),
+                              fontSize: 14,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const Icon(
+                            CupertinoIcons.arrow_right,
+                            color: Color(0xFFFFC228),
+                          ).scale(scaleValue: 0.8)
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      RunningAdsTemplateCard(
+                        imagePath: "assets/images/Sample-Ad-Image-1.jpg",
+                        brandName: "ABCD Company",
+                        noOfViews: 12000,
+                        adsCategory: "Product Sale",
+                        totalClicks: 100,
+                        profitAmount: 320,
+                      ),
+                    ],
                   ),
                 ),
                 const SizedBox(

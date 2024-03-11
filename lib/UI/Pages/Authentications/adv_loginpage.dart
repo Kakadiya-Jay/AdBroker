@@ -327,6 +327,8 @@ class _AdvLoginPageState extends State<AdvLoginPage> {
         await HelperFunctions.saveUserNameSF(snapshot.docs[0]["name"]);
         await HelperFunctions.saveUserContactSF(snapshot.docs[0]["contact"]);
         await HelperFunctions.saveUserRoleSF(snapshot.docs[0]["role"]);
+        await HelperFunctions.saveAdvBrandNameSF(snapshot.docs[0]["brand_name"]);
+        await HelperFunctions.saveAdvBrandURLSF(snapshot.docs[0]["brand_url"]);
         await HelperFunctions.saveUserImageURLSF(
             snapshot.docs[0]["profile_pic"]);
 

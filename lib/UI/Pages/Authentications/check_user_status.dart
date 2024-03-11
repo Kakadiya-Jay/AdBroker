@@ -41,8 +41,8 @@ class _CheckUserLoginStatusState extends State<CheckUserLoginStatus> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isUserLoggedin
-          ? userRole == "Advertisers"
+      body: isUserLoggedin == true
+          ? userRole == "Advertiser"
               ? const AdvNavigationBarTemplate()
               : const PubNavigationBarTemplate()
           : const VisitorSideHomePage(),

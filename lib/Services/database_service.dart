@@ -26,6 +26,11 @@ class DatabaseService {
         "contact": contact,
         "role": userRole,
         "profile_pic": "",
+        "brand_name" : "",
+        "brand_url":"",
+        "brand_category" : "",
+        "brand_address" : "",
+        "valuation" : "",
         "last_sign_in": DateTime.now(),
         "user_status_active": true,
       });
@@ -37,6 +42,9 @@ class DatabaseService {
         "contact": contact,
         "role": userRole,
         "profile_pic": "",
+        "platform_name" : "",
+        "platform_url" : "",
+        "monthly_traffic" : "",
         "last_sign_in": DateTime.now(),
         "user_status_active": true,
       });
@@ -66,6 +74,30 @@ class DatabaseService {
           "email": email,
           "contact": contact,
           "profile_pic": imageUrl.toString(),
+        },
+      );
+      return true;
+    } on FirebaseAuthException catch (ex) {
+      return ex.message.toString();
+    } on FormatException catch (ex) {
+      return ex.message.toString();
+    } on PlatformException catch (ex) {
+      return ex.message.toString();
+    } catch (ex) {
+      return ex.toString();
+    }
+  }
+
+  Future updateAdvertiserBusinessDetails(
+      String brandName, String brandURL, String brandCategory, String brandAddress,String brandValuation) async {
+    try {
+      await advertisersCollection.doc(uid).update(
+        {
+          "brand_name": brandName,
+          "brand_url": brandURL,
+          "brand_category": brandCategory,
+          "brand_address": brandAddress,
+          "valuation": brandValuation,
         },
       );
       return true;

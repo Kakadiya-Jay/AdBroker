@@ -8,9 +8,10 @@ class HelperFunctions {
   static String userContactKey = "USERCONTACTKEY";
   static String userRoleKey = "USERROLLKEY";
   static String userImageUrlKey = "USERIMAGEURLKEY";
+  static String advBrandNameKey = "ADVBRANDNAMEKEY";
+  static String advBrandURLKey = "ADVBRANDURLKEY";
 
   // saving the data to SF
-
   static Future<bool> saveUserLoggedInStatus(bool isUserLoggedIn) async {
     SharedPreferences sf = await SharedPreferences.getInstance();
     return await sf.setBool(
@@ -40,6 +41,16 @@ class HelperFunctions {
   static Future<bool> saveUserImageURLSF(String imageUrl) async {
     SharedPreferences sf = await SharedPreferences.getInstance();
     return await sf.setString(userImageUrlKey, imageUrl);
+  }
+
+  static Future<bool> saveAdvBrandNameSF(String advBrandName) async {
+    SharedPreferences sf = await SharedPreferences.getInstance();
+    return await sf.setString(advBrandNameKey, advBrandName);
+  }
+
+  static Future<bool> saveAdvBrandURLSF(String advBrandURL) async {
+    SharedPreferences sf = await SharedPreferences.getInstance();
+    return await sf.setString(advBrandURLKey, advBrandURL);
   }
 
   // getting the data from SF
@@ -72,5 +83,15 @@ class HelperFunctions {
   static Future<String?> getUserImageUrlSF() async {
     SharedPreferences sf = await SharedPreferences.getInstance();
     return sf.getString(userImageUrlKey);
+  }
+
+  static Future<String?> getAdvBrandNameSF() async {
+    SharedPreferences sf = await SharedPreferences.getInstance();
+    return sf.getString(advBrandNameKey);
+  }
+
+  static Future<String?> getAdvBrandURLSF() async {
+    SharedPreferences sf = await SharedPreferences.getInstance();
+    return sf.getString(advBrandURLKey);
   }
 }

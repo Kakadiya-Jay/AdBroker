@@ -16,26 +16,24 @@ class ProfileOptionListTemplate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return ListTile(
       onTap: () {
-        callbackFunction;
+        callbackFunction();
       },
-      child: ListTile(
-        leading: Icon(
-          icon,
-          color: Theme.of(context).shadowColor,
-        ).scale(scaleValue: 1.1),
-        title: Text(
-          menuName,
-          style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                fontWeight: FontWeight.w700,
-              ),
-        ),
-        trailing:  Icon(
-          CupertinoIcons.right_chevron,
-          color: Theme.of(context).shadowColor,
-        ),
-      ).pSymmetric(v: 4),
-    );
+      leading: Icon(
+        icon,
+        color: Theme.of(context).shadowColor,
+      ).scale(scaleValue: 1.1),
+      title: Text(
+        menuName,
+        style: Theme.of(context).textTheme.displayMedium!.copyWith(
+              fontWeight: FontWeight.w700,
+            ),
+      ),
+      trailing:  Icon(
+        CupertinoIcons.right_chevron,
+        color: Theme.of(context).shadowColor,
+      ),
+    ).pSymmetric(v: 4);
   }
 }
