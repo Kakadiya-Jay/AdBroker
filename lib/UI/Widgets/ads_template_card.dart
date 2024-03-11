@@ -43,7 +43,7 @@ class AdsTemplateCard extends StatelessWidget {
         );
       },
       child: Card(
-        elevation: 1,
+        elevation: 2,
         shadowColor: adsStatus == "Pending"
             ? Colors.redAccent
             : adsStatus == "OnGoing"

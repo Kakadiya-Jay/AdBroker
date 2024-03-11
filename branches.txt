@@ -15,3 +15,4 @@ new-structre-1 :- These is the commit in which the new structure is created and 
                   Functionality is attached like edit profile, pick profile image, set up firebase storage etc..
 
 Publisher_Side_commit :- Publishe Side is created and user related information stored
+Advertiser_Side_commit_1 :- First Commit in Advertiser side where Advertiser Business details are implemented in firebase

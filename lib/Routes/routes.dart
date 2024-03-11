@@ -1,5 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'package:ad_brokers/UI/Pages/Advertisers/adv_business_details_page.dart';
+import 'package:ad_brokers/UI/Pages/Advertisers/show_business_details_page.dart';
 import 'package:ad_brokers/UI/Pages/Authentications/check_user_status.dart';
 import 'package:ad_brokers/UI/Pages/Advertisers/add_new_advertisement.dart';
 import 'package:ad_brokers/UI/Pages/Advertisers/adv_chat_page.dart';
@@ -28,12 +30,14 @@ var AppRoutes = <String, WidgetBuilder>{
   "/visitor/contactUsPage": (context) => const VisitorSideContactUsPage(),
   "/adv/loginPage": (context) => const AdvLoginPage(),
   "/adv/signupPage": (context) => const AdvSignUpPage(),
+  "/adv/registerBusinessPage": (context) => const AdvBusinessDetailsPage(),
   "/adv/frontPage": (context) => const AdvNavigationBarTemplate(),
   "/adv/homePage": (context) => const AdvHomePage(),
   "/adv/myAdsPage": (context) => const MyAdsPage(),
   "/adv/chatPage": (context) => const AdvChatPage(),
   "/adv/profilePage": (context) => const AdvProfilePage(),
   "/adv/addNewAdPage": (context) => const AddNewAdvertisement(),
+  "/adv/showAdvBusinessDetailsPage": (context) => const ShowBusinessDetailsPage(),
   "/pub/loginPage": (context) => const PubLoginPage(),
   "/pub/signupPage": (context) => const PubSignUpPage(),
   "/pub/frontPage": (context) => const PubNavigationBarTemplate(),

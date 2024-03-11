@@ -148,13 +148,14 @@ class _PubProfilePageState extends State<PubProfilePage> {
                 children: [
                   Text(
                     userEmail,
+                    maxLines: 1,
                     textAlign: TextAlign.start,
-                    style: Theme.of(context).textTheme.titleSmall,
+                    style: Theme.of(context).textTheme.headlineSmall,
                   ),
                   Text(
                     userContact,
                     textAlign: TextAlign.start,
-                    style: Theme.of(context).textTheme.titleSmall,
+                    style: Theme.of(context).textTheme.headlineSmall,
                   ),
                 ],
               ),
@@ -224,7 +225,7 @@ class _PubProfilePageState extends State<PubProfilePage> {
               menuName: "Subscription",
               callbackFunction: () {},),
             ProfileOptionListTemplate(
-              icon: CupertinoIcons.book_circle,
+              icon: CupertinoIcons.doc_append,
               menuName: "Documentation",
               callbackFunction: () {},),
             ProfileOptionListTemplate(

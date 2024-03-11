@@ -86,6 +86,8 @@ class AuthService {
       await HelperFunctions.saveUserEmailSF("");
       await HelperFunctions.saveUserContactSF("");
       await HelperFunctions.saveUserRoleSF("");
+      await HelperFunctions.saveAdvBrandNameSF("");
+      await HelperFunctions.saveAdvBrandURLSF("");
       await HelperFunctions.saveUserImageURLSF("");
       await _auth.signOut();
     } catch (ex) {

@@ -153,13 +153,14 @@ class _AdvProfilePageState extends State<AdvProfilePage> {
                 children: [
                   Text(
                     userEmail,
+                    maxLines: 1,
                     textAlign: TextAlign.start,
-                    style: Theme.of(context).textTheme.titleSmall,
+                    style: Theme.of(context).textTheme.headlineSmall,
                   ),
                   Text(
                     userPhone,
                     textAlign: TextAlign.start,
-                    style: Theme.of(context).textTheme.titleSmall,
+                    style: Theme.of(context).textTheme.headlineSmall,
                   ),
                 ],
               ),
@@ -228,29 +229,37 @@ class _AdvProfilePageState extends State<AdvProfilePage> {
               height: 5,
             ),
             ProfileOptionListTemplate(
-                icon: CupertinoIcons.settings,
-                menuName: "Settings",
-                callbackFunction: () {},),
+              icon: CupertinoIcons.settings,
+              menuName: "Settings",
+              callbackFunction: () {},
+            ),
             ProfileOptionListTemplate(
-                icon: Icons.follow_the_signs,
-                menuName: "Follow Us",
-                callbackFunction: () {},),
+              icon: Icons.follow_the_signs,
+              menuName: "Follow Us",
+              callbackFunction: () {},
+            ),
             ProfileOptionListTemplate(
-                icon: Icons.contact_support,
-                menuName: "Contact Us",
-                callbackFunction: () {},),
+              icon: Icons.business_rounded,
+              menuName: "Business Details",
+              callbackFunction: () {
+                Navigator.pushNamed(context, "/adv/showAdvBusinessDetailsPage");
+              },
+            ),
             ProfileOptionListTemplate(
-                icon: CupertinoIcons.book_circle,
-                menuName: "Documentation",
-                callbackFunction: () {},),
+              icon: CupertinoIcons.doc_append,
+              menuName: "Documentation",
+              callbackFunction: () {},
+            ),
             ProfileOptionListTemplate(
-                icon: Icons.question_answer,
-                menuName: "F&Q",
-                callbackFunction: () {},),
+              icon: Icons.question_answer,
+              menuName: "F&Q",
+              callbackFunction: () {},
+            ),
             ProfileOptionListTemplate(
-                icon: Icons.extension,
-                menuName: "Appearance",
-                callbackFunction: () {},),
+              icon: Icons.extension,
+              menuName: "Appearance",
+              callbackFunction: () {},
+            ),
             const SizedBox(
               height: 4,
             ),

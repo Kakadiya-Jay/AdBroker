@@ -193,12 +193,16 @@ class _AdvEditProfilePageState extends State<AdvEditProfilePage> {
                   onPressed: image == null
                       ? null
                       : () async {
-                          UiHelper.customSnackBar(context,
-                              "Wait A Moment,\n Image is stored in a moment");
+                          UiHelper.customSnackBar(
+                            context,
+                            "Wait A Moment,\nImage is stored in a moment",
+                          );
                           await uploadImageToStorage().then((value) {
                             if (value != null) {
                               UiHelper.customAlertBox(
-                                  context, "Image Uploaded SuccessFully");
+                                context,
+                                "Image Uploaded SuccessFully",
+                              );
                               setState(() {
                                 imageUrl = value.toString();
                               });
