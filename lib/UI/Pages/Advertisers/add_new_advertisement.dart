@@ -41,6 +41,7 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
     "Education",
     "Gadgets",
     "Institute",
+    "E-commerce",
     "Loan",
     "Finance",
     "Movie",
@@ -76,7 +77,6 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
 
   Future uploadImageInStorage() async {
     try {
-      final uid = FirebaseAuth.instance.currentUser!.uid;
       final ref = FirebaseStorage.instance.ref().child(
           "Advertisement/${DateTime.now().millisecondsSinceEpoch}-$brandName-ad-image.jpg");
       await ref.putFile(
@@ -144,18 +144,24 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
                   },
                   child: Card(
                     color: Colors.transparent,
-                    elevation: 2.0,
+                    elevation: 4.0,
                     child: SizedBox(
                       height: 300,
                       width: MediaQuery.of(context).size.width,
                       child: image != null
-                          ? Image.file(
-                              File(image!.path),
-                              fit: BoxFit.fill,
+                          ? ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image.file(
+                                File(image!.path),
+                                fit: BoxFit.fill,
+                              ),
                             )
-                          : Image.asset(
-                              "assets/images/No-Image-Available.png",
-                              fit: BoxFit.contain,
+                          : ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image.asset(
+                                "assets/images/No-Image-Available.png",
+                                fit: BoxFit.contain,
+                              ),
                             ),
                     ),
                   ),
@@ -366,14 +372,13 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
                             .addNewAdvertisement(
                           advId,
                           adTitle.text.toString(),
-                          adRedirect.text.toString(),
+                          brandURL,
                           adCategory,
-                          adType,
                           imagePath,
                         )
                             .then(
                           (value) {
-                            if (value != null) {
+                            if (value == true) {
                               UiHelper.customSnackBar(
                                 context,
                                 "Ad Upload Successfully\nYour Ad Will be publish After Admin Confirmation.",

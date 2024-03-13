@@ -340,7 +340,7 @@ class _PubSignUpPageState extends State<PubSignUpPage> {
         await HelperFunctions.saveUserImageURLSF("");
         Navigator.pushNamedAndRemoveUntil(
           context,
-          "/pub/frontPage",
+          "/pub/registerBusinessPage",
           (route) => false,
         );
       } else {

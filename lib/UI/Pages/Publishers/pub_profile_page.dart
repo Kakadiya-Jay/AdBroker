@@ -1,5 +1,6 @@
 import 'package:ad_brokers/Helpers/helper_function.dart';
 import 'package:ad_brokers/Services/auth_service.dart';
+import 'package:ad_brokers/UI/Pages/Publishers/pub_edit_profile_page.dart';
 import 'package:ad_brokers/UI/Widgets/profile_option_list_template.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +63,7 @@ class _PubProfilePageState extends State<PubProfilePage> {
     });
     await Future.delayed(
       const Duration(seconds: 2),
-          () => loadUserProfileImage(),
+      () => loadUserProfileImage(),
     );
     setState(() {
       isImageLoaded = true;
@@ -88,7 +89,7 @@ class _PubProfilePageState extends State<PubProfilePage> {
               color: Colors.deepPurple,
               value: loadingProgress.expectedTotalBytes != null
                   ? loadingProgress.cumulativeBytesLoaded /
-                  loadingProgress.expectedTotalBytes!
+                      loadingProgress.expectedTotalBytes!
                   : null,
             ),
           );
@@ -119,21 +120,21 @@ class _PubProfilePageState extends State<PubProfilePage> {
                 width: 56,
                 child: isImageLoaded != true
                     ? const CupertinoActivityIndicator(
-                  color: Colors.grey,
-                ).scale(scaleValue: 1.4)
+                        color: Colors.grey,
+                      ).scale(scaleValue: 1.4)
                     : userImageUrl == ""
-                    ? CircleAvatar(
-                  backgroundColor: const Color(0xffFFE501),
-                  child: Text(
-                    userName[0].toUpperCase(),
-                    style: const TextStyle(
-                      color: Color(0xFF3C096C),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 36,
-                    ),
-                  ),
-                )
-                    : loadUserProfileImage(),
+                        ? CircleAvatar(
+                            backgroundColor: const Color(0xffFFE501),
+                            child: Text(
+                              userName[0].toUpperCase(),
+                              style: const TextStyle(
+                                color: Color(0xFF3C096C),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 36,
+                              ),
+                            ),
+                          )
+                        : loadUserProfileImage(),
               ),
               title: Text(
                 userName,
@@ -161,7 +162,18 @@ class _PubProfilePageState extends State<PubProfilePage> {
               ),
               trailing: IconButton(
                 onPressed: () {
-
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PubEditProfilePage(
+                        userName: userName,
+                        userEmail: userEmail,
+                        userContact: userContact,
+                        userRole: userRole,
+                        userImageUrl: userImageUrl,
+                      ),
+                    ),
+                  );
                 },
                 icon: Icon(
                   Icons.edit,
@@ -215,27 +227,35 @@ class _PubProfilePageState extends State<PubProfilePage> {
             ProfileOptionListTemplate(
               icon: CupertinoIcons.settings,
               menuName: "Settings",
-              callbackFunction: () {},),
+              callbackFunction: () {},
+            ),
             ProfileOptionListTemplate(
-              icon: Icons.monetization_on,
-              menuName: "Monetization",
-              callbackFunction: () {},),
+              icon: Icons.business_rounded,
+              menuName: "Business Details",
+              callbackFunction: () {
+                Navigator.pushNamed(context, "/pub/showAdvBusinessDetailsPage");
+              },
+            ),
             ProfileOptionListTemplate(
               icon: Icons.subscriptions,
               menuName: "Subscription",
-              callbackFunction: () {},),
+              callbackFunction: () {},
+            ),
             ProfileOptionListTemplate(
               icon: CupertinoIcons.doc_append,
               menuName: "Documentation",
-              callbackFunction: () {},),
+              callbackFunction: () {},
+            ),
             ProfileOptionListTemplate(
               icon: Icons.question_answer,
               menuName: "F&Q",
-              callbackFunction: () {},),
+              callbackFunction: () {},
+            ),
             ProfileOptionListTemplate(
               icon: Icons.extension,
               menuName: "Appearance",
-              callbackFunction: () {},),
+              callbackFunction: () {},
+            ),
             const SizedBox(
               height: 4,
             ),
@@ -253,9 +273,9 @@ class _PubProfilePageState extends State<PubProfilePage> {
                 title: Text(
                   "Logout",
                   style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                    color: Colors.redAccent,
-                    fontWeight: FontWeight.w700,
-                  ),
+                        color: Colors.redAccent,
+                        fontWeight: FontWeight.w700,
+                      ),
                 ),
               ),
             ).px(6),

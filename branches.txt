@@ -1,7 +1,9 @@
 Branch Log : (Here All branches are maintained)
 main :- Default Branch.
-init :- inital Branch.
-new-structre :- Chnage the lib folder structure.
+init :- initial Branch.
+new-structure :- Change the lib folder structure.
+debug :- debug branch.
+functionality :- functionality branch in which all functionality are developed.
 
 Commit Log : (Here Only main commits are maintained)
 ui-commit-1 :- Ui Purpose Commit 1.
@@ -9,10 +11,12 @@ ui-commit-2 :- Ui Purpose Commit 2 (Forget password,Update Profile,Image Picker)
 ui-commit-3 :- Ui Purpose Commit 3.
 ui-commit-4 :- Ui Purpose Commit 4 (Add new Ad Form , Image Picker etc..).
 ui-commit-5 :- Ui Purpose Commit 5 (My Ads Section).
-ui-commit-6 :- Ui Purpose Commit 6 (Visitor front page Design, Snackbar ui changed).
+ui-commit-6 :- Ui Purpose Commit 6 (Visitor front page Design, Snack bar ui changed).
 
-new-structre-1 :- These is the commit in which the new structure is created and also new 
+new-structure-1 :- These is the commit in which the new structure is created and also new
                   Functionality is attached like edit profile, pick profile image, set up firebase storage etc..
 
-Publisher_Side_commit :- Publishe Side is created and user related information stored
+Publisher_Side_commit :- Publisher Side is created and user related information stored
 Advertiser_Side_commit_1 :- First Commit in Advertiser side where Advertiser Business details are implemented in firebase
+
+functionality-commit-1 :- Functionality commit 1 ,In which on Advertiser side, make home page dynamic and also upload new advertisement and store data inside the render.com

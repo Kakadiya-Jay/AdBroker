@@ -12,10 +12,12 @@ import 'package:ad_brokers/UI/Pages/Advertisers/my_ads_page.dart';
 import 'package:ad_brokers/UI/Pages/Authentications/adv_signuppage.dart';
 import 'package:ad_brokers/UI/Pages/Authentications/pub_loginpage.dart';
 import 'package:ad_brokers/UI/Pages/Authentications/pub_signuppage.dart';
+import 'package:ad_brokers/UI/Pages/Publishers/pub_bussiness_details_page.dart';
 import 'package:ad_brokers/UI/Pages/Publishers/pub_chat_page.dart';
 import 'package:ad_brokers/UI/Pages/Publishers/pub_home_page.dart';
 import 'package:ad_brokers/UI/Pages/Publishers/pub_profile_page.dart';
 import 'package:ad_brokers/UI/Pages/Publishers/pub_profit_page.dart';
+import 'package:ad_brokers/UI/Pages/Publishers/show_pub_bussiness_details_page.dart';
 import 'package:ad_brokers/UI/Pages/Visitors/visiters_about_us_page.dart';
 import 'package:ad_brokers/UI/Pages/Visitors/visiters_contact_us_page.dart';
 import 'package:ad_brokers/UI/Pages/Visitors/visiters_home_page.dart';
@@ -40,9 +42,11 @@ var AppRoutes = <String, WidgetBuilder>{
   "/adv/showAdvBusinessDetailsPage": (context) => const ShowBusinessDetailsPage(),
   "/pub/loginPage": (context) => const PubLoginPage(),
   "/pub/signupPage": (context) => const PubSignUpPage(),
+  "/pub/registerBusinessPage": (context) => const PubBusinessDetailsPage(),
   "/pub/frontPage": (context) => const PubNavigationBarTemplate(),
   "/pub/homePage": (context) => const PubHomePage(),
   "/pub/profitPage": (context) => const ProfitPage(),
   "/pub/chatPage": (context) => const PubChatPage(),
   "/pub/profilePage": (context) => const PubProfilePage(),
+  "/pub/showAdvBusinessDetailsPage": (context) => const ShowPublisherBusinessDetails(),
 };

@@ -42,7 +42,7 @@ class _CheckUserLoginStatusState extends State<CheckUserLoginStatus> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: isUserLoggedin == true
-          ? userRole == "Advertiser"
+          ? userRole == "Advertisers"
               ? const AdvNavigationBarTemplate()
               : const PubNavigationBarTemplate()
           : const VisitorSideHomePage(),

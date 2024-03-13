@@ -1,27 +1,33 @@
 import 'package:ad_brokers/UI/Pages/Advertisers/show_ads_detail_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class AdsTemplateCard extends StatelessWidget {
   final num noOfDaysLeft;
-  final IconData icon;
   final String imagePath;
-  final num noOfViews;
+  final num remainViews;
   final String brandName;
+  final String adTitle;
+  final String adCategory;
   final num noOfPlatforms;
   final String adsStatus;
-  final num price;
+  final String price;
+  final String animationKey;
 
-  const AdsTemplateCard(
-      {super.key,
-      this.noOfDaysLeft = 0,
-      required this.icon,
-      required this.imagePath,
-      this.noOfViews = 0,
-      required this.brandName,
-      this.noOfPlatforms = 0,
-      this.adsStatus = "Pending",
-      this.price = 0});
+  const AdsTemplateCard({
+    super.key,
+    required this.imagePath,
+    required this.remainViews,
+    required this.brandName,
+    required this.adsStatus,
+    required this.price,
+    required this.adTitle,
+    required this.adCategory,
+    required this.animationKey,
+    this.noOfDaysLeft = 0,
+    this.noOfPlatforms = 0,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,23 +36,26 @@ class AdsTemplateCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (contaxt) => ShowAdsDetailsPage(
+            builder: (context) => ShowAdsDetailsPage(
               brandName: brandName,
+              adTitle: adTitle,
+              adCategory: adCategory,
               noOfPlatforms: noOfPlatforms,
               noOfDaysLeft: noOfDaysLeft,
-              noOfViews: noOfViews,
+              remainViews: remainViews,
               imagePath: imagePath,
               adsStatus: adsStatus,
               price: price,
+              animationTag: animationKey,
             ),
           ),
         );
       },
       child: Card(
         elevation: 2,
-        shadowColor: adsStatus == "Pending"
+        shadowColor: adsStatus == "pending"
             ? Colors.redAccent
-            : adsStatus == "OnGoing"
+            : adsStatus == "ongoing"
                 ? Colors.green
                 : Colors.blue,
         clipBehavior: Clip.antiAlias,
@@ -56,9 +65,9 @@ class AdsTemplateCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           side: BorderSide(
             width: 1,
-            color: adsStatus == "Pending"
+            color: adsStatus == "pending"
                 ? Colors.redAccent
-                : adsStatus == "OnGoing"
+                : adsStatus == "ongoing"
                     ? Colors.green
                     : Colors.blue,
           ),
@@ -72,14 +81,32 @@ class AdsTemplateCard extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  Container(
-                    width: 275,
-                    height: 210,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
+                  Hero(
+                    tag: animationKey,
+                    child: SizedBox(
+                      width: 275,
+                      height: 210,
+                      child: Image.network(
+                        imagePath,
                         fit: BoxFit.fill,
-                        filterQuality: FilterQuality.high,
-                        image: AssetImage(imagePath),
+                            filterQuality: FilterQuality.high,
+                        width: 275,
+                        height: 210,
+                          loadingBuilder: (BuildContext context, Widget child,
+                              ImageChunkEvent? loadingProgress) {
+                            if (loadingProgress == null) {
+                              return child;
+                            }
+                            return Center(
+                              child: CircularProgressIndicator(
+                                color: Theme.of(context).shadowColor,
+                                value: loadingProgress.expectedTotalBytes != null
+                                    ? loadingProgress.cumulativeBytesLoaded /
+                                    loadingProgress.expectedTotalBytes!
+                                    : null,
+                              ),
+                            );
+                          },
                       ),
                     ),
                   ),
@@ -106,13 +133,13 @@ class AdsTemplateCard extends StatelessWidget {
                             ).pSymmetric(h: 8, v: 4),
                           ),
                           const Spacer(),
-                          Icon(
-                            icon,
+                          const Icon(
+                            CupertinoIcons.eye,
                             color: Colors.white,
-                            shadows: const [
+                            shadows: [
                               Shadow(
                                   blurRadius: 4.0,
-                                  offset: Offset(1, 2),
+                                  offset: Offset(1, 1),
                                   color: Colors.grey)
                             ],
                           ).pSymmetric(h: 16),
@@ -146,12 +173,12 @@ class AdsTemplateCard extends StatelessWidget {
                         children: [
                           Text(
                             adsStatus,
-                            style: adsStatus == "Pending"
+                            style: adsStatus == "pending"
                                 ? Theme.of(context)
                                     .textTheme
                                     .titleSmall!
                                     .copyWith(color: Colors.redAccent)
-                                : adsStatus == "OnGoing"
+                                : adsStatus == "ongoing"
                                     ? Theme.of(context)
                                         .textTheme
                                         .titleSmall!
@@ -171,11 +198,11 @@ class AdsTemplateCard extends StatelessWidget {
                       Column(
                         children: [
                           Text(
-                            noOfViews.toString(),
+                            remainViews.toString(),
                             style: Theme.of(context).textTheme.displayMedium,
                           ),
                           Text(
-                            "Total Views",
+                            "Remain Views",
                             style: Theme.of(context).textTheme.displaySmall,
                           ),
                         ],

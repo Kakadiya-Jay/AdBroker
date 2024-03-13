@@ -65,6 +65,8 @@ class DatabaseService {
   }
 
   //update user data inside the collection
+
+  //        Advertiser Side
   Future updateAdvertiserProfile(
       String username, String email, String contact, String imageUrl) async {
     try {
@@ -98,6 +100,53 @@ class DatabaseService {
           "brand_category": brandCategory,
           "brand_address": brandAddress,
           "valuation": brandValuation,
+        },
+      );
+      return true;
+    } on FirebaseAuthException catch (ex) {
+      return ex.message.toString();
+    } on FormatException catch (ex) {
+      return ex.message.toString();
+    } on PlatformException catch (ex) {
+      return ex.message.toString();
+    } catch (ex) {
+      return ex.toString();
+    }
+  }
+
+  //        Publisher Side
+
+  Future updatePublisherProfile(
+      String username, String email, String contact, String imageUrl) async {
+    try {
+      await publishersCollection.doc(uid).update(
+        {
+          "name": username,
+          "email": email,
+          "contact": contact,
+          "profile_pic": imageUrl.toString(),
+        },
+      );
+      return true;
+    } on FirebaseAuthException catch (ex) {
+      return ex.message.toString();
+    } on FormatException catch (ex) {
+      return ex.message.toString();
+    } on PlatformException catch (ex) {
+      return ex.message.toString();
+    } catch (ex) {
+      return ex.toString();
+    }
+  }
+
+  Future updatePublisherBusinessDetails(
+      String platformName, String platformURL, String monthlyTraffic) async {
+    try {
+      await publishersCollection.doc(uid).update(
+        {
+          "platform_name": platformName,
+          "platform_url": platformURL,
+          "monthly_traffic": monthlyTraffic,
         },
       );
       return true;
