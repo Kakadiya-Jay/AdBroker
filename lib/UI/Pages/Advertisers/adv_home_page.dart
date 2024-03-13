@@ -3,16 +3,11 @@
 import 'dart:convert';
 
 import 'package:ad_brokers/Helpers/helper_function.dart';
-import 'package:ad_brokers/Services/ads_service.dart';
 import 'package:ad_brokers/Shared/constant.dart';
-import 'package:ad_brokers/UI/Pages/Advertisers/AdvertiseModel.dart';
 import 'package:ad_brokers/UI/Widgets/ads_template_card.dart';
-import 'package:ad_brokers/UI/Widgets/uihelper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:http/http.dart' as http;
 

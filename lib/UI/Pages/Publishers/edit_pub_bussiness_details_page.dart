@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, use_build_context_synchronously
+
 import 'package:ad_brokers/Helpers/helper_function.dart';
 import 'package:ad_brokers/Services/database_service.dart';
 import 'package:ad_brokers/UI/Widgets/uihelper.dart';

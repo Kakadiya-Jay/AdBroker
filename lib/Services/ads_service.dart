@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:ad_brokers/Shared/constant.dart';
 import 'package:ad_brokers/Shared/exceptions.dart';
-import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
 class AdService {
