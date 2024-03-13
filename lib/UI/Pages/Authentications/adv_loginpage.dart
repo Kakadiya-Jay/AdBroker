@@ -10,6 +10,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class AdvLoginPage extends StatefulWidget {
   final String? userRole;
@@ -43,11 +44,11 @@ class _AdvLoginPageState extends State<AdvLoginPage> {
       //   elevation: 0.0,
       // ),
       body: isLoading
-          ? const Center(
-              child: CircularProgressIndicator(
-                color: Colors.purple,
+          ? Center(
+              child: CupertinoActivityIndicator(
+                color: Theme.of(context).shadowColor,
               ),
-            )
+            ).scale(scaleValue: 2)
           : SafeArea(
               child: SingleChildScrollView(
                 child: Column(

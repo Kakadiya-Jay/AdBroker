@@ -1,20 +1,19 @@
 import 'package:ad_brokers/Helpers/helper_function.dart';
-import 'package:ad_brokers/UI/Pages/Advertisers/update_adv_business_details_page.dart';
+import 'package:ad_brokers/UI/Pages/Publishers/edit_pub_bussiness_details_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class ShowBusinessDetailsPage extends StatefulWidget {
-  const ShowBusinessDetailsPage({super.key});
+class ShowPublisherBusinessDetails extends StatefulWidget {
+  const ShowPublisherBusinessDetails({super.key});
 
   @override
-  State<ShowBusinessDetailsPage> createState() =>
-      _ShowBusinessDetailsPageState();
+  State<ShowPublisherBusinessDetails> createState() => _ShowPublisherBusinessDetailsState();
 }
 
-class _ShowBusinessDetailsPageState extends State<ShowBusinessDetailsPage> {
+class _ShowPublisherBusinessDetailsState extends State<ShowPublisherBusinessDetails> {
   String userEmail = "";
   String userRole = "";
 
@@ -37,7 +36,6 @@ class _ShowBusinessDetailsPageState extends State<ShowBusinessDetailsPage> {
       });
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +50,7 @@ class _ShowBusinessDetailsPageState extends State<ShowBusinessDetailsPage> {
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
-            .collection("Advertisers")
+            .collection("Publishers")
             .where("uid", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
             .snapshots(),
         builder: (BuildContext context, snapshot) {
@@ -71,70 +69,42 @@ class _ShowBusinessDetailsPageState extends State<ShowBusinessDetailsPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "BrandName",
+                "Platform Name",
                 style: Theme.of(context).textTheme.displaySmall,
               ),
               const SizedBox(
                 height: 5,
               ),
               Text(
-                snapshot.data!.docs[0]["brand_name"] ?? "",
+                snapshot.data!.docs[0]["platform_name"],
                 style: Theme.of(context).textTheme.displayMedium,
               ),
               const SizedBox(
                 height: 20,
               ),
               Text(
-                "Brand URL",
+                "Platform URL",
                 style: Theme.of(context).textTheme.displaySmall,
               ),
               const SizedBox(
                 height: 5,
               ),
               Text(
-                snapshot.data!.docs[0]["brand_url"] ?? "",
+                snapshot.data!.docs[0]["platform_url"],
                 style: Theme.of(context).textTheme.displayMedium,
               ),
               const SizedBox(
                 height: 20,
               ),
               Text(
-                "Brand Category",
+                "Monthly Traffic",
                 style: Theme.of(context).textTheme.displaySmall,
               ),
               const SizedBox(
                 height: 5,
               ),
               Text(
-                snapshot.data!.docs[0]["brand_category"] ?? "",
-                style: Theme.of(context).textTheme.displayMedium,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Text(
-                "Brand Address",
-                style: Theme.of(context).textTheme.displaySmall,
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Text(
-                snapshot.data!.docs[0]["brand_address"] ?? "",
-                style: Theme.of(context).textTheme.displayMedium,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Text(
-                "Brand Valuation",
-                style: Theme.of(context).textTheme.displaySmall,
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Text(
-                snapshot.data!.docs[0]["valuation"] ?? "",
+                snapshot.data!.docs[0]["monthly_traffic"],
                 style: Theme.of(context).textTheme.displayMedium,
               ),
               const SizedBox(
@@ -145,13 +115,10 @@ class _ShowBusinessDetailsPageState extends State<ShowBusinessDetailsPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => UpdateAdvBusinessDetailsPage(
-                        uid: FirebaseAuth.instance.currentUser!.uid.toString(),
-                        brandName: snapshot.data!.docs[0]["brand_name"],
-                        brandURL: snapshot.data!.docs[0]["brand_url"],
-                        brandCategory: snapshot.data!.docs[0]["brand_category"],
-                        brandAddress: snapshot.data!.docs[0]["brand_address"],
-                        valuation: snapshot.data!.docs[0]["valuation"],
+                      builder: (context) => UpdatePubBusinessDetails(
+                        platformName: snapshot.data!.docs[0]["platform_name"],
+                        platformURL: snapshot.data!.docs[0]["platform_url"],
+                        monthlyTraffic: snapshot.data!.docs[0]["monthly_traffic"],
                       ),
                     ),
                   );
@@ -166,14 +133,6 @@ class _ShowBusinessDetailsPageState extends State<ShowBusinessDetailsPage> {
                   ),
                 ),
               ).centered(),
-              const SizedBox(
-                height: 30,
-              ),
-              Text(
-                "If You can't see a business details then we kindly says that click on \"Update Details\" button and fill the form and register your business\nYou can update your business details 😊",
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.labelSmall,
-              ),
             ],
           ).centered().p16();
         },

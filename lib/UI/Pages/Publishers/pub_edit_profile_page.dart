@@ -1,5 +1,7 @@
-// ignore_for_file: use_build_context_synchronously, must_be_immutable
+// ignore_for_file: must_be_immutable, use_build_context_synchronously
+
 import 'dart:io';
+
 import 'package:ad_brokers/Helpers/helper_function.dart';
 import 'package:ad_brokers/Services/auth_service.dart';
 import 'package:ad_brokers/Services/database_service.dart';
@@ -12,14 +14,14 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class AdvEditProfilePage extends StatefulWidget {
+class PubEditProfilePage extends StatefulWidget {
   String userName;
   String userEmail;
   String userContact;
   String userRole;
   String userImageUrl;
 
-  AdvEditProfilePage({
+  PubEditProfilePage({
     super.key,
     required this.userName,
     required this.userEmail,
@@ -29,10 +31,10 @@ class AdvEditProfilePage extends StatefulWidget {
   });
 
   @override
-  State<AdvEditProfilePage> createState() => _AdvEditProfilePageState();
+  State<PubEditProfilePage> createState() => _PubEditProfilePageState();
 }
 
-class _AdvEditProfilePageState extends State<AdvEditProfilePage> {
+class _PubEditProfilePageState extends State<PubEditProfilePage> {
   XFile? image;
   String imageUrl = "";
   final formkey = GlobalKey<FormState>();
@@ -93,12 +95,6 @@ class _AdvEditProfilePageState extends State<AdvEditProfilePage> {
   }
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -129,37 +125,37 @@ class _AdvEditProfilePageState extends State<AdvEditProfilePage> {
                         width: 120,
                         child: image != null
                             ? ClipRRect(
-                                borderRadius: BorderRadius.circular(100),
-                                child: Image.file(
-                                  File(image!.path),
-                                  fit: BoxFit.fill,
-                                  filterQuality: FilterQuality.high,
-                                  height: 120,
-                                  width: 120,
-                                ),
-                              )
+                          borderRadius: BorderRadius.circular(100),
+                          child: Image.file(
+                            File(image!.path),
+                            fit: BoxFit.fill,
+                            filterQuality: FilterQuality.high,
+                            height: 120,
+                            width: 120,
+                          ),
+                        )
                             : widget.userImageUrl == ""
-                                ? CircleAvatar(
-                                    backgroundColor: const Color(0xffFFE501),
-                                    child: Text(
-                                      widget.userName[0].toUpperCase(),
-                                      style: const TextStyle(
-                                        color: Color(0xFF3C096C),
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 72,
-                                      ),
-                                    ),
-                                  )
-                                : ClipRRect(
-                                    borderRadius: BorderRadius.circular(100),
-                                    child: Image.network(
-                                      widget.userImageUrl,
-                                      fit: BoxFit.fill,
-                                      filterQuality: FilterQuality.high,
-                                      height: 120,
-                                      width: 120,
-                                    ),
-                                  ),
+                            ? CircleAvatar(
+                          backgroundColor: const Color(0xffFFE501),
+                          child: Text(
+                            widget.userName[0].toUpperCase(),
+                            style: const TextStyle(
+                              color: Color(0xFF3C096C),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 72,
+                            ),
+                          ),
+                        )
+                            : ClipRRect(
+                          borderRadius: BorderRadius.circular(100),
+                          child: Image.network(
+                            widget.userImageUrl,
+                            fit: BoxFit.fill,
+                            filterQuality: FilterQuality.high,
+                            height: 120,
+                            width: 120,
+                          ),
+                        ),
                       ),
                       Positioned(
                         bottom: 0,
@@ -185,25 +181,25 @@ class _AdvEditProfilePageState extends State<AdvEditProfilePage> {
                   onPressed: image == null
                       ? null
                       : () async {
-                          UiHelper.customSnackBar(
-                            context,
-                            "Wait A Moment,\nImage is stored in a moment",
-                          );
-                          await uploadImageToStorage().then((value) {
-                            if (value != null) {
-                              UiHelper.customAlertBox(
-                                context,
-                                "Image Uploaded SuccessFully",
-                              );
-                              setState(() {
-                                imageUrl = value.toString();
-                              });
-                            } else {
-                              UiHelper.customErrorSnackBar(
-                                  context, value.toString());
-                            }
-                          });
-                        },
+                    UiHelper.customSnackBar(
+                      context,
+                      "Wait A Moment,\nImage is stored in a moment",
+                    );
+                    await uploadImageToStorage().then((value) {
+                      if (value != null) {
+                        UiHelper.customAlertBox(
+                          context,
+                          "Image Uploaded SuccessFully",
+                        );
+                        setState(() {
+                          imageUrl = value.toString();
+                        });
+                      } else {
+                        UiHelper.customErrorSnackBar(
+                            context, value.toString());
+                      }
+                    });
+                  },
                   color: const Color(0xffFFE501),
                   child: const Text(
                     "Upload Image",
@@ -230,14 +226,14 @@ class _AdvEditProfilePageState extends State<AdvEditProfilePage> {
                   },
                   decoration: InputDecoration(
                     labelText: "User Name",
-                    hintText: "Peter Benjamen Parker",
+                    hintText: "Tony Howard Stark",
                     filled: true,
                     fillColor: const Color.fromARGB(255, 194, 194, 194),
                     prefixIcon: const Icon(CupertinoIcons.person),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                       borderSide:
-                          const BorderSide(width: 1, color: Colors.black),
+                      const BorderSide(width: 1, color: Colors.black),
                     ),
                   ),
                 ),
@@ -259,7 +255,7 @@ class _AdvEditProfilePageState extends State<AdvEditProfilePage> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                       borderSide:
-                          const BorderSide(width: 1, color: Colors.black),
+                      const BorderSide(width: 1, color: Colors.black),
                     ),
                   ),
                 ),
@@ -273,14 +269,14 @@ class _AdvEditProfilePageState extends State<AdvEditProfilePage> {
                   maxLength: 10,
                   decoration: InputDecoration(
                     labelText: "Contact",
-                    hintText: "9313******",
+                    hintText: "9978******",
                     filled: true,
                     fillColor: const Color.fromARGB(255, 194, 194, 194),
                     prefixIcon: const Icon(CupertinoIcons.phone),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                       borderSide:
-                          const BorderSide(width: 1, color: Colors.black),
+                      const BorderSide(width: 1, color: Colors.black),
                     ),
                   ),
                 ),
@@ -294,16 +290,16 @@ class _AdvEditProfilePageState extends State<AdvEditProfilePage> {
                     onPressed: imageUrl == ""
                         ? null
                         : () {
-                            if (widget.userName != "" &&
-                                widget.userEmail != "" &&
-                                widget.userContact != "" &&
-                                imageUrl != "") {
-                              updateAdvertiserProfile();
-                            } else {
-                              UiHelper.customAlertBox(context,
-                                  "Enter Required Fields or Upload New Image");
-                            }
-                          },
+                      if (widget.userName != "" &&
+                          widget.userEmail != "" &&
+                          widget.userContact != "" &&
+                          imageUrl != "") {
+                        updateAdvertiserProfile();
+                      } else {
+                        UiHelper.customAlertBox(context,
+                            "Enter Required Fields or Upload New Image");
+                      }
+                    },
                     color: const Color(0xffFFE501),
                     child: const Text(
                       "Edit Profile",
@@ -323,14 +319,13 @@ class _AdvEditProfilePageState extends State<AdvEditProfilePage> {
     );
   }
 
-  //Update User Profile
   updateAdvertiserProfile() async {
     UiHelper.customSnackBar(context,
         "Wait Your Profile Updated in few Second. \nDon't Close the Screen");
     DatabaseService(
       uid: _auth.currentUser!.uid.toString(),
     )
-        .updateAdvertiserProfile(
+        .updatePublisherProfile(
       widget.userName,
       widget.userEmail,
       widget.userContact,
@@ -344,7 +339,7 @@ class _AdvEditProfilePageState extends State<AdvEditProfilePage> {
         await HelperFunctions.saveUserImageURLSF(imageUrl);
         UiHelper.customSnackBar(context, "Profile Updated SuccessFully");
         Navigator.pushNamedAndRemoveUntil(
-            context, "/adv/frontPage", (route) => false);
+            context, "/pub/frontPage", (route) => false);
       } else {
         UiHelper.customErrorSnackBar(context, value.toString());
       }

@@ -6,21 +6,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class AdvBusinessDetailsPage extends StatefulWidget {
-  const AdvBusinessDetailsPage({super.key});
+class PubBusinessDetailsPage extends StatefulWidget {
+  const PubBusinessDetailsPage({super.key});
 
   @override
-  State<AdvBusinessDetailsPage> createState() => _AdvBusinessDetailsPageState();
+  State<PubBusinessDetailsPage> createState() => _PubBusinessDetailsPageState();
 }
 
-class _AdvBusinessDetailsPageState extends State<AdvBusinessDetailsPage> {
+class _PubBusinessDetailsPageState extends State<PubBusinessDetailsPage> {
   final formkey = GlobalKey<FormState>();
   final uid = FirebaseAuth.instance.currentUser!.uid;
-  final brandNameText = TextEditingController();
-  final brandURLText = TextEditingController();
-  final brandCategoryText = TextEditingController();
-  final brandAddressText = TextEditingController();
-  final brandValuationText = TextEditingController();
+  final platformNameText = TextEditingController();
+  final platformURLText = TextEditingController();
+  final monthlyTrafficText = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +52,7 @@ class _AdvBusinessDetailsPageState extends State<AdvBusinessDetailsPage> {
                 children: [
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.87,
+                    height: MediaQuery.of(context).size.height * 0.85,
                     decoration: const ShapeDecoration(
                       color: Colors.white,
                       shape: RoundedRectangleBorder(
@@ -74,7 +72,7 @@ class _AdvBusinessDetailsPageState extends State<AdvBusinessDetailsPage> {
                           height: 30,
                         ),
                         Text(
-                          "Brand Name",
+                          "Platform Name",
                           textAlign: TextAlign.left,
                           style: Theme.of(context).textTheme.labelMedium,
                         ),
@@ -82,7 +80,7 @@ class _AdvBusinessDetailsPageState extends State<AdvBusinessDetailsPage> {
                           height: 5,
                         ),
                         TextFormField(
-                          controller: brandNameText,
+                          controller: platformNameText,
                           keyboardType: TextInputType.text,
                           validator: (value) {
                             if (value!.isEmpty && value == "") {
@@ -108,7 +106,7 @@ class _AdvBusinessDetailsPageState extends State<AdvBusinessDetailsPage> {
                           height: 20,
                         ),
                         Text(
-                          "Brand URL",
+                          "Platform URL",
                           textAlign: TextAlign.left,
                           style: Theme.of(context).textTheme.labelMedium,
                         ),
@@ -116,54 +114,23 @@ class _AdvBusinessDetailsPageState extends State<AdvBusinessDetailsPage> {
                           height: 5,
                         ),
                         TextFormField(
-                          controller: brandURLText,
+                          controller: platformURLText,
+                          keyboardType: TextInputType.text,
                           validator: (value) {
                             if (value!.isEmpty && value == "") {
-                              return "Url Can't be empty";
-                            }
-                            if (value.contains(RegExp(
-                                r"(https?|http)://([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?"))) {
-                              return "URL format is incorrect";
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: const Color(0xFFE6E3E9),
-                            hintText: "Ex:- www.AdBrokers.com",
-                            prefixIcon: const Icon(CupertinoIcons.link),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Text(
-                          "Brand Category",
-                          textAlign: TextAlign.left,
-                          style: Theme.of(context).textTheme.labelMedium,
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        TextFormField(
-                          controller: brandCategoryText,
-                          validator: (value) {
-                            if (value!.isEmpty && value == "") {
-                              return "Please enter brand category";
+                              return "Please enter brand name";
                             }
                             if (!value.contains(RegExp(r'[A-Z,a-z,0-9]'))) {
-                              return "Category should be in Alphanumeric form";
+                              return "Name should be in Alphanumeric form";
                             }
                             return null;
                           },
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: const Color(0xFFE6E3E9),
-                            hintText: "Ex:- Advertising Network",
-                            prefixIcon: const Icon(Icons.category_rounded),
+                            hintText: "Ex:- ww.AdBrokers.com",
+                            prefixIcon:
+                                const Icon(CupertinoIcons.link),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
@@ -173,7 +140,7 @@ class _AdvBusinessDetailsPageState extends State<AdvBusinessDetailsPage> {
                           height: 20,
                         ),
                         Text(
-                          "Brand Address",
+                          "Monthly Traffic",
                           textAlign: TextAlign.left,
                           style: Theme.of(context).textTheme.labelMedium,
                         ),
@@ -181,46 +148,14 @@ class _AdvBusinessDetailsPageState extends State<AdvBusinessDetailsPage> {
                           height: 5,
                         ),
                         TextFormField(
-                          controller: brandAddressText,
-                          validator: (value) {
-                            if (value!.isEmpty && value == "") {
-                              return "Please enter brand category";
-                            }
-                            if (!value.contains(RegExp(r'[A-Z,a-z,0-9]'))) {
-                              return "Category should be in Alphanumeric form";
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: const Color(0xFFE6E3E9),
-                            hintText: "Ex:- Surat,Gujarat,India",
-                            prefixIcon: const Icon(CupertinoIcons.location),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Text(
-                          "Valuation",
-                          textAlign: TextAlign.left,
-                          style: Theme.of(context).textTheme.labelMedium,
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        TextFormField(
-                          controller: brandValuationText,
+                          controller: monthlyTrafficText,
                           keyboardType: TextInputType.number,
                           validator: (value) {
                             if (value!.isEmpty && value == "") {
-                              return "Please enter brand category";
+                              return "Please enter brand name";
                             }
                             if (!value.contains(RegExp(r'[A-Z,a-z,0-9]'))) {
-                              return "Category should be in Alphanumeric form";
+                              return "Name should be in Alphanumeric form";
                             }
                             return null;
                           },
@@ -228,14 +163,15 @@ class _AdvBusinessDetailsPageState extends State<AdvBusinessDetailsPage> {
                             filled: true,
                             fillColor: const Color(0xFFE6E3E9),
                             hintText: "Ex:- 12000",
-                            prefixIcon: const Icon(CupertinoIcons.number_circle),
+                            prefixIcon:
+                                const Icon(CupertinoIcons.person_3),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
                           ),
                         ),
                         const SizedBox(
-                          height: 25,
+                          height: 20,
                         ),
                         SizedBox(
                           width: MediaQuery.of(context).size.width,
@@ -259,13 +195,13 @@ class _AdvBusinessDetailsPageState extends State<AdvBusinessDetailsPage> {
                           ),
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 20,
                         ),
                       ],
                     ).p16(),
                   ),
                 ],
-              )
+              ),
             ],
           ),
         ),
@@ -276,22 +212,21 @@ class _AdvBusinessDetailsPageState extends State<AdvBusinessDetailsPage> {
   registerAdvertisersBusiness() async {
     await DatabaseService(
             uid: FirebaseAuth.instance.currentUser!.uid.toString())
-        .updateAdvertiserBusinessDetails(
-      brandNameText.text.toString(),
-      brandURLText.text.toString(),
-      brandCategoryText.text.toString(),
-      brandAddressText.text.toString(),
-      brandValuationText.text.toString(),
+        .updatePublisherBusinessDetails(
+      platformNameText.text.toString(),
+      platformURLText.text.toString(),
+      monthlyTrafficText.text.toString(),
     )
         .then(
       (value) async {
         if (value == true) {
           await HelperFunctions.saveAdvBrandNameSF(
-              brandNameText.text.toString());
-          await HelperFunctions.saveAdvBrandURLSF(brandURLText.text.toString());
+              platformNameText.text.toString());
+          await HelperFunctions.saveAdvBrandURLSF(
+              platformURLText.text.toString());
           Navigator.pushNamedAndRemoveUntil(
             context,
-            "/adv/frontPage",
+            "/pub/frontPage",
             (route) => false,
           );
         } else {

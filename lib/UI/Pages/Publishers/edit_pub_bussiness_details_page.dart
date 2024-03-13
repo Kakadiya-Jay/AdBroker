@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, must_be_immutable
+// ignore_for_file: must_be_immutable, use_build_context_synchronously
 
 import 'package:ad_brokers/Helpers/helper_function.dart';
 import 'package:ad_brokers/Services/database_service.dart';
@@ -8,31 +8,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class UpdateAdvBusinessDetailsPage extends StatefulWidget {
-  String uid;
-  String brandName;
-  String brandURL;
-  String brandCategory;
-  String brandAddress;
-  String valuation;
+class UpdatePubBusinessDetails extends StatefulWidget {
+  String platformName;
+  String platformURL;
+  String monthlyTraffic;
 
-  UpdateAdvBusinessDetailsPage({
+  UpdatePubBusinessDetails({
     super.key,
-    required this.uid,
-    required this.brandName,
-    required this.brandURL,
-    required this.brandCategory,
-    required this.brandAddress,
-    required this.valuation,
+    required this.platformName,
+    required this.platformURL,
+    required this.monthlyTraffic,
   });
 
   @override
-  State<UpdateAdvBusinessDetailsPage> createState() =>
-      _UpdateAdvBusinessDetailsPageState();
+  State<UpdatePubBusinessDetails> createState() =>
+      _UpdatePubBusinessDetailsState();
 }
 
-class _UpdateAdvBusinessDetailsPageState
-    extends State<UpdateAdvBusinessDetailsPage> {
+class _UpdatePubBusinessDetailsState extends State<UpdatePubBusinessDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,17 +48,17 @@ class _UpdateAdvBusinessDetailsPageState
                 height: 20,
               ),
               Text(
-                "Brand Name",
+                "Platform Name",
                 style: Theme.of(context).textTheme.displayMedium,
               ),
               const SizedBox(
                 height: 5,
               ),
               TextFormField(
-                initialValue: widget.brandName,
+                initialValue: widget.platformName,
                 onChanged: (value) {
                   setState(() {
-                    widget.brandName = value.trim();
+                    widget.platformName = value.trim();
                   });
                 },
                 decoration: InputDecoration(
@@ -83,21 +76,21 @@ class _UpdateAdvBusinessDetailsPageState
                 height: 20,
               ),
               Text(
-                "Brand URL",
+                "Platform URL",
                 style: Theme.of(context).textTheme.displayMedium,
               ),
               const SizedBox(
                 height: 5,
               ),
               TextFormField(
-                initialValue: widget.brandURL,
+                initialValue: widget.platformURL,
                 onChanged: (value) {
                   setState(() {
-                    widget.brandURL = value.trim();
+                    widget.platformURL = value.trim();
                   });
                 },
                 decoration: InputDecoration(
-                  hintText: "www.AdBrokers.com",
+                  hintText: "AdBrokers",
                   filled: true,
                   fillColor: const Color.fromARGB(255, 194, 194, 194),
                   prefixIcon: const Icon(CupertinoIcons.link),
@@ -111,81 +104,24 @@ class _UpdateAdvBusinessDetailsPageState
                 height: 20,
               ),
               Text(
-                "Brand Category",
+                "Monthly Traffic",
                 style: Theme.of(context).textTheme.displayMedium,
               ),
               const SizedBox(
                 height: 5,
               ),
               TextFormField(
-                initialValue: widget.brandCategory,
+                initialValue: widget.monthlyTraffic,
                 onChanged: (value) {
                   setState(() {
-                    widget.brandCategory = value.trim();
+                    widget.monthlyTraffic = value.trim();
                   });
                 },
                 decoration: InputDecoration(
-                  hintText: "Advertising Network",
+                  hintText: "AdBrokers",
                   filled: true,
                   fillColor: const Color.fromARGB(255, 194, 194, 194),
-                  prefixIcon: const Icon(Icons.category_rounded),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: const BorderSide(width: 1, color: Colors.black),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Text(
-                "Brand Address",
-                style: Theme.of(context).textTheme.displayMedium,
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              TextFormField(
-                initialValue: widget.brandAddress,
-                onChanged: (value) {
-                  setState(() {
-                    widget.brandAddress = value.trim();
-                  });
-                },
-                decoration: InputDecoration(
-                  hintText: "Surat,Gujarat,India",
-                  filled: true,
-                  fillColor: const Color.fromARGB(255, 194, 194, 194),
-                  prefixIcon: const Icon(CupertinoIcons.location),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: const BorderSide(width: 1, color: Colors.black),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Text(
-                "Valuation",
-                style: Theme.of(context).textTheme.displayMedium,
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              TextFormField(
-                initialValue: widget.valuation,
-                keyboardType: TextInputType.number,
-                onChanged: (value) {
-                  setState(() {
-                    widget.valuation = value.trim();
-                  });
-                },
-                decoration: InputDecoration(
-                  hintText: "1000000",
-                  filled: true,
-                  fillColor: const Color.fromARGB(255, 194, 194, 194),
-                  prefixIcon: const Icon(CupertinoIcons.location),
+                  prefixIcon: const Icon(CupertinoIcons.link),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                     borderSide: const BorderSide(width: 1, color: Colors.black),
@@ -197,12 +133,10 @@ class _UpdateAdvBusinessDetailsPageState
               ),
               CupertinoButton(
                 onPressed: () {
-                  if (widget.brandName != "" &&
-                      widget.brandURL != "" &&
-                      widget.brandCategory != "" &&
-                      widget.brandAddress != "" &&
-                      widget.valuation != "0") {
-                    updateAdvBusinessDetails();
+                  if (widget.platformName != "" &&
+                      widget.platformURL != "" &&
+                      widget.monthlyTraffic != "") {
+                    updatePubBusinessDetails();
                   } else {
                     UiHelper.customErrorSnackBar(
                         context, "Please enter Required Fields");
@@ -222,34 +156,34 @@ class _UpdateAdvBusinessDetailsPageState
                 height: 20,
               ),
             ],
-          ).p16(),
+          ).p16().centered(),
         ),
       ),
     );
   }
 
-  updateAdvBusinessDetails() async {
+  updatePubBusinessDetails() async {
     UiHelper.customSnackBar(
         context, "Business Details will be updated\nWait a moment..");
     await DatabaseService(
       uid: FirebaseAuth.instance.currentUser!.uid.toString(),
     )
-        .updateAdvertiserBusinessDetails(
-      widget.brandName,
-      widget.brandURL,
-      widget.brandCategory,
-      widget.brandAddress,
-      widget.valuation,
+        .updatePublisherBusinessDetails(
+      widget.platformName,
+      widget.platformURL,
+      widget.monthlyTraffic,
     )
         .then(
       (value) async {
         if (value == true) {
-          await HelperFunctions.saveAdvBrandNameSF(widget.brandName.toString());
-          await HelperFunctions.saveAdvBrandURLSF(widget.brandURL.toString());
+          await HelperFunctions.saveAdvBrandNameSF(
+              widget.platformName.toString());
+          await HelperFunctions.saveAdvBrandURLSF(
+              widget.platformURL.toString());
           UiHelper.customSnackBar(context, "Details updated successfully");
           Navigator.pushNamedAndRemoveUntil(
             context,
-            "/adv/frontPage",
+            "/pub/frontPage",
             (route) => false,
           );
         } else {

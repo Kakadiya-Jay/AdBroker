@@ -1,8 +1,15 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:convert';
+
 import 'package:ad_brokers/Helpers/helper_function.dart';
+import 'package:ad_brokers/Shared/constant.dart';
 import 'package:ad_brokers/UI/Widgets/ads_template_card.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:http/http.dart' as http;
 
 class AdvHomePage extends StatefulWidget {
   const AdvHomePage({super.key});
@@ -15,6 +22,7 @@ class _AdvHomePageState extends State<AdvHomePage> {
   String userName = "";
   String userRole = "";
   String userImageUrl = "";
+  String brandName = "";
   bool isImageLoaded = true;
 
   @override
@@ -22,6 +30,7 @@ class _AdvHomePageState extends State<AdvHomePage> {
     super.initState();
     gettingUserData();
     loadImage();
+    getAdvertisements();
   }
 
   gettingUserData() async {
@@ -38,6 +47,11 @@ class _AdvHomePageState extends State<AdvHomePage> {
     await HelperFunctions.getUserImageUrlSF().then((val) {
       setState(() {
         userImageUrl = val!;
+      });
+    });
+    await HelperFunctions.getAdvBrandNameSF().then((val) {
+      setState(() {
+        brandName = val!;
       });
     });
   }
@@ -97,6 +111,29 @@ class _AdvHomePageState extends State<AdvHomePage> {
     );
   }
 
+  //Loadind Advertisement Contants
+  List? listResponse;
+
+  Future getAdvertisements() async {
+    final http.Response response = await http.post(
+      Uri.parse(APIConstant.baseURL + APIConstant.getAdvertisementByIdEndPoint),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode({
+        'advertiserId': FirebaseAuth.instance.currentUser!.uid.toString(),
+      }),
+    );
+    if (response.statusCode == 200) {
+      setState(() {
+        listResponse = json.decode(response.body);
+        print(listResponse);
+      });
+    } else {
+      throw Exception('Failed to Load');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     String greetMessage = greetUser();
@@ -151,6 +188,9 @@ class _AdvHomePageState extends State<AdvHomePage> {
                     ),
                   ),
                   child: ListTile(
+                    onTap: () {
+                      Navigator.pushNamed(context, "/adv/profilePage");
+                    },
                     leading: isImageLoaded != true
                         ? const CupertinoActivityIndicator(
                             color: Colors.grey,
@@ -189,7 +229,7 @@ class _AdvHomePageState extends State<AdvHomePage> {
                       ),
                     ),
                     trailing: const Icon(
-                      CupertinoIcons.right_chevron,
+                      CupertinoIcons.chevron_right,
                       color: Colors.white,
                     ),
                   ),
@@ -256,40 +296,31 @@ class _AdvHomePageState extends State<AdvHomePage> {
                 const SizedBox(
                   height: 20,
                 ),
-                const SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      AdsTemplateCard(
-                        imagePath: "assets/images/Sample-Ad-Image-1.jpg",
-                        noOfDaysLeft: 21,
-                        icon: Icons.visibility,
-                        brandName: "ABCD Company",
-                        adsStatus: "OnGoing",
-                        noOfViews: 3500,
-                        noOfPlatforms: 5,
-                        price: 899,
-                      ),
-                      AdsTemplateCard(
-                        imagePath: "assets/images/Sample-Ad-Image-2.jpg",
-                        noOfDaysLeft: 0,
-                        icon: Icons.visibility,
-                        brandName: "Brand Factory",
-                        adsStatus: "Pending",
-                      ),
-                      AdsTemplateCard(
-                        imagePath: "assets/images/Sample-Ad-Image-3.jpg",
-                        icon: Icons.visibility,
-                        noOfDaysLeft: 84,
-                        brandName: "Web Developers",
-                        adsStatus: "Upcoming",
-                        price: 3499,
-                      )
-                    ],
-                  ),
+                SizedBox(
+                  height: 320,
+                  child: listResponse == null
+                      ? Center(
+                          child: CupertinoActivityIndicator(
+                            color: Theme.of(context).shadowColor,
+                          ).scale(scaleValue: 2),
+                        )
+                      : ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          itemCount: listResponse?.length,
+                          itemBuilder: (context, index) {
+                            return AdsTemplateCard(
+                              imagePath: listResponse![index]["image"],
+                              brandName: brandName,
+                              adsStatus: listResponse![index]["status"],
+                              adTitle: listResponse![index]["title"],
+                              adCategory: listResponse![index]["category"],
+                              price: "499",
+                              remainViews: listResponse![index]["remain_Views"],
+                              animationKey: listResponse![index]["_id"],
+                            );
+                          },
+                        ),
                 ),
                 const SizedBox(
                   height: 20,

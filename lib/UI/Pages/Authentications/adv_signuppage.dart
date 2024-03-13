@@ -6,6 +6,7 @@ import 'package:ad_brokers/UI/Pages/Authentications/adv_loginpage.dart';
 import 'package:ad_brokers/UI/Widgets/uihelper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class AdvSignUpPage extends StatefulWidget {
   final String? userRole;
@@ -36,11 +37,11 @@ class _AdvSignUpPageState extends State<AdvSignUpPage> {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: _isLoading
-          ? const Center(
-              child: CircularProgressIndicator(
-                color: Colors.purple,
-              ),
-            )
+          ? Center(
+        child: CupertinoActivityIndicator(
+          color: Theme.of(context).shadowColor,
+        ),
+      ).scale(scaleValue: 2)
           : SafeArea(
               child: SingleChildScrollView(
                 child: Column(
