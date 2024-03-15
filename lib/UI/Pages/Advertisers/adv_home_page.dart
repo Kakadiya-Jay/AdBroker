@@ -1,15 +1,13 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'dart:convert';
-
 import 'package:ad_brokers/Helpers/helper_function.dart';
-import 'package:ad_brokers/Shared/constant.dart';
+import 'package:ad_brokers/Models/advertisement_model.dart';
+import 'package:ad_brokers/Services/ads_service.dart';
 import 'package:ad_brokers/UI/Widgets/ads_template_card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
-import 'package:http/http.dart' as http;
 
 class AdvHomePage extends StatefulWidget {
   const AdvHomePage({super.key});
@@ -111,27 +109,15 @@ class _AdvHomePageState extends State<AdvHomePage> {
     );
   }
 
-  //Loadind Advertisement Contants
-  List? listResponse;
+  List<Advertisements> advertisements = [];
+  final adService = AdService();
 
-  Future getAdvertisements() async {
-    final http.Response response = await http.post(
-      Uri.parse(APIConstant.baseURL + APIConstant.getAdvertisementByIdEndPoint),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode({
-        'advertiserId': FirebaseAuth.instance.currentUser!.uid.toString(),
-      }),
-    );
-    if (response.statusCode == 200) {
-      setState(() {
-        listResponse = json.decode(response.body);
-        print(listResponse);
-      });
-    } else {
-      throw Exception('Failed to Load');
-    }
+  final advertiserUid = FirebaseAuth.instance.currentUser!.uid.toString();
+  Future<List<Advertisements>> getAdvertisements() async {
+    final adResponse =
+        await adService.getAdvertisementOfPerticularAdvertiser(advertiserUid);
+    advertisements = adResponse!;
+    return advertisements;
   }
 
   @override
@@ -156,6 +142,13 @@ class _AdvHomePageState extends State<AdvHomePage> {
             icon: const Icon(Icons.notifications_none_rounded),
             color: Colors.white,
           ).scale(scaleValue: 1.2),
+          IconButton(
+            onPressed: () {
+              getAdvertisements();
+            },
+            icon: const Icon(CupertinoIcons.refresh),
+            color: Colors.white,
+          ),
         ],
         elevation: 0.0,
       ),
@@ -297,30 +290,51 @@ class _AdvHomePageState extends State<AdvHomePage> {
                   height: 20,
                 ),
                 SizedBox(
-                  height: 320,
-                  child: listResponse == null
-                      ? Center(
+                  height: 330,
+                  child: FutureBuilder<List<Advertisements>>(
+                    future: getAdvertisements(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(
                           child: CupertinoActivityIndicator(
                             color: Theme.of(context).shadowColor,
-                          ).scale(scaleValue: 2),
-                        )
-                      : ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          itemCount: listResponse?.length,
-                          itemBuilder: (context, index) {
-                            return AdsTemplateCard(
-                              imagePath: listResponse![index]["image"],
-                              brandName: brandName,
-                              adsStatus: listResponse![index]["status"],
-                              adTitle: listResponse![index]["title"],
-                              adCategory: listResponse![index]["category"],
-                              price: "499",
-                              remainViews: listResponse![index]["remain_Views"],
-                              animationKey: listResponse![index]["_id"],
-                            );
-                          },
-                        ),
+                          ),
+                        ).scale(scaleValue: 2.0);
+                      } else if (snapshot.hasError) {
+                        return Center(
+                          child: Text(
+                            'Error: ${snapshot.error}',
+                            style: Theme.of(context).textTheme.displayMedium,
+                          ),
+                        );
+                      } else if (!snapshot.hasData) {
+                        return Center(
+                          child: Text(
+                            "No data available..",
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.displayMedium,
+                          ),
+                        );
+                      }
+                      return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        itemCount: advertisements.length,
+                        itemBuilder: (context, index) {
+                          return AdsTemplateCard(
+                            imagePath: advertisements[index].adImageUrl,
+                            brandName: brandName,
+                            adsStatus: advertisements[index].adStatus,
+                            adTitle: advertisements[index].adTitle,
+                            adCategory: advertisements[index].adCategory,
+                            price: "499",
+                            remainViews: advertisements[index].remainViews,
+                            animationKey: advertisements[index].id,
+                          );
+                        },
+                      );
+                    },
+                  ),
                 ),
                 const SizedBox(
                   height: 20,

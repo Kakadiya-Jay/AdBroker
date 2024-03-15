@@ -1,6 +1,9 @@
+import 'package:ad_brokers/Models/advertisement_model.dart';
+import 'package:ad_brokers/Services/ads_service.dart';
 import 'package:ad_brokers/UI/Pages/Advertisers/ongoing_ads_page.dart';
 import 'package:ad_brokers/UI/Pages/Advertisers/pending_ads_page.dart';
 import 'package:ad_brokers/UI/Pages/Advertisers/upcoming_ads_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -12,6 +15,26 @@ class MyAdsPage extends StatefulWidget {
 }
 
 class _MyAdsPageState extends State<MyAdsPage> {
+  List<Advertisements> advertisements = [];
+  final adService = AdService();
+  final advertiserUid = FirebaseAuth.instance.currentUser!.uid.toString();
+
+  @override
+  void initState() {
+    getAdvertisements();
+    super.initState();
+  }
+
+  //Get Advertisements
+  Future<void> getAdvertisements() async {
+    final adResponse =
+        await adService.getAdvertisementOfPerticularAdvertiser(advertiserUid);
+    setState(() {
+      advertisements = adResponse!;
+      print(advertisements[0].adStatus);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -33,9 +56,9 @@ class _MyAdsPageState extends State<MyAdsPage> {
             tabs: [
               Text("Ongoing", style: Theme.of(context).textTheme.titleSmall)
                   .p(2),
-              Text("Upcoming", style: Theme.of(context).textTheme.titleSmall)
-                  .p(2),
               Text("Pending", style: Theme.of(context).textTheme.titleSmall)
+                  .p(2),
+              Text("History", style: Theme.of(context).textTheme.titleSmall)
                   .p(2),
             ],
           ),
@@ -43,8 +66,8 @@ class _MyAdsPageState extends State<MyAdsPage> {
         body: const TabBarView(
           children: [
             OnGoingAdsPage(),
-            UpComingAdsPage(),
             PendingAdsPage(),
+            HistoryAdsPage(),
           ],
         ),
       ),

@@ -20,3 +20,4 @@ Publisher_Side_commit :- Publisher Side is created and user related information 
 Advertiser_Side_commit_1 :- First Commit in Advertiser side where Advertiser Business details are implemented in firebase
 
 functionality-commit-1 :- Functionality commit 1 ,In which on Advertiser side, make home page dynamic and also upload new advertisement and store data inside the render.com
+functionality-commit-2 :- Functionality commit 2 ,In which on Advertiser side, create Advertisements Model class and also create getAdsFunction() also make home page dynamic and on myAds page recieve all advertisement data.

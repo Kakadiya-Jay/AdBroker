@@ -1,7 +1,6 @@
 import 'package:ad_brokers/UI/Widgets/uihelper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ShowAdsDetailsPage extends StatefulWidget {
@@ -54,7 +53,7 @@ class _ShowAdsDetailsPageState extends State<ShowAdsDetailsPage> {
               tag: widget.animationTag,
               child: SizedBox(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height / 2,
+                height: MediaQuery.of(context).size.height * 0.50,
                 child: SizedBox(
                   width: 275,
                   height: 210,
@@ -63,7 +62,7 @@ class _ShowAdsDetailsPageState extends State<ShowAdsDetailsPage> {
                     fit: BoxFit.fill,
                     filterQuality: FilterQuality.high,
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height / 2,
+                    height: MediaQuery.of(context).size.height * 0.50,
                     loadingBuilder: (BuildContext context, Widget child,
                         ImageChunkEvent? loadingProgress) {
                       if (loadingProgress == null) {
