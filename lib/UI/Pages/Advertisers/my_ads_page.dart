@@ -2,8 +2,9 @@ import 'package:ad_brokers/Models/advertisement_model.dart';
 import 'package:ad_brokers/Services/ads_service.dart';
 import 'package:ad_brokers/UI/Pages/Advertisers/ongoing_ads_page.dart';
 import 'package:ad_brokers/UI/Pages/Advertisers/pending_ads_page.dart';
-import 'package:ad_brokers/UI/Pages/Advertisers/upcoming_ads_page.dart';
+import 'package:ad_brokers/UI/Pages/Advertisers/history_ads_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -31,8 +32,31 @@ class _MyAdsPageState extends State<MyAdsPage> {
         await adService.getAdvertisementOfPerticularAdvertiser(advertiserUid);
     setState(() {
       advertisements = adResponse!;
-      print(advertisements[0].adStatus);
     });
+    filterAllAds();
+  }
+
+  List<Advertisements> ongoingAdsList = [];
+  List<Advertisements> pendingAdsList = [];
+  List<Advertisements> historyAdsList = [];
+  int index = 0;
+  filterAllAds() {
+    for (var item in advertisements) {
+      if (advertisements[index].adStatus == "ongoing") {
+        setState(() {
+          ongoingAdsList.add(item);
+        });
+      } else if (advertisements[index].adStatus == "pending") {
+        setState(() {
+          pendingAdsList.add(item);
+        });
+      } else {
+        setState(() {
+          historyAdsList.add(item);
+        });
+      }
+      index++;
+    }
   }
 
   @override
@@ -52,6 +76,16 @@ class _MyAdsPageState extends State<MyAdsPage> {
                 .copyWith(fontWeight: FontWeight.w600),
           ),
           centerTitle: true,
+          elevation: 2.0,
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: Icon(
+                CupertinoIcons.refresh,
+                color: Theme.of(context).shadowColor,
+              ),
+            )
+          ],
           bottom: TabBar(
             tabs: [
               Text("Ongoing", style: Theme.of(context).textTheme.titleSmall)
@@ -63,11 +97,17 @@ class _MyAdsPageState extends State<MyAdsPage> {
             ],
           ),
         ),
-        body: const TabBarView(
+        body: TabBarView(
           children: [
-            OnGoingAdsPage(),
-            PendingAdsPage(),
-            HistoryAdsPage(),
+            OnGoingAdsPage(
+              ongoingAds: ongoingAdsList,
+            ),
+            PendingAdsPage(
+              pendingAds: pendingAdsList,
+            ),
+            HistoryAdsPage(
+              historyAds: historyAdsList,
+            ),
           ],
         ),
       ),

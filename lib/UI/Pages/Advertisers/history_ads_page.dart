@@ -6,18 +6,18 @@ import 'package:ad_brokers/UI/Widgets/my_ads_template_card.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class PendingAdsPage extends StatefulWidget {
-  final List<Advertisements> pendingAds;
-  const PendingAdsPage({
+class HistoryAdsPage extends StatefulWidget {
+  final List<Advertisements> historyAds;
+  const HistoryAdsPage({
     super.key,
-    required this.pendingAds,
+    required this.historyAds,
   });
 
   @override
-  State<PendingAdsPage> createState() => _PendingAdsPageState();
+  State<HistoryAdsPage> createState() => _HistoryAdsPageState();
 }
 
-class _PendingAdsPageState extends State<PendingAdsPage> {
+class _HistoryAdsPageState extends State<HistoryAdsPage> {
   String brandName = "";
 
   getUserData() async {
@@ -38,11 +38,11 @@ class _PendingAdsPageState extends State<PendingAdsPage> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: widget.pendingAds.length,
+      itemCount: widget.historyAds.length,
       shrinkWrap: true,
       scrollDirection: Axis.vertical,
       itemBuilder: (context, index) {
-        if (widget.pendingAds.isEmpty && widget.pendingAds == []) {
+        if (widget.historyAds.isEmpty && widget.historyAds == []) {
           return Center(
             child: Text(
               "No Data Available",
@@ -51,15 +51,15 @@ class _PendingAdsPageState extends State<PendingAdsPage> {
           );
         }
         return MyAdsTemplate(
-          imagePath: widget.pendingAds[index].adImageUrl,
-          adTitle: widget.pendingAds[index].adTitle,
-          remainViwes: widget.pendingAds[index].remainViews,
+          imagePath: widget.historyAds[index].adImageUrl,
+          adTitle: widget.historyAds[index].adTitle,
+          remainViwes: widget.historyAds[index].remainViews,
           noOfPlateforms: 0,
-          adStatus: widget.pendingAds[index].adStatus,
+          adStatus: widget.historyAds[index].adStatus,
           noOfDaysLeft: 0,
-          adCategory: widget.pendingAds[index].adCategory,
+          adCategory: widget.historyAds[index].adCategory,
           brandName: brandName,
-          animationKey: widget.pendingAds[index].id,
+          animationKey: widget.historyAds[index].id,
           price: "499",
         );
       },
