@@ -3,14 +3,14 @@
 import 'package:ad_brokers/UI/Widgets/my_ads_template_card.dart';
 import 'package:flutter/cupertino.dart';
 
-class UpComingAdsPage extends StatefulWidget {
-  const UpComingAdsPage({super.key});
+class HistoryAdsPage extends StatefulWidget {
+  const HistoryAdsPage({super.key});
 
   @override
-  State<UpComingAdsPage> createState() => _UpComingAdsPageState();
+  State<HistoryAdsPage> createState() => _HistoryAdsPageState();
 }
 
-class _UpComingAdsPageState extends State<UpComingAdsPage> {
+class _HistoryAdsPageState extends State<HistoryAdsPage> {
   @override
   Widget build(BuildContext context) {
     return ListView(
