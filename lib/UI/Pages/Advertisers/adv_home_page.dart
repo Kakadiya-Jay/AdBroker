@@ -3,6 +3,7 @@
 import 'package:ad_brokers/Helpers/helper_function.dart';
 import 'package:ad_brokers/Models/advertisement_model.dart';
 import 'package:ad_brokers/Services/ads_service.dart';
+import 'package:ad_brokers/UI/Pages/Advertisers/search_ads_page.dart';
 import 'package:ad_brokers/UI/Widgets/ads_template_card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -263,7 +264,13 @@ class _AdvHomePageState extends State<AdvHomePage> {
                     const Spacer(),
                     GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, "/adv/myAdsPage");
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                SearchAdsPage(advertisements: advertisements),
+                          ),
+                        );
                       },
                       child: Row(
                         children: [
