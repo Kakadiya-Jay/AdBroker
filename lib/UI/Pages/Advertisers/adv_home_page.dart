@@ -22,6 +22,7 @@ class _AdvHomePageState extends State<AdvHomePage> {
   String userRole = "";
   String userImageUrl = "";
   String brandName = "";
+  String brandURL = "";
   bool isImageLoaded = true;
 
   @override
@@ -51,6 +52,11 @@ class _AdvHomePageState extends State<AdvHomePage> {
     await HelperFunctions.getAdvBrandNameSF().then((val) {
       setState(() {
         brandName = val!;
+      });
+    });
+    await HelperFunctions.getAdvBrandURLSF().then((val) {
+      setState(() {
+        brandURL = val!;
       });
     });
   }
@@ -331,9 +337,11 @@ class _AdvHomePageState extends State<AdvHomePage> {
                           return AdsTemplateCard(
                             imagePath: advertisements[index].adImageUrl,
                             brandName: brandName,
+                            brandURL: brandURL,
                             adsStatus: advertisements[index].adStatus,
                             adTitle: advertisements[index].adTitle,
                             adCategory: advertisements[index].adCategory,
+                            adType: advertisements[index].adType,
                             price: "499",
                             remainViews: advertisements[index].remainViews,
                             animationKey: advertisements[index].id,

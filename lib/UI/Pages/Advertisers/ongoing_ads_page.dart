@@ -19,11 +19,17 @@ class OnGoingAdsPage extends StatefulWidget {
 
 class _OnGoingAdsPageState extends State<OnGoingAdsPage> {
   String brandName = "";
+  String brandURL = "";
 
   getUserData() async {
     await HelperFunctions.getAdvBrandNameSF().then((value) {
       setState(() {
         brandName = value!;
+      });
+    });
+    await HelperFunctions.getAdvBrandURLSF().then((value) {
+      setState(() {
+        brandURL = value!;
       });
     });
   }
@@ -58,7 +64,9 @@ class _OnGoingAdsPageState extends State<OnGoingAdsPage> {
           adStatus: widget.ongoingAds[index].adStatus,
           noOfDaysLeft: 0,
           adCategory: widget.ongoingAds[index].adCategory,
+          adType: widget.ongoingAds[index].adType,
           brandName: brandName,
+          brandURL: brandURL,
           animationKey: widget.ongoingAds[index].id,
           price: "499",
         );

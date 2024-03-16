@@ -19,11 +19,17 @@ class HistoryAdsPage extends StatefulWidget {
 
 class _HistoryAdsPageState extends State<HistoryAdsPage> {
   String brandName = "";
+  String brandURL = "";
 
   getUserData() async {
     await HelperFunctions.getAdvBrandNameSF().then((value) {
       setState(() {
         brandName = value!;
+      });
+    });
+    await HelperFunctions.getAdvBrandURLSF().then((value) {
+      setState(() {
+        brandURL = value!;
       });
     });
   }
@@ -58,7 +64,9 @@ class _HistoryAdsPageState extends State<HistoryAdsPage> {
           adStatus: widget.historyAds[index].adStatus,
           noOfDaysLeft: 0,
           adCategory: widget.historyAds[index].adCategory,
+          adType: widget.historyAds[index].adType,
           brandName: brandName,
+          brandURL: brandURL,
           animationKey: widget.historyAds[index].id,
           price: "499",
         );

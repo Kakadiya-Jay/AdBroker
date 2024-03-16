@@ -19,6 +19,7 @@ class SearchAdsPage extends StatefulWidget {
 
 class _SearchAdsPageState extends State<SearchAdsPage> {
   String brandName = "";
+  String brandURL = "";
   final searchingText = TextEditingController();
   late List<Advertisements> filteredAds;
 
@@ -26,6 +27,11 @@ class _SearchAdsPageState extends State<SearchAdsPage> {
     await HelperFunctions.getAdvBrandNameSF().then((value) {
       setState(() {
         brandName = value!;
+      });
+    });
+    await HelperFunctions.getAdvBrandNameSF().then((value) {
+      setState(() {
+        brandURL = value!;
       });
     });
   }
@@ -158,7 +164,9 @@ class _SearchAdsPageState extends State<SearchAdsPage> {
                     adStatus: advertisement.adStatus,
                     noOfDaysLeft: 0,
                     adCategory: advertisement.adCategory,
+                    adType: advertisement.adType,
                     brandName: brandName,
+                    brandURL: brandURL,
                     animationKey: advertisement.id,
                     price: "499",
                   );
