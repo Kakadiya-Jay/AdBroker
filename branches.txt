@@ -23,3 +23,4 @@ functionality-commit-1 :- Functionality commit 1 ,In which on Advertiser side, m
 functionality-commit-2 :- Functionality commit 2 ,In which on Advertiser side, create Advertisements Model class and also create getAdsFunction() also make home page dynamic and on myAds page recieve all advertisement data.
 functionality-commit-3 :- Functionality commit 3 ,In which on Advertiser side, create dynamic in myAds page and filter ads accoeding to their status and then create search Ads page UI.
 functionality-commit-4 :- Functionality commit 4 ,In which on Advertiser side, create search ads and filter ads page then create half format of ad analysis pdf file but main thing is that i want to store network image into local storage.
+functionality-commit-5 :- Functionality commit 5 ,In which on Advertiser side, convert page into pdf but one main thing is missing image is put static it will solve later.

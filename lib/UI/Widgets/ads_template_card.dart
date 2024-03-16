@@ -8,8 +8,10 @@ class AdsTemplateCard extends StatelessWidget {
   final String imagePath;
   final num remainViews;
   final String brandName;
+  final String brandURL;
   final String adTitle;
   final String adCategory;
+  final String adType;
   final num noOfPlatforms;
   final String adsStatus;
   final String price;
@@ -20,10 +22,12 @@ class AdsTemplateCard extends StatelessWidget {
     required this.imagePath,
     required this.remainViews,
     required this.brandName,
+    required this.brandURL,
     required this.adsStatus,
     required this.price,
     required this.adTitle,
     required this.adCategory,
+    required this.adType,
     required this.animationKey,
     this.noOfDaysLeft = 0,
     this.noOfPlatforms = 0,
@@ -40,6 +44,8 @@ class AdsTemplateCard extends StatelessWidget {
               brandName: brandName,
               adTitle: adTitle,
               adCategory: adCategory,
+              adType: adType,
+              brandURL: brandURL,
               noOfPlatforms: noOfPlatforms,
               noOfDaysLeft: noOfDaysLeft,
               remainViews: remainViews,

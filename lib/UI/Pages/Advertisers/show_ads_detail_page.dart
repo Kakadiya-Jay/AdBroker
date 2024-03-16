@@ -1,12 +1,14 @@
-import 'package:ad_brokers/UI/Widgets/uihelper.dart';
+import 'package:ad_brokers/Services/pdf_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ShowAdsDetailsPage extends StatefulWidget {
   final String brandName;
+  final String brandURL;
   final String adTitle;
   final String adCategory;
+  final String adType;
   final num noOfPlatforms;
   final num noOfDaysLeft;
   final num remainViews;
@@ -18,8 +20,10 @@ class ShowAdsDetailsPage extends StatefulWidget {
   const ShowAdsDetailsPage({
     super.key,
     required this.brandName,
+    required this.brandURL,
     required this.adTitle,
     required this.adCategory,
+    required this.adType,
     required this.noOfPlatforms,
     required this.noOfDaysLeft,
     required this.remainViews,
@@ -34,6 +38,7 @@ class ShowAdsDetailsPage extends StatefulWidget {
 }
 
 class _ShowAdsDetailsPageState extends State<ShowAdsDetailsPage> {
+  final pdfService = PDFService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +51,22 @@ class _ShowAdsDetailsPageState extends State<ShowAdsDetailsPage> {
         centerTitle: true,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              pdfService.createAdAnalysisPDF(
+                context,
+                widget.brandName,
+                widget.brandURL,
+                widget.adTitle,
+                widget.adCategory,
+                widget.imagePath,
+                widget.adType,
+                widget.remainViews,
+                widget.noOfPlatforms,
+                widget.price,
+                widget.noOfDaysLeft,
+                widget.adsStatus,
+              );
+            },
             icon: Icon(
               Icons.download_rounded,
               color: Theme.of(context).shadowColor,
@@ -99,6 +119,13 @@ class _ShowAdsDetailsPageState extends State<ShowAdsDetailsPage> {
               style: Theme.of(context).textTheme.displayMedium,
             ).centered(),
             const SizedBox(
+              height: 10,
+            ),
+            Text(
+              widget.brandURL,
+              style: Theme.of(context).textTheme.displaySmall,
+            ).centered(),
+            const SizedBox(
               height: 30,
             ),
             SizedBox(
@@ -135,6 +162,22 @@ class _ShowAdsDetailsPageState extends State<ShowAdsDetailsPage> {
                       DataCell(
                         Text(
                           widget.adCategory,
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+                      ),
+                    ],
+                  ),
+                  DataRow(
+                    cells: [
+                      DataCell(
+                        Text(
+                          "Type",
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+                      ),
+                      DataCell(
+                        Text(
+                          widget.adType,
                           style: Theme.of(context).textTheme.titleSmall,
                         ),
                       ),
@@ -243,9 +286,19 @@ class _ShowAdsDetailsPageState extends State<ShowAdsDetailsPage> {
             ),
             CupertinoButton(
               onPressed: () {
-                UiHelper.customSnackBar(
+                pdfService.createAdAnalysisPDF(
                   context,
-                  "Download Feature Coming soon..",
+                  widget.brandName,
+                  widget.brandURL,
+                  widget.adTitle,
+                  widget.adCategory,
+                  widget.imagePath,
+                  widget.adType,
+                  widget.remainViews,
+                  widget.noOfPlatforms,
+                  widget.price,
+                  widget.noOfDaysLeft,
+                  widget.adsStatus,
                 );
               },
               color: Colors.purple,

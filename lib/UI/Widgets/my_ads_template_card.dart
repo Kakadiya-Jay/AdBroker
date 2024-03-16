@@ -11,7 +11,9 @@ class MyAdsTemplate extends StatelessWidget {
   final String adStatus;
   final num noOfDaysLeft;
   final String brandName;
+  final String brandURL;
   final String adCategory;
+  final String adType;
   final String price;
   final String animationKey;
 
@@ -24,7 +26,9 @@ class MyAdsTemplate extends StatelessWidget {
     required this.adStatus,
     required this.noOfDaysLeft,
     required this.brandName,
+    required this.brandURL,
     required this.adCategory,
+    required this.adType,
     required this.price,
     required this.animationKey,
   });
@@ -38,8 +42,10 @@ class MyAdsTemplate extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => ShowAdsDetailsPage(
               brandName: brandName,
+              brandURL: brandURL,
               adTitle: adTitle,
               adCategory: adCategory,
+              adType: adType,
               noOfPlatforms: noOfPlatforms,
               noOfDaysLeft: noOfDaysLeft,
               remainViews: remainViews,
