@@ -53,8 +53,8 @@ class _OnGoingAdsPageState extends State<OnGoingAdsPage> {
         return MyAdsTemplate(
           imagePath: widget.ongoingAds[index].adImageUrl,
           adTitle: widget.ongoingAds[index].adTitle,
-          remainViwes: widget.ongoingAds[index].remainViews,
-          noOfPlateforms: 0,
+          remainViews: widget.ongoingAds[index].remainViews,
+          noOfPlatforms: 0,
           adStatus: widget.ongoingAds[index].adStatus,
           noOfDaysLeft: 0,
           adCategory: widget.ongoingAds[index].adCategory,

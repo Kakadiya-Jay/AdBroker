@@ -6,8 +6,8 @@ import 'package:velocity_x/velocity_x.dart';
 class MyAdsTemplate extends StatelessWidget {
   final String imagePath;
   final String adTitle;
-  final num remainViwes;
-  final num noOfPlateforms;
+  final num remainViews;
+  final num noOfPlatforms;
   final String adStatus;
   final num noOfDaysLeft;
   final String brandName;
@@ -19,8 +19,8 @@ class MyAdsTemplate extends StatelessWidget {
     super.key,
     required this.imagePath,
     required this.adTitle,
-    required this.remainViwes,
-    required this.noOfPlateforms,
+    required this.remainViews,
+    required this.noOfPlatforms,
     required this.adStatus,
     required this.noOfDaysLeft,
     required this.brandName,
@@ -31,58 +31,77 @@ class MyAdsTemplate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Theme.of(context).scaffoldBackgroundColor,
-      elevation: 4.0,
-      child: SizedBox(
-        height: 200,
-        width: MediaQuery.of(context).size.width,
-        child: Row(
-          children: [
-            Container(
-              height: 180,
-              width: MediaQuery.of(context).size.width / 2,
-              decoration: ShapeDecoration(
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(
-                    width: 1.7,
-                    color: adStatus == "ongoing"
-                        ? Colors.green
-                        : adStatus == "pending"
-                            ? Colors.red
-                            : Colors.blue,
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ShowAdsDetailsPage(
+              brandName: brandName,
+              adTitle: adTitle,
+              adCategory: adCategory,
+              noOfPlatforms: noOfPlatforms,
+              noOfDaysLeft: noOfDaysLeft,
+              remainViews: remainViews,
+              imagePath: imagePath,
+              adsStatus: adStatus,
+              price: price,
+              animationTag: animationKey,
+            ),
+          ),
+        );
+      },
+      child: Card(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        elevation: 4.0,
+        child: SizedBox(
+          height: 200,
+          width: MediaQuery.of(context).size.width,
+          child: Row(
+            children: [
+              Container(
+                height: 180,
+                width: MediaQuery.of(context).size.width / 2,
+                decoration: ShapeDecoration(
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      width: 1.7,
+                      color: adStatus == "ongoing"
+                          ? Colors.green
+                          : adStatus == "pending"
+                              ? Colors.red
+                              : Colors.blue,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                  borderRadius: BorderRadius.circular(8),
                 ),
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(6),
-                child: Image.network(
-                  imagePath,
-                  fit: BoxFit.fill,
-                  filterQuality: FilterQuality.high,
-                  loadingBuilder: (BuildContext context, Widget child,
-                      ImageChunkEvent? loadingProgress) {
-                    if (loadingProgress == null) {
-                      return child;
-                    }
-                    return Center(
-                      child: CircularProgressIndicator(
-                        color: Theme.of(context).shadowColor,
-                        value: loadingProgress.expectedTotalBytes != null
-                            ? loadingProgress.cumulativeBytesLoaded /
-                                loadingProgress.expectedTotalBytes!
-                            : null,
-                      ),
-                    );
-                  },
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(6),
+                  child: Image.network(
+                    imagePath,
+                    fit: BoxFit.fill,
+                    filterQuality: FilterQuality.high,
+                    loadingBuilder: (BuildContext context, Widget child,
+                        ImageChunkEvent? loadingProgress) {
+                      if (loadingProgress == null) {
+                        return child;
+                      }
+                      return Center(
+                        child: CircularProgressIndicator(
+                          color: Theme.of(context).shadowColor,
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes!
+                              : null,
+                        ),
+                      );
+                    },
+                  ),
                 ),
-              ),
-            ).px(8),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Column(
+              ).px(8),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(
@@ -91,14 +110,14 @@ class MyAdsTemplate extends StatelessWidget {
                     Text(
                       adTitle,
                       maxLines: 1,
-                      textAlign: TextAlign.left,
+                      textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.labelSmall,
                     ),
                     const SizedBox(
                       height: 10,
                     ),
                     Text(
-                      "Viwes: $remainViwes",
+                      "Viwes: $remainViews",
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                     const SizedBox(
@@ -128,56 +147,20 @@ class MyAdsTemplate extends StatelessWidget {
                                   .titleSmall!
                                   .copyWith(color: Colors.blue),
                     ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ShowAdsDetailsPage(
-                              brandName: brandName,
-                              adTitle: adTitle,
-                              adCategory: adCategory,
-                              noOfPlatforms: noOfPlateforms,
-                              noOfDaysLeft: noOfDaysLeft,
-                              remainViews: remainViwes,
-                              imagePath: imagePath,
-                              adsStatus: adStatus,
-                              price: price,
-                              animationTag: animationKey,
-                            ),
-                          ),
-                        );
-                      },
-                      style: TextButton.styleFrom(
-                        backgroundColor: Colors.deepPurple,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      child: const Row(
-                        children: [
-                          Text(
-                            "View ",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Icon(
-                            CupertinoIcons.arrow_right,
-                            color: Colors.white,
-                            size: 14,
-                          ),
-                        ],
-                      ),
-                    ).pOnly(left: 16, right: 0, top: 4, bottom: 4),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Platforms :${noOfPlatforms.toString()}",
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
                   ],
-                ),
-              ],
-            ).pSymmetric(h: 8, v: 6),
-          ],
+                ).pSymmetric(h: 8, v: 6),
+              ),
+            ],
+          ),
         ),
-      ),
-    ).pSymmetric(h: 8, v: 2);
+      ).pSymmetric(h: 8, v: 2),
+    );
   }
 }
