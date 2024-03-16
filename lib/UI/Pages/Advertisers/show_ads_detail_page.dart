@@ -44,6 +44,15 @@ class _ShowAdsDetailsPageState extends State<ShowAdsDetailsPage> {
           style: Theme.of(context).textTheme.displayMedium,
         ),
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.download_rounded,
+              color: Theme.of(context).shadowColor,
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(

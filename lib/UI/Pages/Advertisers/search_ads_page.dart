@@ -3,11 +3,11 @@ import 'package:ad_brokers/Models/advertisement_model.dart';
 import 'package:ad_brokers/UI/Widgets/my_ads_template_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class SearchAdsPage extends StatefulWidget {
   final List<Advertisements> advertisements;
+
   const SearchAdsPage({
     super.key,
     required this.advertisements,
@@ -19,6 +19,8 @@ class SearchAdsPage extends StatefulWidget {
 
 class _SearchAdsPageState extends State<SearchAdsPage> {
   String brandName = "";
+  final searchingText = TextEditingController();
+  late List<Advertisements> filteredAds;
 
   getUserData() async {
     await HelperFunctions.getAdvBrandNameSF().then((value) {
@@ -28,11 +30,32 @@ class _SearchAdsPageState extends State<SearchAdsPage> {
     });
   }
 
+  void filterAdsByAdTitle(String query) {
+    setState(() {
+      if (query.isNotEmpty) {
+        filteredAds = widget.advertisements
+            .where(
+                (ad) => ad.adTitle.toLowerCase().contains(query.toLowerCase()))
+            .toList();
+      } else {
+        filteredAds = widget.advertisements;
+      }
+    });
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     getUserData();
+    filteredAds = widget.advertisements;
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    searchingText.dispose();
+    super.dispose();
   }
 
   @override
@@ -49,10 +72,13 @@ class _SearchAdsPageState extends State<SearchAdsPage> {
         actions: [
           IconButton(
             onPressed: () {
-              setState(() {});
+              setState(() {
+                filteredAds = widget.advertisements;
+              });
             },
             icon: Icon(
-              CupertinoIcons.refresh,
+              // CupertinoIcons.refresh,
+              Icons.refresh,
               color: Theme.of(context).shadowColor,
             ),
           ),
@@ -68,17 +94,30 @@ class _SearchAdsPageState extends State<SearchAdsPage> {
               ),
               Text(
                 "Search ads by ads title",
-                style: Theme.of(context).textTheme.titleSmall,
-              ),
-              const SizedBox(
-                height: 10,
-              ),
+                style: Theme.of(context).textTheme.displaySmall,
+              ).pSymmetric(h: 16,v: 8),
+              const SizedBox(height: 4,),
               TextFormField(
                 keyboardType: TextInputType.text,
+                controller: searchingText,
+                onChanged: (value) {
+                  filterAdsByAdTitle(value);
+                },
                 decoration: InputDecoration(
                   prefixIcon: const Icon(
                     CupertinoIcons.search,
                   ).scale(scaleValue: 1.2),
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      searchingText.clear();
+                      setState(() {
+                        filteredAds = widget.advertisements;
+                      });
+                    },
+                    icon: const Icon(
+                      Icons.cancel_outlined,
+                    ).scale(scaleValue: 1.2),
+                  ),
                   filled: true,
                   fillColor: const Color.fromARGB(255, 194, 194, 194),
                   hintText: "Search Ads",
@@ -92,18 +131,17 @@ class _SearchAdsPageState extends State<SearchAdsPage> {
                     borderRadius: BorderRadius.circular(12.0),
                   ),
                 ),
-              ),
+              ).pSymmetric(h: 16),
               const SizedBox(
                 height: 10,
               ),
               ListView.builder(
-                itemCount: widget.advertisements.length,
+                itemCount: filteredAds.length,
                 shrinkWrap: true,
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.vertical,
                 itemBuilder: (context, index) {
-                  if (widget.advertisements.isEmpty &&
-                      widget.advertisements == []) {
+                  if (filteredAds.isEmpty && filteredAds == []) {
                     return Center(
                       child: Text(
                         "No Data Available",
@@ -111,22 +149,23 @@ class _SearchAdsPageState extends State<SearchAdsPage> {
                       ),
                     );
                   }
+                  var advertisement = filteredAds[index];
                   return MyAdsTemplate(
-                    imagePath: widget.advertisements[index].adImageUrl,
-                    adTitle: widget.advertisements[index].adTitle,
-                    remainViwes: widget.advertisements[index].remainViews,
-                    noOfPlateforms: 0,
-                    adStatus: widget.advertisements[index].adStatus,
+                    imagePath: advertisement.adImageUrl,
+                    adTitle: advertisement.adTitle,
+                    remainViews: advertisement.remainViews,
+                    noOfPlatforms: 0,
+                    adStatus: advertisement.adStatus,
                     noOfDaysLeft: 0,
-                    adCategory: widget.advertisements[index].adCategory,
+                    adCategory: advertisement.adCategory,
                     brandName: brandName,
-                    animationKey: widget.advertisements[index].id,
+                    animationKey: advertisement.id,
                     price: "499",
                   );
                 },
               ).pSymmetric(v: 8)
             ],
-          ).p8(),
+          ),
         ),
       ),
     );

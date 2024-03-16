@@ -53,8 +53,8 @@ class _HistoryAdsPageState extends State<HistoryAdsPage> {
         return MyAdsTemplate(
           imagePath: widget.historyAds[index].adImageUrl,
           adTitle: widget.historyAds[index].adTitle,
-          remainViwes: widget.historyAds[index].remainViews,
-          noOfPlateforms: 0,
+          remainViews: widget.historyAds[index].remainViews,
+          noOfPlatforms: 0,
           adStatus: widget.historyAds[index].adStatus,
           noOfDaysLeft: 0,
           adCategory: widget.historyAds[index].adCategory,

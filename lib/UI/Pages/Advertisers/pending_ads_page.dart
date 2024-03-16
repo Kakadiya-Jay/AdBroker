@@ -53,8 +53,8 @@ class _PendingAdsPageState extends State<PendingAdsPage> {
         return MyAdsTemplate(
           imagePath: widget.pendingAds[index].adImageUrl,
           adTitle: widget.pendingAds[index].adTitle,
-          remainViwes: widget.pendingAds[index].remainViews,
-          noOfPlateforms: 0,
+          remainViews: widget.pendingAds[index].remainViews,
+          noOfPlatforms: 0,
           adStatus: widget.pendingAds[index].adStatus,
           noOfDaysLeft: 0,
           adCategory: widget.pendingAds[index].adCategory,
