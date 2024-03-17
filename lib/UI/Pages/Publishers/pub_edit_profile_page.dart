@@ -49,7 +49,6 @@ class _PubEditProfilePageState extends State<PubEditProfilePage> {
         source: source,
         maxWidth: 720,
         maxHeight: 720,
-        imageQuality: 85,
       );
 
       if (image == null) return null;
@@ -125,37 +124,37 @@ class _PubEditProfilePageState extends State<PubEditProfilePage> {
                         width: 120,
                         child: image != null
                             ? ClipRRect(
-                          borderRadius: BorderRadius.circular(100),
-                          child: Image.file(
-                            File(image!.path),
-                            fit: BoxFit.fill,
-                            filterQuality: FilterQuality.high,
-                            height: 120,
-                            width: 120,
-                          ),
-                        )
+                                borderRadius: BorderRadius.circular(100),
+                                child: Image.file(
+                                  File(image!.path),
+                                  fit: BoxFit.fill,
+                                  filterQuality: FilterQuality.high,
+                                  height: 120,
+                                  width: 120,
+                                ),
+                              )
                             : widget.userImageUrl == ""
-                            ? CircleAvatar(
-                          backgroundColor: const Color(0xffFFE501),
-                          child: Text(
-                            widget.userName[0].toUpperCase(),
-                            style: const TextStyle(
-                              color: Color(0xFF3C096C),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 72,
-                            ),
-                          ),
-                        )
-                            : ClipRRect(
-                          borderRadius: BorderRadius.circular(100),
-                          child: Image.network(
-                            widget.userImageUrl,
-                            fit: BoxFit.fill,
-                            filterQuality: FilterQuality.high,
-                            height: 120,
-                            width: 120,
-                          ),
-                        ),
+                                ? CircleAvatar(
+                                    backgroundColor: const Color(0xffFFE501),
+                                    child: Text(
+                                      widget.userName[0].toUpperCase(),
+                                      style: const TextStyle(
+                                        color: Color(0xFF3C096C),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 72,
+                                      ),
+                                    ),
+                                  )
+                                : ClipRRect(
+                                    borderRadius: BorderRadius.circular(100),
+                                    child: Image.network(
+                                      widget.userImageUrl,
+                                      fit: BoxFit.fill,
+                                      filterQuality: FilterQuality.high,
+                                      height: 120,
+                                      width: 120,
+                                    ),
+                                  ),
                       ),
                       Positioned(
                         bottom: 0,
@@ -181,25 +180,25 @@ class _PubEditProfilePageState extends State<PubEditProfilePage> {
                   onPressed: image == null
                       ? null
                       : () async {
-                    UiHelper.customSnackBar(
-                      context,
-                      "Wait A Moment,\nImage is stored in a moment",
-                    );
-                    await uploadImageToStorage().then((value) {
-                      if (value != null) {
-                        UiHelper.customAlertBox(
-                          context,
-                          "Image Uploaded SuccessFully",
-                        );
-                        setState(() {
-                          imageUrl = value.toString();
-                        });
-                      } else {
-                        UiHelper.customErrorSnackBar(
-                            context, value.toString());
-                      }
-                    });
-                  },
+                          UiHelper.customSnackBar(
+                            context,
+                            "Wait A Moment,\nImage is stored in a moment",
+                          );
+                          await uploadImageToStorage().then((value) {
+                            if (value != null) {
+                              UiHelper.customAlertBox(
+                                context,
+                                "Image Uploaded SuccessFully",
+                              );
+                              setState(() {
+                                imageUrl = value.toString();
+                              });
+                            } else {
+                              UiHelper.customErrorSnackBar(
+                                  context, value.toString());
+                            }
+                          });
+                        },
                   color: const Color(0xffFFE501),
                   child: const Text(
                     "Upload Image",
@@ -233,7 +232,7 @@ class _PubEditProfilePageState extends State<PubEditProfilePage> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                       borderSide:
-                      const BorderSide(width: 1, color: Colors.black),
+                          const BorderSide(width: 1, color: Colors.black),
                     ),
                   ),
                 ),
@@ -255,7 +254,7 @@ class _PubEditProfilePageState extends State<PubEditProfilePage> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                       borderSide:
-                      const BorderSide(width: 1, color: Colors.black),
+                          const BorderSide(width: 1, color: Colors.black),
                     ),
                   ),
                 ),
@@ -276,7 +275,7 @@ class _PubEditProfilePageState extends State<PubEditProfilePage> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                       borderSide:
-                      const BorderSide(width: 1, color: Colors.black),
+                          const BorderSide(width: 1, color: Colors.black),
                     ),
                   ),
                 ),
@@ -290,16 +289,16 @@ class _PubEditProfilePageState extends State<PubEditProfilePage> {
                     onPressed: imageUrl == ""
                         ? null
                         : () {
-                      if (widget.userName != "" &&
-                          widget.userEmail != "" &&
-                          widget.userContact != "" &&
-                          imageUrl != "") {
-                        updateAdvertiserProfile();
-                      } else {
-                        UiHelper.customAlertBox(context,
-                            "Enter Required Fields or Upload New Image");
-                      }
-                    },
+                            if (widget.userName != "" &&
+                                widget.userEmail != "" &&
+                                widget.userContact != "" &&
+                                imageUrl != "") {
+                              updateAdvertiserProfile();
+                            } else {
+                              UiHelper.customAlertBox(context,
+                                  "Enter Required Fields or Upload New Image");
+                            }
+                          },
                     color: const Color(0xffFFE501),
                     child: const Text(
                       "Edit Profile",

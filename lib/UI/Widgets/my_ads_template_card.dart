@@ -157,7 +157,7 @@ class MyAdsTemplate extends StatelessWidget {
                       height: 10,
                     ),
                     Text(
-                      "Platforms :${noOfPlatforms.toString()}",
+                      "Platforms : ${noOfPlatforms.toString()}",
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                   ],

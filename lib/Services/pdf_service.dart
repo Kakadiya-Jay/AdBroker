@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:ad_brokers/UI/Widgets/uihelper.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:open_filex/open_filex.dart';
-import 'package:printing/printing.dart';
+import 'package:http/http.dart' as http;
 
 class PDFService {
   Future<void> createAdAnalysisPDF(
@@ -28,12 +29,11 @@ class PDFService {
     try {
       final pdf = pw.Document();
 
+      // final image =
+      //     await imageFromAssetBundle("assets/images/Sample-Ad-Image-1.jpg");
       // Fetch the image from network
-      // final http.Response response = await http.get(Uri.parse(imagePath));
-      // final Uint8List imageData = response.bodyBytes;
-      // final MemoryImage imageProvider= MemoryImage(imageData);
-      final image =
-          await imageFromAssetBundle("assets/images/Sample-Ad-Image-1.jpg");
+      final http.Response response = await http.get(Uri.parse(imagePath));
+      final Uint8List imagebyte = response.bodyBytes;
       pdf.addPage(
         pw.Page(
           pageFormat: PdfPageFormat.a4,
@@ -62,23 +62,15 @@ class PDFService {
                     ),
                     pw.Center(
                       child: pw.Image(
-                        image,
+                        pw.MemoryImage(imagebyte),
                         fit: pw.BoxFit.contain,
-                        height: 300,
-                        width: 300,
+                        height: 400,
+                        width: 400,
                       ),
                     ),
                     pw.SizedBox(
-                      height: 10,
+                      height: 20,
                     ),
-                    pw.Text(
-                      "Actual Imagepath = $imagePath",
-                      textAlign: pw.TextAlign.center,
-                      style: const pw.TextStyle(
-                        fontSize: 14.00,
-                      ),
-                    ),
-                    pw.SizedBox(height: 20),
                     pw.Center(
                       child: pw.Text(
                         brandName,
