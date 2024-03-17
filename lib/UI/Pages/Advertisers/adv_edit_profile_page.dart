@@ -47,7 +47,6 @@ class _AdvEditProfilePageState extends State<AdvEditProfilePage> {
         source: source,
         maxWidth: 720,
         maxHeight: 720,
-        imageQuality: 85,
       );
 
       if (image == null) return null;
