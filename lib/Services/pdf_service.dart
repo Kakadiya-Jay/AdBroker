@@ -61,11 +61,15 @@ class PDFService {
                       height: 10,
                     ),
                     pw.Center(
-                      child: pw.Image(
-                        pw.MemoryImage(imagebyte),
-                        fit: pw.BoxFit.contain,
+                      child: pw.Container(
                         height: 400,
                         width: 400,
+                        child: pw.Image(
+                          pw.MemoryImage(imagebyte),
+                          fit: pw.BoxFit.contain,
+                          height: 400,
+                          width: 400,
+                        ),
                       ),
                     ),
                     pw.SizedBox(

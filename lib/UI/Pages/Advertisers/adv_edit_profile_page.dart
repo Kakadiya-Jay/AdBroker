@@ -106,6 +106,7 @@ class _AdvEditProfilePageState extends State<AdvEditProfilePage> {
           "Edit Profile",
           style: Theme.of(context).textTheme.titleLarge,
         ),
+        iconTheme: IconThemeData(color: Theme.of(context).shadowColor,),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         centerTitle: true,
       ),

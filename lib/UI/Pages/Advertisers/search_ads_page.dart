@@ -51,7 +51,6 @@ class _SearchAdsPageState extends State<SearchAdsPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     getUserData();
     filteredAds = widget.advertisements;
     super.initState();
@@ -59,7 +58,6 @@ class _SearchAdsPageState extends State<SearchAdsPage> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     searchingText.dispose();
     super.dispose();
   }
@@ -74,13 +72,18 @@ class _SearchAdsPageState extends State<SearchAdsPage> {
         ),
         centerTitle: true,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        iconTheme: IconThemeData(
+          color: Theme.of(context).shadowColor,
+        ),
         elevation: 2.0,
         actions: [
           IconButton(
             onPressed: () {
-              setState(() {
-                filteredAds = widget.advertisements;
-              });
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                "/adv/frontPage",
+                (route) => false,
+              );
             },
             icon: Icon(
               // CupertinoIcons.refresh,
@@ -101,8 +104,10 @@ class _SearchAdsPageState extends State<SearchAdsPage> {
               Text(
                 "Search ads by ads title",
                 style: Theme.of(context).textTheme.displaySmall,
-              ).pSymmetric(h: 16,v: 8),
-              const SizedBox(height: 4,),
+              ).pSymmetric(h: 16, v: 8),
+              const SizedBox(
+                height: 4,
+              ),
               TextFormField(
                 keyboardType: TextInputType.text,
                 controller: searchingText,
@@ -130,9 +135,7 @@ class _SearchAdsPageState extends State<SearchAdsPage> {
                   border: OutlineInputBorder(
                     borderSide: const BorderSide(
                       width: 1,
-                      color: Color(
-                        0xFF4F5359,
-                      ),
+                      color: Color(0xFF4F5359),
                     ),
                     borderRadius: BorderRadius.circular(12.0),
                   ),

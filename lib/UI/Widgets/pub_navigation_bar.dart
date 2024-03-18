@@ -35,9 +35,6 @@ class _PubNavigationBarTemplateState extends State<PubNavigationBarTemplate> {
         },
         currentIndex: myIndex,
         type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color(0xFF3C096C),
-        selectedItemColor: Colors.white,
-        unselectedItemColor: const Color.fromARGB(255, 134, 159, 173),
         items: const [
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.home),

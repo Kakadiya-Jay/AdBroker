@@ -36,10 +36,6 @@ class _AdvNavigationBarTemplateState extends State<AdvNavigationBarTemplate> {
         },
         currentIndex: myIndex,
         type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color(0xFF3C096C),
-        // backgroundColor: const Color(0xff163648),
-        selectedItemColor: Colors.white,
-        unselectedItemColor: const Color.fromARGB(255, 134, 159, 173),
         items: const [
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.home),

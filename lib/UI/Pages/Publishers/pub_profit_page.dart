@@ -15,6 +15,9 @@ class _ProfitPageState extends State<ProfitPage> {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        iconTheme: IconThemeData(
+          color: Theme.of(context).shadowColor,
+        ),
         elevation: 2.0,
         title: Text(
           "Profit",

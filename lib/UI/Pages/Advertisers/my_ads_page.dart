@@ -68,6 +68,9 @@ class _MyAdsPageState extends State<MyAdsPage> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         appBar: AppBar(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          iconTheme: IconThemeData(
+            color: Theme.of(context).shadowColor,
+          ),
           title: Text(
             "Ads Page",
             style: Theme.of(context)
@@ -79,7 +82,13 @@ class _MyAdsPageState extends State<MyAdsPage> {
           elevation: 2.0,
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamedAndRemoveUntil(
+                context,
+                "/adv/frontPage",
+                (route) => false,
+              );
+              },
               icon: Icon(
                 CupertinoIcons.refresh,
                 color: Theme.of(context).shadowColor,

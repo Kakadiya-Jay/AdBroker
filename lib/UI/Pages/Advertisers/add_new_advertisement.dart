@@ -126,6 +126,9 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 2.0,
         centerTitle: true,
+        iconTheme: IconThemeData(
+          color: Theme.of(context).shadowColor,
+        ),
         title: Text(
           brandName,
           style: Theme.of(context).textTheme.displayMedium,

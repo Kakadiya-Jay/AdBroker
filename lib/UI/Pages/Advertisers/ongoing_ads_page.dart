@@ -40,7 +40,7 @@ class _OnGoingAdsPageState extends State<OnGoingAdsPage> {
     getUserData();
     super.initState();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -48,28 +48,29 @@ class _OnGoingAdsPageState extends State<OnGoingAdsPage> {
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
       itemBuilder: (context, index) {
-        if (widget.ongoingAds.isEmpty && widget.ongoingAds == []) {
+        if (widget.ongoingAds.isEmpty) {
           return Center(
             child: Text(
               "No Data Available",
               style: Theme.of(context).textTheme.displayMedium,
             ),
           );
+        } else {
+          return MyAdsTemplate(
+            imagePath: widget.ongoingAds[index].adImageUrl,
+            adTitle: widget.ongoingAds[index].adTitle,
+            remainViews: widget.ongoingAds[index].remainViews,
+            noOfPlatforms: 0,
+            adStatus: widget.ongoingAds[index].adStatus,
+            noOfDaysLeft: 0,
+            adCategory: widget.ongoingAds[index].adCategory,
+            adType: widget.ongoingAds[index].adType,
+            brandName: brandName,
+            brandURL: brandURL,
+            animationKey: widget.ongoingAds[index].id,
+            price: "499",
+          );
         }
-        return MyAdsTemplate(
-          imagePath: widget.ongoingAds[index].adImageUrl,
-          adTitle: widget.ongoingAds[index].adTitle,
-          remainViews: widget.ongoingAds[index].remainViews,
-          noOfPlatforms: 0,
-          adStatus: widget.ongoingAds[index].adStatus,
-          noOfDaysLeft: 0,
-          adCategory: widget.ongoingAds[index].adCategory,
-          adType: widget.ongoingAds[index].adType,
-          brandName: brandName,
-          brandURL: brandURL,
-          animationKey: widget.ongoingAds[index].id,
-          price: "499",
-        );
       },
     ).pSymmetric(v: 6);
   }

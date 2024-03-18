@@ -14,8 +14,14 @@ class _VisitorSideAboutUsPageState extends State<VisitorSideAboutUsPage> {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        iconTheme: IconThemeData(
+          color: Theme.of(context).shadowColor,
+        ),
         elevation: 2.0,
-        title: Text("About Us",style: Theme.of(context).textTheme.displayMedium,),
+        title: Text(
+          "About Us",
+          style: Theme.of(context).textTheme.displayMedium,
+        ),
       ),
       body: Center(
         child: Text(

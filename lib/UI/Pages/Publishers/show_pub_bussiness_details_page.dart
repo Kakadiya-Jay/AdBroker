@@ -10,10 +10,12 @@ class ShowPublisherBusinessDetails extends StatefulWidget {
   const ShowPublisherBusinessDetails({super.key});
 
   @override
-  State<ShowPublisherBusinessDetails> createState() => _ShowPublisherBusinessDetailsState();
+  State<ShowPublisherBusinessDetails> createState() =>
+      _ShowPublisherBusinessDetailsState();
 }
 
-class _ShowPublisherBusinessDetailsState extends State<ShowPublisherBusinessDetails> {
+class _ShowPublisherBusinessDetailsState
+    extends State<ShowPublisherBusinessDetails> {
   String userEmail = "";
   String userRole = "";
 
@@ -36,6 +38,7 @@ class _ShowPublisherBusinessDetailsState extends State<ShowPublisherBusinessDeta
       });
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,95 +51,98 @@ class _ShowPublisherBusinessDetailsState extends State<ShowPublisherBusinessDeta
           style: Theme.of(context).textTheme.displayMedium,
         ),
       ),
-      body: SingleChildScrollView(
-        child: StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance
-              .collection("Publishers")
-              .where("uid", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-              .snapshots(),
-          builder: (BuildContext context, snapshot) {
-            if (!snapshot.hasData) {
-              return CupertinoActivityIndicator(
-                color: Theme.of(context).shadowColor,
-              );
-            }
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return CupertinoActivityIndicator(
-                color: Theme.of(context).shadowColor,
-              );
-            }
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Platform Name",
-                  style: Theme.of(context).textTheme.displaySmall,
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  snapshot.data!.docs[0]["platform_name"],
-                  style: Theme.of(context).textTheme.displayMedium,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  "Platform URL",
-                  style: Theme.of(context).textTheme.displaySmall,
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  snapshot.data!.docs[0]["platform_url"],
-                  style: Theme.of(context).textTheme.displayMedium,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  "Monthly Traffic",
-                  style: Theme.of(context).textTheme.displaySmall,
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  snapshot.data!.docs[0]["monthly_traffic"],
-                  style: Theme.of(context).textTheme.displayMedium,
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                CupertinoButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => UpdatePubBusinessDetails(
-                          platformName: snapshot.data!.docs[0]["platform_name"],
-                          platformURL: snapshot.data!.docs[0]["platform_url"],
-                          monthlyTraffic: snapshot.data!.docs[0]["monthly_traffic"],
-                        ),
-                      ),
-                    );
-                  },
-                  color: const Color(0xffFFE501),
-                  child: const Text(
-                    "Update Details",
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Color(0xFF3C096C),
-                      fontWeight: FontWeight.w700,
-                    ),
+      body: Center(
+        child: SingleChildScrollView(
+          child: StreamBuilder<QuerySnapshot>(
+            stream: FirebaseFirestore.instance
+                .collection("Publishers")
+                .where("uid", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+                .snapshots(),
+            builder: (BuildContext context, snapshot) {
+              if (!snapshot.hasData) {
+                return CupertinoActivityIndicator(
+                  color: Theme.of(context).shadowColor,
+                ).scale(scaleValue: 2.0);
+              }
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return CupertinoActivityIndicator(
+                  color: Theme.of(context).shadowColor,
+                ).scale(scaleValue: 2.0);
+              }
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Platform Name",
+                    style: Theme.of(context).textTheme.displaySmall,
                   ),
-                ).centered(),
-              ],
-            ).centered().p16();
-          },
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    snapshot.data!.docs[0]["platform_name"],
+                    style: Theme.of(context).textTheme.displayMedium,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    "Platform URL",
+                    style: Theme.of(context).textTheme.displaySmall,
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    snapshot.data!.docs[0]["platform_url"],
+                    style: Theme.of(context).textTheme.displayMedium,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    "Monthly Traffic",
+                    style: Theme.of(context).textTheme.displaySmall,
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    snapshot.data!.docs[0]["monthly_traffic"],
+                    style: Theme.of(context).textTheme.displayMedium,
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  CupertinoButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => UpdatePubBusinessDetails(
+                            platformName: snapshot.data!.docs[0]
+                                ["platform_name"],
+                            platformURL: snapshot.data!.docs[0]["platform_url"],
+                            monthlyTraffic: snapshot.data!.docs[0]
+                                ["monthly_traffic"],
+                          ),
+                        ),
+                      );
+                    },
+                    color: const Color(0xffFFE501),
+                    child: const Text(
+                      "Update Details",
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Color(0xFF3C096C),
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ).centered(),
+                ],
+              ).p16();
+            },
+          ),
         ),
       ),
     );

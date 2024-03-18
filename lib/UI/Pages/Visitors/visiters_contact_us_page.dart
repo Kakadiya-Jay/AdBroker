@@ -15,8 +15,14 @@ class _VisitorSideContactUsPageState extends State<VisitorSideContactUsPage> {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        iconTheme: IconThemeData(
+          color: Theme.of(context).shadowColor,
+        ),
         elevation: 2.0,
-        title: Text("Contact Us",style: Theme.of(context).textTheme.displayMedium,),
+        title: Text(
+          "Contact Us",
+          style: Theme.of(context).textTheme.displayMedium,
+        ),
       ),
       body: Center(
         child: Text(

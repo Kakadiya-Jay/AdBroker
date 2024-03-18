@@ -43,6 +43,9 @@ class _UpdateAdvBusinessDetailsPageState
           style: Theme.of(context).textTheme.displayMedium,
         ),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        iconTheme: IconThemeData(
+          color: Theme.of(context).shadowColor,
+        ),
         elevation: 2.0,
       ),
       body: SafeArea(

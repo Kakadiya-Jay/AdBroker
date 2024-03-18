@@ -25,3 +25,4 @@ functionality-commit-3 :- Functionality commit 3 ,In which on Advertiser side, c
 functionality-commit-4 :- Functionality commit 4 ,In which on Advertiser side, create search ads and filter ads page then create half format of ad analysis pdf file but main thing is that i want to store network image into local storage.
 functionality-commit-5 :- Functionality commit 5 ,In which on Advertiser side, convert page into pdf but one main thing is missing image is put static it will solve later.
 functionality-commit-6 :- Functionality commit 6 ,In which on Advertiser side, successfully put network image in pdf and some small ui changes.
+change-theme-1:- Theme Commit 1, In which All app's theme hase to been changed.

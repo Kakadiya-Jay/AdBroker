@@ -108,6 +108,9 @@ class _AdvProfilePageState extends State<AdvProfilePage> {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        iconTheme: IconThemeData(
+          color: Theme.of(context).shadowColor,
+        ),
         title: Text(
           "Profile",
           style: Theme.of(context).textTheme.titleLarge,

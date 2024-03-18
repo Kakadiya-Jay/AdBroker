@@ -151,7 +151,11 @@ class _AdvHomePageState extends State<AdvHomePage> {
           ).scale(scaleValue: 1.2),
           IconButton(
             onPressed: () {
-              getAdvertisements();
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                "/adv/frontPage",
+                (route) => false,
+              );
             },
             icon: const Icon(CupertinoIcons.refresh),
             color: Colors.white,
@@ -316,7 +320,8 @@ class _AdvHomePageState extends State<AdvHomePage> {
                       } else if (snapshot.hasError) {
                         return Center(
                           child: Text(
-                            'Error: ${snapshot.error}',
+                            'Error: ${snapshot.error}\nOr else please check your internet connection',
+                            textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.displayMedium,
                           ),
                         );

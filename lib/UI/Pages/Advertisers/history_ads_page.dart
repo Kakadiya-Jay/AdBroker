@@ -48,7 +48,7 @@ class _HistoryAdsPageState extends State<HistoryAdsPage> {
       shrinkWrap: true,
       scrollDirection: Axis.vertical,
       itemBuilder: (context, index) {
-        if (widget.historyAds.isEmpty && widget.historyAds == []) {
+        if (widget.historyAds.isEmpty) {
           return Center(
             child: Text(
               "No Data Available",

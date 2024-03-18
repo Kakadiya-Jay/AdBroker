@@ -26,6 +26,9 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 2.0,
+        iconTheme: IconThemeData(
+          color: Theme.of(context).shadowColor,
+        ),
         title: Text(
           "Forgot Password",
           style: Theme.of(context).textTheme.displayMedium,

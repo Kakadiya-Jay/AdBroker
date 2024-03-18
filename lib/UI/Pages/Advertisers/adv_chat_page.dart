@@ -33,92 +33,64 @@ class _AdvChatPageState extends State<AdvChatPage> {
                 ),
                 Align(
                   alignment: Alignment.bottomLeft,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // GestureDetector(
-                      //   onTap: () {},
-                      //   child: Container(
-                      //     height: 48,
-                      //     width: 48,
-                      //     decoration: ShapeDecoration(
-                      //       color: const Color(0xFFF5F5F5),
-                      //       shape: RoundedRectangleBorder(
-                      //         side: const BorderSide(
-                      //             width: 1.0, color: Colors.black),
-                      //         borderRadius: BorderRadius.circular(16),
-                      //       ),
-                      //     ),
-                      //     child: const Icon(
-                      //       Icons.attach_file_rounded,
-                      //       color: Color(0xFF163648),
-                      //     ),
-                      //   ),
-                      // ),
-                      // const Spacer(),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width / 1.1,
-                        height: 48,
-                        child: TextFormField(
-                          controller: messageText,
-                          maxLines: 5,
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                            suffixIcon: IconButton(
-                              icon: const Icon(Icons.send),
-                              color: const Color(0xFF163648),
-                              onPressed: () {
-                                if (messageText.text.isNotEmpty ||
-                                    messageText.text != "") {
-                                  UiHelper.customSnackBar(
-                                    context,
-                                    "Message Send Successfully....",
-                                  );
-                                } else {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: Text(
-                                          "Oops.., It's Seems like you put empty the message field..",
-                                          textAlign: TextAlign.center,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelMedium,
+                  child: TextFormField(
+                    controller: messageText,
+                    maxLength: 256,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                        icon: const Icon(Icons.send),
+                        color: const Color(0xFF163648),
+                        onPressed: () {
+                          if (messageText.text.isNotEmpty ||
+                              messageText.text != "") {
+                            UiHelper.customSnackBar(
+                              context,
+                              "Message Send Successfully....",
+                            );
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text(
+                                    "Oops.., It's Seems like you put empty the message field..",
+                                    textAlign: TextAlign.center,
+                                    style:
+                                        Theme.of(context).textTheme.labelMedium,
+                                  ),
+                                  actions: [
+                                    CupertinoButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text(
+                                        "Close",
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.redAccent,
+                                          fontWeight: FontWeight.w400,
                                         ),
-                                        actions: [
-                                          CupertinoButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: const Text(
-                                              "Close",
-                                              style: TextStyle(
-                                                fontSize: 16,
-                                                color: Colors.redAccent,
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                }
+                                      ),
+                                    ),
+                                  ],
+                                );
                               },
-                            ),
-                            filled: true,
-                            fillColor: const Color(0xFFE6E3E9),
-                            hintText: "Type Message...",
-                            border: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  width: 1, color: Colors.black),
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                          ),
-                        ),
+                            );
+                          }
+                        },
                       ),
-                    ],
+                      filled: true,
+                      fillColor: const Color.fromARGB(255, 194, 194, 194),
+                      hintText: "Type Message...",
+                      border: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          width: 1,
+                          color: Color(0xFF4F5359),
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
                   ),
                 )
               ],
