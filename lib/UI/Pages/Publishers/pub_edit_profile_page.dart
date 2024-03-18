@@ -103,6 +103,9 @@ class _PubEditProfilePageState extends State<PubEditProfilePage> {
           style: Theme.of(context).textTheme.titleLarge,
         ),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        iconTheme: IconThemeData(
+          color: Theme.of(context).shadowColor,
+        ),
         centerTitle: true,
       ),
       body: SafeArea(

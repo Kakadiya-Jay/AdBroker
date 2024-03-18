@@ -48,7 +48,7 @@ class _PendingAdsPageState extends State<PendingAdsPage> {
       shrinkWrap: true,
       scrollDirection: Axis.vertical,
       itemBuilder: (context, index) {
-        if (widget.pendingAds.isEmpty && widget.pendingAds == []) {
+        if (widget.pendingAds.isEmpty) {
           return Center(
             child: Text(
               "No Data Available",

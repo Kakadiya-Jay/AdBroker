@@ -39,10 +39,6 @@ class _AdvLoginPageState extends State<AdvLoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      // appBar: AppBar(
-      //   backgroundColor: Colors.transparent,
-      //   elevation: 0.0,
-      // ),
       body: isLoading
           ? Center(
               child: CupertinoActivityIndicator(
