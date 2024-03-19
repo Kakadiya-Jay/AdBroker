@@ -50,7 +50,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
               TextFormField(
                 initialValue: widget.userEmail,
                 enabled: false,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.w500,
                 ),
@@ -60,7 +60,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                   prefixIcon: const Icon(CupertinoIcons.mail),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
-                    borderSide: const BorderSide(width: 1, color: Colors.white),
+                    borderSide: const BorderSide(width: 1, color: Colors.black),
                   ),
                 ),
               ),
