@@ -1,11 +1,12 @@
-Branch Log : (Here All branches are maintained)
+*Branch Log : (Here All branches are maintained)*
 main :- Default Branch.
 init :- initial Branch.
 new-structure :- Change the lib folder structure.
 debug :- debug branch.
 functionality :- functionality branch in which all functionality are developed.
 
-Commit Log : (Here Only main commits are maintained)
+
+*Commit Log : (Here Only main commits are maintained)*
 ui-commit-1 :- Ui Purpose Commit 1.
 ui-commit-2 :- Ui Purpose Commit 2 (Forget password,Update Profile,Image Picker).
 ui-commit-3 :- Ui Purpose Commit 3.
@@ -13,7 +14,7 @@ ui-commit-4 :- Ui Purpose Commit 4 (Add new Ad Form , Image Picker etc..).
 ui-commit-5 :- Ui Purpose Commit 5 (My Ads Section).
 ui-commit-6 :- Ui Purpose Commit 6 (Visitor front page Design, Snack bar ui changed).
 
-new-structure-1 :- These is the commit in which the new structure is created and also new
+new-structure-1 :- These is the commit in which the new structure is created and also new-
                   Functionality is attached like edit profile, pick profile image, set up firebase storage etc..
 
 Publisher_Side_commit :- Publisher Side is created and user related information stored
@@ -25,4 +26,7 @@ functionality-commit-3 :- Functionality commit 3 ,In which on Advertiser side, c
 functionality-commit-4 :- Functionality commit 4 ,In which on Advertiser side, create search ads and filter ads page then create half format of ad analysis pdf file but main thing is that i want to store network image into local storage.
 functionality-commit-5 :- Functionality commit 5 ,In which on Advertiser side, convert page into pdf but one main thing is missing image is put static it will solve later.
 functionality-commit-6 :- Functionality commit 6 ,In which on Advertiser side, successfully put network image in pdf and some small ui changes.
-change-theme-1:- Theme Commit 1, In which All app's theme hase to been changed.
+functionality-commit-7 :- Functionality commit 7 ,Call Subscription API and create model class named "SubscriptionModel" and also create service class named "SubscriptionService" and create functionality to show Subscriptions 
+                          to advertisers in "add_new_advertisement.dart" file and did little changes in side the ui of Advertisement Form.
+
+change-theme-1 :- Theme Commit 1, In which All app's theme hase to been changed.

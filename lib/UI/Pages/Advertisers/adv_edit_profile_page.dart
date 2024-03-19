@@ -108,6 +108,7 @@ class _AdvEditProfilePageState extends State<AdvEditProfilePage> {
         ),
         iconTheme: IconThemeData(color: Theme.of(context).shadowColor,),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        elevation: 2.0,
         centerTitle: true,
       ),
       body: SafeArea(

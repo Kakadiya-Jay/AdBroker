@@ -3,7 +3,9 @@
 import 'dart:io';
 
 import 'package:ad_brokers/Helpers/helper_function.dart';
+import 'package:ad_brokers/Models/subscription_model.dart';
 import 'package:ad_brokers/Services/ads_service.dart';
+import 'package:ad_brokers/Services/subscription_service.dart';
 import 'package:ad_brokers/UI/Widgets/uihelper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -33,6 +35,20 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
   XFile? image;
   String imagePath = "";
   final _adservice = AdService();
+  final _subsriptionservice = SubscriptionService();
+  List<SubscriptionModel> subscriptions = [];
+  String planName = "";
+  num planPrice = 0;
+  num noOfViews = 0;
+  getAllActiveSubscriptions() async {
+    final response = await _subsriptionservice.getAllSubscriptions();
+    setState(() {
+      subscriptions = response!;
+      planName = subscriptions[0].planName;
+      planPrice = subscriptions[0].planPrice;
+      noOfViews = subscriptions[0].noOfViews;
+    });
+  }
 
   var adCategoryList = [
     "Choose an Ad Category",
@@ -75,30 +91,6 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
     }
   }
 
-  Future uploadImageInStorage() async {
-    try {
-      final ref = FirebaseStorage.instance.ref().child(
-          "Advertisement/${DateTime.now().millisecondsSinceEpoch}-$brandName-ad-image.jpg");
-      await ref.putFile(
-        File(image!.path),
-      );
-      final url = await ref.getDownloadURL();
-      if (url != "") {
-        return url.toString();
-      } else {
-        return "";
-      }
-    } on FirebaseException catch (ex) {
-      return ex.message.toString();
-    } on FormatException catch (ex) {
-      return ex.message.toString();
-    } on PlatformException catch (ex) {
-      return ex.message.toString();
-    } catch (ex) {
-      return ex.toString();
-    }
-  }
-
   loadUserData() async {
     await HelperFunctions.getAdvBrandNameSF().then((val) {
       setState(() {
@@ -116,6 +108,7 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
   @override
   void initState() {
     loadUserData();
+    getAllActiveSubscriptions();
     super.initState();
   }
 
@@ -124,7 +117,7 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        elevation: 2.0,
+        elevation: 4.0,
         centerTitle: true,
         iconTheme: IconThemeData(
           color: Theme.of(context).shadowColor,
@@ -146,7 +139,7 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
                     pickAdImage(ImageSource.gallery);
                   },
                   child: Card(
-                    color: Colors.transparent,
+                    color: Theme.of(context).cardColor,
                     elevation: 4.0,
                     child: SizedBox(
                       height: 300,
@@ -156,6 +149,7 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
                               borderRadius: BorderRadius.circular(8),
                               child: Image.file(
                                 File(image!.path),
+                                filterQuality: FilterQuality.high,
                                 fit: BoxFit.fill,
                               ),
                             )
@@ -163,6 +157,7 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
                               borderRadius: BorderRadius.circular(8),
                               child: Image.asset(
                                 "assets/images/No-Image-Available.png",
+                                filterQuality: FilterQuality.high,
                                 fit: BoxFit.contain,
                               ),
                             ),
@@ -216,10 +211,15 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
                   width: MediaQuery.of(context).size.width,
                   height: 56,
                   decoration: ShapeDecoration(
-                      color: const Color.fromARGB(255, 194, 194, 194),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      )),
+                    color: const Color.fromARGB(255, 194, 194, 194),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      side: const BorderSide(
+                        width: 1,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
                   child: Center(
                     child: DropdownButton(
                       borderRadius: BorderRadius.circular(16),
@@ -260,10 +260,15 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
                   width: MediaQuery.of(context).size.width,
                   height: 56,
                   decoration: ShapeDecoration(
-                      color: const Color.fromARGB(255, 194, 194, 194),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      )),
+                    color: const Color.fromARGB(255, 194, 194, 194),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      side: const BorderSide(
+                        width: 1,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
                   child: Center(
                     child: DropdownButton(
                       borderRadius: BorderRadius.circular(16),
@@ -300,39 +305,131 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
                 const SizedBox(
                   height: 20,
                 ),
-                Card(
-                  color: Colors.grey,
-                  elevation: 2.0,
-                  shape: RoundedRectangleBorder(
+                GestureDetector(
+                  onTap: () {
+                    showModalBottomSheet(
+                      context: context,
+                      backgroundColor:
+                          Theme.of(context).scaffoldBackgroundColor,
+                      builder: (context) {
+                        return Wrap(
+                          children: [
+                            const Text(
+                              "Choose Plans",
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xffFFE501),
+                              ),
+                            ).centered(),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              "Choose plan according your needs",
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context).textTheme.titleSmall,
+                            ).centered(),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            const Divider(
+                              thickness: 1,
+                            ),
+                            ListView.builder(
+                              itemCount: subscriptions.length,
+                              shrinkWrap: true,
+                              physics: const BouncingScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return ListTile(
+                                  onTap: () {
+                                    setState(() {
+                                      planName = subscriptions[index].planName;
+                                      planPrice =
+                                          subscriptions[index].planPrice;
+                                      noOfViews =
+                                          subscriptions[index].noOfViews;
+                                    });
+                                    Navigator.pop(context);
+                                  },
+                                  leading: Icon(
+                                    CupertinoIcons.money_dollar,
+                                    color: Theme.of(context).shadowColor,
+                                  ),
+                                  title: Text(
+                                    subscriptions[index].planName,
+                                    style:
+                                        Theme.of(context).textTheme.titleSmall,
+                                  ),
+                                  subtitle: Text(
+                                    "${subscriptions[index].planPrice}₹",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall,
+                                  ),
+                                  trailing: Text(
+                                    "${subscriptions[index].noOfViews.toString()}Views",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall!
+                                        .copyWith(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                  ),
+                                );
+                              },
+                            ).pSymmetric(h: 16),
+                          ],
+                        ).p(8);
+                      },
+                    );
+                  },
+                  child: Card(
+                    color: Theme.of(context).cardColor,
+                    elevation: 8.0,
+                    shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
-                      side: const BorderSide(width: 1, color: Colors.black)),
-                  child: Container(
+                      side: BorderSide(
+                        width: 1,
+                        color: Theme.of(context).shadowColor,
+                      ),
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const ListTile(
-                          leading: Icon(Icons.currency_rupee_rounded),
-                          title: Text("Choose Plan"),
-                          trailing: Icon(CupertinoIcons.right_chevron),
+                        ListTile(
+                          title: Text(
+                            "Your Plan",
+                            style: Theme.of(context).textTheme.displaySmall,
+                          ),
+                          trailing: Icon(
+                            CupertinoIcons.chevron_down,
+                            color: Theme.of(context).shadowColor,
+                          ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              "899₹",
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                            Text(
-                              "28 Days",
-                              style: Theme.of(context).textTheme.displayMedium,
-                            ),
-                            Text(
-                              "10k-20k",
-                              style: Theme.of(context).textTheme.displayMedium,
-                            ),
-                          ],
-                        ).pSymmetric(h: 20).pOnly(bottom: 8),
+                        ListTile(
+                          leading: Icon(
+                            CupertinoIcons.money_dollar_circle,
+                            color: Theme.of(context).shadowColor,
+                          ),
+                          title: Text(
+                            planName,
+                            style: Theme.of(context).textTheme.titleSmall,
+                          ),
+                          subtitle: Text(
+                            "$planPrice₹",
+                            style: Theme.of(context).textTheme.displayMedium,
+                          ),
+                          trailing: Text(
+                            "${noOfViews.toString()} Views",
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall!
+                                .copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                        ),
                       ],
                     ).pSymmetric(v: 6),
                   ),
@@ -343,63 +440,7 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
                 CupertinoButton(
                   onPressed: () async {
                     if (formkey.currentState!.validate()) {
-                      if (image == null) {
-                        UiHelper.customAlertBox(
-                            context, "Please Select an Image");
-                      } else if (adCategory == "Choose an Ad Category" &&
-                          adType == "Choose an Ad Type") {
-                        UiHelper.customAlertBox(context,
-                            "Please Choose an Ad Category and Ad Type");
-                      } else {
-                        UiHelper.customAlertBox(context,
-                            "Wait a moment\nWe Process your request\nYou can close this Dialog Box");
-                        await uploadImageInStorage().then((value) {
-                          if (value != null) {
-                            setState(() {
-                              imagePath = value;
-                            });
-                            UiHelper.customSnackBar(
-                              context,
-                              "Ad Image successfully stored in storage",
-                            );
-                          } else {
-                            UiHelper.customErrorSnackBar(
-                              context,
-                              value.toString(),
-                            );
-                          }
-                        });
-                        UiHelper.customAlertBox(context,
-                            "Don't Close the screen\nAd will be uploaded soon");
-                        await _adservice
-                            .addNewAdvertisement(
-                          advId,
-                          adTitle.text.toString(),
-                          brandURL,
-                          adCategory,
-                          imagePath,
-                        )
-                            .then(
-                          (value) {
-                            if (value == true) {
-                              UiHelper.customSnackBar(
-                                context,
-                                "Ad Upload Successfully\nYour Ad Will be publish After Admin Confirmation.",
-                              );
-                              Navigator.pushNamedAndRemoveUntil(
-                                context,
-                                "/adv/frontPage",
-                                (route) => false,
-                              );
-                            } else {
-                              UiHelper.customErrorSnackBar(
-                                context,
-                                value.toString(),
-                              );
-                            }
-                          },
-                        );
-                      }
+                      uploadNewAd();
                     }
                   },
                   color: Colors.deepPurple,
@@ -414,5 +455,88 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
         ),
       ),
     );
+  }
+
+  Future uploadImageInStorage() async {
+    try {
+      final ref = FirebaseStorage.instance.ref().child(
+          "Advertisement/${DateTime.now().millisecondsSinceEpoch}-$brandName-ad-image.jpg");
+      await ref.putFile(
+        File(image!.path),
+      );
+      final url = await ref.getDownloadURL();
+      if (url != "") {
+        return url.toString();
+      } else {
+        return "";
+      }
+    } on FirebaseException catch (ex) {
+      return ex.message.toString();
+    } on FormatException catch (ex) {
+      return ex.message.toString();
+    } on PlatformException catch (ex) {
+      return ex.message.toString();
+    } catch (ex) {
+      return ex.toString();
+    }
+  }
+
+  uploadNewAd() async {
+    if (image == null) {
+      UiHelper.customAlertBox(context, "Please Select an Image");
+    } else if (adCategory == "Choose an Ad Category" &&
+        adType == "Choose an Ad Type") {
+      UiHelper.customAlertBox(
+          context, "Please Choose an Ad Category and Ad Type");
+    } else {
+      UiHelper.customAlertBox(context,
+          "Wait a moment\nWe Process your request\nYou can close this Dialog Box");
+      await uploadImageInStorage().then((value) {
+        if (value != null) {
+          setState(() {
+            imagePath = value;
+          });
+          UiHelper.customSnackBar(
+            context,
+            "Ad Image successfully stored in storage",
+          );
+        } else {
+          UiHelper.customErrorSnackBar(
+            context,
+            value.toString(),
+          );
+        }
+      });
+      UiHelper.customAlertBox(
+          context, "Don't Close the screen\nAd will be uploaded soon");
+      await _adservice
+          .addNewAdvertisement(
+        advId,
+        adTitle.text.toString(),
+        brandURL,
+        adCategory,
+        imagePath,
+      )
+          .then(
+        (value) {
+          if (value == true) {
+            UiHelper.customSnackBar(
+              context,
+              "Ad Upload Successfully\nYour Ad Will be publish After Admin Confirmation.",
+            );
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              "/adv/frontPage",
+              (route) => false,
+            );
+          } else {
+            UiHelper.customErrorSnackBar(
+              context,
+              value.toString(),
+            );
+          }
+        },
+      );
+    }
   }
 }

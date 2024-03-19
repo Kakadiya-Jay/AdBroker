@@ -8,7 +8,7 @@ class AppTheme {
       brightness: Brightness.light,
       fontFamily: "Poppins",
       scaffoldBackgroundColor: const Color(0xfff5f5f5),
-      canvasColor: const Color.fromRGBO(210, 244, 253, 1),
+      canvasColor: const Color(0xfff5f5f5),
       cardColor: const Color(0xfff2f2f2),
       shadowColor: const Color(0xff163648),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
@@ -26,7 +26,7 @@ class AppTheme {
       fontFamily: "Poppins",
       // scaffoldBackgroundColor: const Color(0xff2b2b2b),
       scaffoldBackgroundColor: const Color(0xff241D2A),
-      canvasColor: const Color(0xff163648),
+      canvasColor: const Color(0xff241D2A),
       // cardColor: const Color(0xff4b4b4b),
       cardColor: const Color(0xff37303F),
       shadowColor: const Color.fromRGBO(210, 244, 253, 1),
