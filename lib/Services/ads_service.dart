@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 class AdService {
   Future addNewAdvertisement(String advId, String adTitle, String adURL,
-      String adCategory, String imageUrl) async {
+      String adCategory, String imageUrl,num noOfDays) async {
     try {
       var url = Uri.parse(
           APIConstant.baseURL + APIConstant.addNewAdvertisementEndPoint);
@@ -23,7 +23,7 @@ class AdService {
           "redirect": adURL,
           "image": imageUrl,
           "type": "Banner",
-          "remain_Views": "40",
+          "remain_Views": noOfDays,
           "status": "pending",
         }),
       );
