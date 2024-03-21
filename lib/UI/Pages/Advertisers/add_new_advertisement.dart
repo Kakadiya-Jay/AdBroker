@@ -4,8 +4,8 @@ import 'dart:io';
 
 import 'package:ad_brokers/Helpers/helper_function.dart';
 import 'package:ad_brokers/Models/subscription_model.dart';
-import 'package:ad_brokers/Services/ads_service.dart';
 import 'package:ad_brokers/Services/subscription_service.dart';
+import 'package:ad_brokers/UI/Pages/Advertisers/adv_payment_service_page.dart';
 import 'package:ad_brokers/UI/Widgets/uihelper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -29,12 +29,10 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
   final formkey = GlobalKey<FormState>();
   final advId = FirebaseAuth.instance.currentUser!.uid;
   final adTitle = TextEditingController();
-  final adRedirect = TextEditingController();
   String adCategory = "Choose an Ad Category";
   String adType = "Choose an Ad Type";
   XFile? image;
   String imagePath = "";
-  final _adservice = AdService();
   final _subsriptionservice = SubscriptionService();
   List<SubscriptionModel> subscriptions = [];
   String planName = "";
@@ -168,7 +166,7 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
                   height: 5,
                 ),
                 const Divider(
-                  thickness: 0.1,
+                  thickness: 0.7,
                 ),
                 const SizedBox(
                   height: 20,
@@ -311,17 +309,18 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
                       context: context,
                       backgroundColor:
                           Theme.of(context).scaffoldBackgroundColor,
+                      elevation: 4.0,
                       builder: (context) {
                         return Wrap(
                           children: [
-                            const Text(
-                              "Choose Plans",
-                              style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xffFFE501),
-                              ),
-                            ).centered(),
+                            // const Text(
+                            //   "Choose Plans",
+                            //   style: TextStyle(
+                            //     fontSize: 24,
+                            //     fontWeight: FontWeight.w700,
+                            //     color: Color(0xffFFE501),
+                            //   ),
+                            // ).centered(),
                             const SizedBox(
                               height: 10,
                             ),
@@ -437,14 +436,24 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
                 const SizedBox(
                   height: 20,
                 ),
-                CupertinoButton(
-                  onPressed: () async {
-                    if (formkey.currentState!.validate()) {
-                      uploadNewAd();
-                    }
-                  },
-                  color: Colors.deepPurple,
-                  child: const Text("Upload New Ad"),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: CupertinoButton(
+                    onPressed: () async {
+                      if (formkey.currentState!.validate()) {
+                        uploadNewAd();
+                      }
+                    },
+                    color: const Color(0xffFFE501),
+                    child: const Text(
+                      "Next",
+                      style: TextStyle(
+                        color: Color(0xFF3C096C),
+                        fontWeight: FontWeight.w700,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
                 ),
                 const SizedBox(
                   height: 10,
@@ -500,6 +509,23 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
             context,
             "Ad Image successfully stored in storage",
           );
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AdvPaymentService(
+                advId: FirebaseAuth.instance.currentUser!.uid.toString(),
+                brandName: brandName,
+                brandURL: brandURL,
+                adTitle: adTitle.text.toString(),
+                adImageUrl: imagePath,
+                adCategory: adCategory,
+                adType: adType,
+                subscriptionName: planName,
+                adPrice: planPrice,
+                noOfViews: noOfViews,
+              ),
+            ),
+          );
         } else {
           UiHelper.customErrorSnackBar(
             context,
@@ -507,36 +533,36 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
           );
         }
       });
-      UiHelper.customAlertBox(
-          context, "Don't Close the screen\nAd will be uploaded soon");
-      await _adservice
-          .addNewAdvertisement(
-        advId,
-        adTitle.text.toString(),
-        brandURL,
-        adCategory,
-        imagePath,
-      )
-          .then(
-        (value) {
-          if (value == true) {
-            UiHelper.customSnackBar(
-              context,
-              "Ad Upload Successfully\nYour Ad Will be publish After Admin Confirmation.",
-            );
-            Navigator.pushNamedAndRemoveUntil(
-              context,
-              "/adv/frontPage",
-              (route) => false,
-            );
-          } else {
-            UiHelper.customErrorSnackBar(
-              context,
-              value.toString(),
-            );
-          }
-        },
-      );
+      // UiHelper.customAlertBox(
+      //     context, "Don't Close the screen\nAd will be uploaded soon");
+      // await _adservice
+      //     .addNewAdvertisement(
+      //   advId,
+      //   adTitle.text.toString(),
+      //   brandURL,
+      //   adCategory,
+      //   imagePath,
+      // )
+      //     .then(
+      //   (value) {
+      //     if (value == true) {
+      //       UiHelper.customSnackBar(
+      //         context,
+      //         "Ad Upload Successfully\nYour Ad Will be publish After Admin Confirmation.",
+      //       );
+      //       Navigator.pushNamedAndRemoveUntil(
+      //         context,
+      //         "/adv/frontPage",
+      //         (route) => false,
+      //       );
+      //     } else {
+      //       UiHelper.customErrorSnackBar(
+      //         context,
+      //         value.toString(),
+      //       );
+      //     }
+      //   },
+      // );
     }
   }
 }
