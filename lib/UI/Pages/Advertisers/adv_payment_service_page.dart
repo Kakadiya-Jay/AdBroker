@@ -48,6 +48,7 @@ class _AdvPaymentServiceState extends State<AdvPaymentService> {
     var option = {
       // "key": "rzp_test_1DP5mmOlF5G5ag",
       "key": "rzp_test_nG92pkaR93uqFE",
+      // Above is my RazorPay Account Key.
       'amount': amount,
       'currency': "INR",
       'name': 'AdBrokers',
@@ -72,20 +73,11 @@ class _AdvPaymentServiceState extends State<AdvPaymentService> {
     }
   }
 
-  void handlePaymentSuccess(PaymentSuccessResponse response) async{
+  void handlePaymentSuccess(PaymentSuccessResponse response) {
     setState(() {
       paymentId = response.paymentId!.toString();
     });
-    UiHelper.customSnackBar(context, 'Payment Success ${response.paymentId!}');
-    await UiHelper.customSuccessAlertBox(
-      context,
-      "This was the Demo\n\nPayment Integration service Testing...\n\nAdd Advertisement service temporarily closed\n\nWe will start a new service soon...",
-    );
-    Navigator.pushNamedAndRemoveUntil(
-      context,
-      "/adv/frontPage",
-      (route) => false,
-    );
+    afterSuccessPaymentService();
   }
 
   void handlePaymentEror(PaymentFailureResponse response) {
@@ -313,7 +305,7 @@ class _AdvPaymentServiceState extends State<AdvPaymentService> {
     );
   }
 
-  afterPaymentService() async {
+  afterSuccessPaymentService() async {
     UiHelper.customSnackBar(context, "Wait a moment Don't Close your Screen..");
     await paymentService
         .makeAdvertisementsPayment(
@@ -323,14 +315,17 @@ class _AdvPaymentServiceState extends State<AdvPaymentService> {
       widget.adPrice,
       widget.noOfViews,
     )
-        .then((value) {
+        .then((value) async {
       if (value == true) {
-        UiHelper.customSuccessAlertBox(
+        await UiHelper.customSuccessAlertBox(
           context,
           "Your Ad successfully uploaded\n\nWe send ad request to the admin.\n\nYour ad will be live after admin's permission.",
         );
         Navigator.pushNamedAndRemoveUntil(
-            context, "adv/frontPage", (route) => false);
+          context,
+          "/adv/frontPage",
+          (route) => false,
+        );
       } else {
         UiHelper.customErrorSnackBar(
           context,

@@ -31,15 +31,17 @@ class AdService {
       );
       if (response.statusCode == 200) {
         final res = json.decode(response.body);
-        String id = res["id"];
+        String id = res["advertiserId"];
         return id;
       } else {
         throw APIException();
       }
     } on APIException catch (ex) {
-      return ex.printErrorMessage();
+      debugPrint("Oops Error occurred ${ex.printErrorMessage()}");
+      return null;
     } catch (ex) {
-      return ex.toString();
+      debugPrint("Oops Error occurred ${ex.toString()}");
+      return null;
     }
   }
 
