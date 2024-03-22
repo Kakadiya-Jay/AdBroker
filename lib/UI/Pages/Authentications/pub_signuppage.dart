@@ -29,7 +29,6 @@ class _PubSignUpPageState extends State<PubSignUpPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     _isVisible = false;
     super.initState();
   }

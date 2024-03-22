@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:ad_brokers/Services/payment_service.dart';
 import 'package:ad_brokers/UI/Widgets/uihelper.dart';
 import 'package:flutter/material.dart';
@@ -70,21 +72,26 @@ class _AdvPaymentServiceState extends State<AdvPaymentService> {
     }
   }
 
-  void handlePaymentSuccess(PaymentSuccessResponse response) {
+  void handlePaymentSuccess(PaymentSuccessResponse response) async{
     setState(() {
       paymentId = response.paymentId!.toString();
     });
     UiHelper.customSnackBar(context, 'Payment Success ${response.paymentId!}');
-    UiHelper.customAlertBox(
+    await UiHelper.customSuccessAlertBox(
       context,
       "This was the Demo\n\nPayment Integration service Testing...\n\nAdd Advertisement service temporarily closed\n\nWe will start a new service soon...",
+    );
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      "/adv/frontPage",
+      (route) => false,
     );
   }
 
   void handlePaymentEror(PaymentFailureResponse response) {
     debugPrint('Payment Failed ${response.message!}');
-    UiHelper.customErrorSnackBar(
-        context, 'Payment Failed ${response.message!}');
+    UiHelper.customFailureAlertBox(
+        context, "Payment Failed \n\n${response.message!}");
   }
 
   void handleExternalWallet(ExternalWalletResponse response) {
@@ -306,7 +313,30 @@ class _AdvPaymentServiceState extends State<AdvPaymentService> {
     );
   }
 
-  afterPaymentService() async{
-    
+  afterPaymentService() async {
+    UiHelper.customSnackBar(context, "Wait a moment Don't Close your Screen..");
+    await paymentService
+        .makeAdvertisementsPayment(
+      widget.adId,
+      paymentId,
+      widget.advId,
+      widget.adPrice,
+      widget.noOfViews,
+    )
+        .then((value) {
+      if (value == true) {
+        UiHelper.customSuccessAlertBox(
+          context,
+          "Your Ad successfully uploaded\n\nWe send ad request to the admin.\n\nYour ad will be live after admin's permission.",
+        );
+        Navigator.pushNamedAndRemoveUntil(
+            context, "adv/frontPage", (route) => false);
+      } else {
+        UiHelper.customErrorSnackBar(
+          context,
+          value.toString(),
+        );
+      }
+    });
   }
 }

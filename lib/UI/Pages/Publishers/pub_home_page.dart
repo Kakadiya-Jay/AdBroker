@@ -22,7 +22,6 @@ class _PubHomePageState extends State<PubHomePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     gettingUserData();
     loadImage();
     super.initState();

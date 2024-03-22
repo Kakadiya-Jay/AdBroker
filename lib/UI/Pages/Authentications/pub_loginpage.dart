@@ -31,7 +31,6 @@ class _PubLoginPageState extends State<PubLoginPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     _isVisible = false;
     super.initState();
   }
