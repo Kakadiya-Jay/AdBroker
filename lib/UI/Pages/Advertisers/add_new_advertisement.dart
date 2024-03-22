@@ -503,31 +503,13 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
     } else {
       UiHelper.customWaitingModel(
         context,
-        "Wait a momen\n\nWe Process your request...",
+        "Wait a moment\n\nWe Process your request\n\nIt may be take time if your internet connection is working bad.",
       );
       await uploadImageInStorage().then((value) {
         if (value != null) {
           setState(() {
             imagePath = value;
           });
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => AdvPaymentService(
-                adId: "",
-                advId: advId,
-                brandName: brandName,
-                brandURL: brandURL,
-                adTitle: adTitle.text.toString(),
-                adImageUrl: imagePath,
-                adCategory: adCategory,
-                adType: adType,
-                subscriptionName: planName,
-                adPrice: planPrice,
-                noOfViews: noOfViews,
-              ),
-            ),
-          );
         } else {
           UiHelper.customErrorSnackBar(
             context,
@@ -535,43 +517,43 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
           );
         }
       });
-      // await adService
-      //     .addNewAdvertisement(
-      //   advId,
-      //   adTitle.text.toString(),
-      //   brandURL,
-      //   adCategory,
-      //   imagePath,
-      // )
-      //     .then(
-      //   (value) {
-      //     if (value != "") {
-      //       Navigator.push(
-      //         context,
-      //         MaterialPageRoute(
-      //           builder: (context) => AdvPaymentService(
-      //             adId: "",
-      //             advId: advId,
-      //             brandName: brandName,
-      //             brandURL: brandURL,
-      //             adTitle: adTitle.text.toString(),
-      //             adImageUrl: imagePath,
-      //             adCategory: adCategory,
-      //             adType: adType,
-      //             subscriptionName: planName,
-      //             adPrice: planPrice,
-      //             noOfViews: noOfViews,
-      //           ),
-      //         ),
-      //       );
-      //     } else {
-      //       UiHelper.customErrorSnackBar(
-      //         context,
-      //         value.toString(),
-      //       );
-      //     }
-      //   },
-      // );
+      await adService
+          .addNewAdvertisement(
+        advId,
+        adTitle.text.toString(),
+        brandURL,
+        adCategory,
+        imagePath,
+      )
+          .then(
+        (value) {
+          if (value != null) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AdvPaymentService(
+                  adId: value.toString(),
+                  advId: advId,
+                  brandName: brandName,
+                  brandURL: brandURL,
+                  adTitle: adTitle.text.toString(),
+                  adImageUrl: imagePath,
+                  adCategory: adCategory,
+                  adType: adType,
+                  subscriptionName: planName,
+                  adPrice: planPrice,
+                  noOfViews: noOfViews,
+                ),
+              ),
+            );
+          } else {
+            UiHelper.customErrorSnackBar(
+              context,
+              "Error Occured...",
+            );
+          }
+        },
+      );
     }
   }
 }
