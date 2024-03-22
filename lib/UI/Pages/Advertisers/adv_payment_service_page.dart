@@ -1,4 +1,4 @@
-import 'package:ad_brokers/Services/ads_service.dart';
+import 'package:ad_brokers/Services/payment_service.dart';
 import 'package:ad_brokers/UI/Widgets/uihelper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,6 +6,7 @@ import 'package:velocity_x/velocity_x.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class AdvPaymentService extends StatefulWidget {
+  final String adId;
   final String advId;
   final String brandName;
   final String brandURL;
@@ -18,6 +19,7 @@ class AdvPaymentService extends StatefulWidget {
   final num noOfViews;
   const AdvPaymentService({
     super.key,
+    required this.adId,
     required this.advId,
     required this.brandName,
     required this.brandURL,
@@ -36,20 +38,24 @@ class AdvPaymentService extends StatefulWidget {
 
 class _AdvPaymentServiceState extends State<AdvPaymentService> {
   var razorpay = Razorpay();
-  var adService = AdService();
+  final paymentService = PaymentService();
   String paymentId = "";
 
   void openCheckout(amount) {
     amount = amount * 100;
     var option = {
+      // "key": "rzp_test_1DP5mmOlF5G5ag",
       "key": "rzp_test_nG92pkaR93uqFE",
       'amount': amount,
       'currency': "INR",
       'name': 'AdBrokers',
+      'description': widget.adTitle,
       'prefill': {
         'contact': '1234567890',
         'email': 'test@example.com',
       },
+      'retry': {'enabled': true, 'max_count': 1},
+      'send_sms_hash': true,
       'external': {
         'wallets': [
           'paytm',
@@ -71,7 +77,7 @@ class _AdvPaymentServiceState extends State<AdvPaymentService> {
     UiHelper.customSnackBar(context, 'Payment Success ${response.paymentId!}');
     UiHelper.customAlertBox(
       context,
-      "This was the Demo\nPayment Integration service Testing...\nAdd Advertisement service temporarily closed\nWe will start a new service soon...",
+      "This was the Demo\n\nPayment Integration service Testing...\n\nAdd Advertisement service temporarily closed\n\nWe will start a new service soon...",
     );
   }
 
@@ -300,14 +306,7 @@ class _AdvPaymentServiceState extends State<AdvPaymentService> {
     );
   }
 
-  uploadAdAfterPayment() async {
-    await adService.addNewAdvertisement(
-      widget.advId,
-      widget.adTitle,
-      widget.brandURL,
-      widget.adCategory,
-      widget.adImageUrl,
-      widget.noOfViews,
-    );
+  afterPaymentService() async{
+    
   }
 }

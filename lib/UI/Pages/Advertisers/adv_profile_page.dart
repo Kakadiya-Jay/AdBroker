@@ -189,9 +189,9 @@ class _AdvProfilePageState extends State<AdvProfilePage> {
               ),
             ),
             const SizedBox(height: 15),
-            const Divider(
+            Divider(
               thickness: 0.4,
-              color: Colors.blueGrey,
+              color: Theme.of(context).shadowColor,
             ),
             const SizedBox(
               height: 15,
