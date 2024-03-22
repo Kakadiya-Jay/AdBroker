@@ -29,5 +29,6 @@ functionality-commit-6 :- Functionality commit 6 ,In which on Advertiser side, s
 functionality-commit-7 :- Functionality commit 7 ,Call Subscription API and create model class named "SubscriptionModel" and also create service class named "SubscriptionService" and create functionality to show Subscriptions 
                           to advertisers in "add_new_advertisement.dart" file and did little changes in side the ui of Advertisement Form.
 functionality-commit-8 :- Functionality commit 8 , Payment Integration and change the flow of add new advertisement.
+functionality-commit-9 :- Functionality commit 9 , Implement two New Apis One is updated "createAds" and second is new "makePayment" API in Advertiser side.
 
 change-theme-1 :- Theme Commit 1, In which All app's theme hase to been changed.

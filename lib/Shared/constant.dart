@@ -7,4 +7,7 @@ class APIConstant {
 
   //Subscriptions
   static String getAllSubscriptions = "/plans";
+
+  //Payment
+  static String makeAdvertiserPayment = "/transaction/advertise";
 }

@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:ad_brokers/Helpers/helper_function.dart';
 import 'package:ad_brokers/Models/subscription_model.dart';
+import 'package:ad_brokers/Services/ads_service.dart';
 import 'package:ad_brokers/Services/subscription_service.dart';
 import 'package:ad_brokers/UI/Pages/Advertisers/adv_payment_service_page.dart';
 import 'package:ad_brokers/UI/Widgets/uihelper.dart';
@@ -12,7 +13,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -38,6 +38,8 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
   String planName = "";
   num planPrice = 0;
   num noOfViews = 0;
+  var adService = AdService();
+
   getAllActiveSubscriptions() async {
     final response = await _subsriptionservice.getAllSubscriptions();
     setState(() {
@@ -173,6 +175,7 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
                 ),
                 Text(
                   brandURL,
+                  textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.displaySmall,
                 ).centered(),
                 const SizedBox(
@@ -498,34 +501,15 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
       UiHelper.customAlertBox(
           context, "Please Choose an Ad Category and Ad Type");
     } else {
-      UiHelper.customAlertBox(context,
-          "Wait a moment\nWe Process your request\nYou can close this Dialog Box");
+      UiHelper.customWaitingModel(
+        context,
+        "Wait a momen\n\nWe Process your request...",
+      );
       await uploadImageInStorage().then((value) {
         if (value != null) {
           setState(() {
             imagePath = value;
           });
-          UiHelper.customSnackBar(
-            context,
-            "Ad Image successfully stored in storage",
-          );
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => AdvPaymentService(
-                advId: FirebaseAuth.instance.currentUser!.uid.toString(),
-                brandName: brandName,
-                brandURL: brandURL,
-                adTitle: adTitle.text.toString(),
-                adImageUrl: imagePath,
-                adCategory: adCategory,
-                adType: adType,
-                subscriptionName: planName,
-                adPrice: planPrice,
-                noOfViews: noOfViews,
-              ),
-            ),
-          );
         } else {
           UiHelper.customErrorSnackBar(
             context,
@@ -533,36 +517,43 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
           );
         }
       });
-      // UiHelper.customAlertBox(
-      //     context, "Don't Close the screen\nAd will be uploaded soon");
-      // await _adservice
-      //     .addNewAdvertisement(
-      //   advId,
-      //   adTitle.text.toString(),
-      //   brandURL,
-      //   adCategory,
-      //   imagePath,
-      // )
-      //     .then(
-      //   (value) {
-      //     if (value == true) {
-      //       UiHelper.customSnackBar(
-      //         context,
-      //         "Ad Upload Successfully\nYour Ad Will be publish After Admin Confirmation.",
-      //       );
-      //       Navigator.pushNamedAndRemoveUntil(
-      //         context,
-      //         "/adv/frontPage",
-      //         (route) => false,
-      //       );
-      //     } else {
-      //       UiHelper.customErrorSnackBar(
-      //         context,
-      //         value.toString(),
-      //       );
-      //     }
-      //   },
-      // );
+      await adService
+          .addNewAdvertisement(
+        advId,
+        adTitle.text.toString(),
+        brandURL,
+        adCategory,
+        imagePath,
+      )
+          .then(
+        (value) {
+          if (value != "") {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AdvPaymentService(
+                  adId: "",
+                  advId: advId,
+                  brandName: brandName,
+                  brandURL: brandURL,
+                  adTitle: adTitle.text.toString(),
+                  adImageUrl: imagePath,
+                  adCategory: adCategory,
+                  adType: adType,
+                  subscriptionName: planName,
+                  adPrice: planPrice,
+                  noOfViews: noOfViews,
+                ),
+              ),
+            );
+          } else {
+            UiHelper.customErrorSnackBar(
+              context,
+              value.toString(),
+            );
+          }
+        },
+      );
     }
   }
 }

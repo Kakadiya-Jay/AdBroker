@@ -21,9 +21,9 @@ class _PubProfilePageState extends State<PubProfilePage> {
   String userImageUrl = "";
   bool isImageLoaded = false;
   final authService = AuthService();
-
+  
+  @override
   void initState() {
-    // TODO: implement initState
     gettingUserData();
     loadImage();
     super.initState();
@@ -185,9 +185,9 @@ class _PubProfilePageState extends State<PubProfilePage> {
               ),
             ),
             const SizedBox(height: 15),
-            const Divider(
-              thickness: 0.4,
-              color: Colors.blueGrey,
+            Divider(
+              thickness: 0.5,
+              color: Theme.of(context).shadowColor,
             ),
             const SizedBox(
               height: 15,
@@ -220,9 +220,9 @@ class _PubProfilePageState extends State<PubProfilePage> {
             const SizedBox(
               height: 5,
             ),
-            const Divider(
-              thickness: 1,
-              color: Colors.blueGrey,
+            Divider(
+              thickness: 0.5,
+              color: Theme.of(context).shadowColor,
             ),
             const SizedBox(
               height: 5,
