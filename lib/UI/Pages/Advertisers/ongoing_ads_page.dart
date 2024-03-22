@@ -36,7 +36,6 @@ class _OnGoingAdsPageState extends State<OnGoingAdsPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     getUserData();
     super.initState();
   }

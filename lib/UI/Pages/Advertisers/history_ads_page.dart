@@ -36,7 +36,6 @@ class _HistoryAdsPageState extends State<HistoryAdsPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     getUserData();
     super.initState();
   }

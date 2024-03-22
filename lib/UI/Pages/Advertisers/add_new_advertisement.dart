@@ -510,6 +510,24 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
           setState(() {
             imagePath = value;
           });
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AdvPaymentService(
+                adId: "",
+                advId: advId,
+                brandName: brandName,
+                brandURL: brandURL,
+                adTitle: adTitle.text.toString(),
+                adImageUrl: imagePath,
+                adCategory: adCategory,
+                adType: adType,
+                subscriptionName: planName,
+                adPrice: planPrice,
+                noOfViews: noOfViews,
+              ),
+            ),
+          );
         } else {
           UiHelper.customErrorSnackBar(
             context,
@@ -517,43 +535,43 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
           );
         }
       });
-      await adService
-          .addNewAdvertisement(
-        advId,
-        adTitle.text.toString(),
-        brandURL,
-        adCategory,
-        imagePath,
-      )
-          .then(
-        (value) {
-          if (value != "") {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => AdvPaymentService(
-                  adId: "",
-                  advId: advId,
-                  brandName: brandName,
-                  brandURL: brandURL,
-                  adTitle: adTitle.text.toString(),
-                  adImageUrl: imagePath,
-                  adCategory: adCategory,
-                  adType: adType,
-                  subscriptionName: planName,
-                  adPrice: planPrice,
-                  noOfViews: noOfViews,
-                ),
-              ),
-            );
-          } else {
-            UiHelper.customErrorSnackBar(
-              context,
-              value.toString(),
-            );
-          }
-        },
-      );
+      // await adService
+      //     .addNewAdvertisement(
+      //   advId,
+      //   adTitle.text.toString(),
+      //   brandURL,
+      //   adCategory,
+      //   imagePath,
+      // )
+      //     .then(
+      //   (value) {
+      //     if (value != "") {
+      //       Navigator.push(
+      //         context,
+      //         MaterialPageRoute(
+      //           builder: (context) => AdvPaymentService(
+      //             adId: "",
+      //             advId: advId,
+      //             brandName: brandName,
+      //             brandURL: brandURL,
+      //             adTitle: adTitle.text.toString(),
+      //             adImageUrl: imagePath,
+      //             adCategory: adCategory,
+      //             adType: adType,
+      //             subscriptionName: planName,
+      //             adPrice: planPrice,
+      //             noOfViews: noOfViews,
+      //           ),
+      //         ),
+      //       );
+      //     } else {
+      //       UiHelper.customErrorSnackBar(
+      //         context,
+      //         value.toString(),
+      //       );
+      //     }
+      //   },
+      // );
     }
   }
 }

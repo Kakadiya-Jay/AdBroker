@@ -90,13 +90,7 @@ class _AdvEditProfilePageState extends State<AdvEditProfilePage> {
       return ex.toString();
     }
   }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
