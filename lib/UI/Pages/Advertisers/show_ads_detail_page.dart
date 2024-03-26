@@ -10,11 +10,10 @@ class ShowAdsDetailsPage extends StatefulWidget {
   final String adCategory;
   final String adType;
   final num noOfPlatforms;
-  final num noOfDaysLeft;
   final num remainViews;
   final String imagePath;
   final String adsStatus;
-  final String price;
+  final num price;
   final String animationTag;
 
   const ShowAdsDetailsPage({
@@ -24,9 +23,8 @@ class ShowAdsDetailsPage extends StatefulWidget {
     required this.adTitle,
     required this.adCategory,
     required this.adType,
-    required this.noOfPlatforms,
-    required this.noOfDaysLeft,
     required this.remainViews,
+    required this.noOfPlatforms,
     required this.imagePath,
     required this.adsStatus,
     required this.price,
@@ -66,7 +64,6 @@ class _ShowAdsDetailsPageState extends State<ShowAdsDetailsPage> {
                 widget.remainViews,
                 widget.noOfPlatforms,
                 widget.price,
-                widget.noOfDaysLeft,
                 widget.adsStatus,
               );
             },
@@ -265,22 +262,6 @@ class _ShowAdsDetailsPageState extends State<ShowAdsDetailsPage> {
                       ),
                     ],
                   ),
-                  DataRow(
-                    cells: [
-                      DataCell(
-                        Text(
-                          "Days left",
-                          style: Theme.of(context).textTheme.titleSmall,
-                        ),
-                      ),
-                      DataCell(
-                        Text(
-                          widget.noOfDaysLeft.toString(),
-                          style: Theme.of(context).textTheme.titleSmall,
-                        ),
-                      ),
-                    ],
-                  ),
                 ],
               ),
             ),
@@ -300,7 +281,6 @@ class _ShowAdsDetailsPageState extends State<ShowAdsDetailsPage> {
                   widget.remainViews,
                   widget.noOfPlatforms,
                   widget.price,
-                  widget.noOfDaysLeft,
                   widget.adsStatus,
                 );
               },

@@ -61,13 +61,12 @@ class _OnGoingAdsPageState extends State<OnGoingAdsPage> {
             remainViews: widget.ongoingAds[index].remainViews,
             noOfPlatforms: 0,
             adStatus: widget.ongoingAds[index].adStatus,
-            noOfDaysLeft: 0,
             adCategory: widget.ongoingAds[index].adCategory,
             adType: widget.ongoingAds[index].adType,
             brandName: brandName,
             brandURL: brandURL,
             animationKey: widget.ongoingAds[index].id,
-            price: "499",
+            price: widget.ongoingAds[index].price,
           );
         }
       },

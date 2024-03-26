@@ -8,12 +8,11 @@ class MyAdsTemplate extends StatelessWidget {
   final num remainViews;
   final num noOfPlatforms;
   final String adStatus;
-  final num noOfDaysLeft;
   final String brandName;
   final String brandURL;
   final String adCategory;
   final String adType;
-  final String price;
+  final num price;
   final String animationKey;
 
   const MyAdsTemplate({
@@ -23,7 +22,6 @@ class MyAdsTemplate extends StatelessWidget {
     required this.remainViews,
     required this.noOfPlatforms,
     required this.adStatus,
-    required this.noOfDaysLeft,
     required this.brandName,
     required this.brandURL,
     required this.adCategory,
@@ -46,7 +44,6 @@ class MyAdsTemplate extends StatelessWidget {
               adCategory: adCategory,
               adType: adType,
               noOfPlatforms: noOfPlatforms,
-              noOfDaysLeft: noOfDaysLeft,
               remainViews: remainViews,
               imagePath: imagePath,
               adsStatus: adStatus,

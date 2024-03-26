@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class AdsTemplateCard extends StatelessWidget {
-  final num noOfDaysLeft;
   final String imagePath;
   final num remainViews;
   final String brandName;
@@ -14,7 +13,7 @@ class AdsTemplateCard extends StatelessWidget {
   final String adType;
   final num noOfPlatforms;
   final String adsStatus;
-  final String price;
+  final num price;
   final String animationKey;
 
   const AdsTemplateCard({
@@ -29,8 +28,7 @@ class AdsTemplateCard extends StatelessWidget {
     required this.adCategory,
     required this.adType,
     required this.animationKey,
-    this.noOfDaysLeft = 0,
-    this.noOfPlatforms = 0,
+    required this.noOfPlatforms,
   });
 
   @override
@@ -47,7 +45,6 @@ class AdsTemplateCard extends StatelessWidget {
               adType: adType,
               brandURL: brandURL,
               noOfPlatforms: noOfPlatforms,
-              noOfDaysLeft: noOfDaysLeft,
               remainViews: remainViews,
               imagePath: imagePath,
               adsStatus: adsStatus,
@@ -95,24 +92,24 @@ class AdsTemplateCard extends StatelessWidget {
                       child: Image.network(
                         imagePath,
                         fit: BoxFit.fill,
-                            filterQuality: FilterQuality.high,
+                        filterQuality: FilterQuality.high,
                         width: 275,
                         height: 210,
-                          loadingBuilder: (BuildContext context, Widget child,
-                              ImageChunkEvent? loadingProgress) {
-                            if (loadingProgress == null) {
-                              return child;
-                            }
-                            return Center(
-                              child: CircularProgressIndicator(
-                                color: Theme.of(context).shadowColor,
-                                value: loadingProgress.expectedTotalBytes != null
-                                    ? loadingProgress.cumulativeBytesLoaded /
-                                    loadingProgress.expectedTotalBytes!
-                                    : null,
-                              ),
-                            );
-                          },
+                        loadingBuilder: (BuildContext context, Widget child,
+                            ImageChunkEvent? loadingProgress) {
+                          if (loadingProgress == null) {
+                            return child;
+                          }
+                          return Center(
+                            child: CircularProgressIndicator(
+                              color: Theme.of(context).shadowColor,
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                      loadingProgress.expectedTotalBytes!
+                                  : null,
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ),
@@ -130,7 +127,7 @@ class AdsTemplateCard extends StatelessWidget {
                               ),
                             ),
                             child: Text(
-                              "$noOfDaysLeft Days Left",
+                              adCategory,
                               style: const TextStyle(
                                 color: Color(0xFFF9F9F9),
                                 fontSize: 12,

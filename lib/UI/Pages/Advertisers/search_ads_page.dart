@@ -165,13 +165,12 @@ class _SearchAdsPageState extends State<SearchAdsPage> {
                     remainViews: advertisement.remainViews,
                     noOfPlatforms: 0,
                     adStatus: advertisement.adStatus,
-                    noOfDaysLeft: 0,
                     adCategory: advertisement.adCategory,
                     adType: advertisement.adType,
                     brandName: brandName,
                     brandURL: brandURL,
                     animationKey: advertisement.id,
-                    price: "499",
+                    price: advertisement.price,
                   );
                 },
               ).pSymmetric(v: 8)
