@@ -347,9 +347,10 @@ class _AdvHomePageState extends State<AdvHomePage> {
                             adTitle: advertisements[index].adTitle,
                             adCategory: advertisements[index].adCategory,
                             adType: advertisements[index].adType,
-                            price: "499",
+                            price: advertisements[index].price,
                             remainViews: advertisements[index].remainViews,
                             animationKey: advertisements[index].id,
+                            noOfPlatforms: 0,
                           );
                         },
                       );

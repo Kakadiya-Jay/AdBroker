@@ -21,8 +21,7 @@ class PDFService {
     String imagePath,
     String adType,
     num remainViews,
-    num noOfDays,
-    String price,
+    num price,
     num noOfPlatforms,
     String adStatus,
   ) async {
@@ -137,12 +136,6 @@ class PDFService {
                                 ),
                               ),
                               pw.Text(
-                                "Days left",
-                                style: const pw.TextStyle(
-                                  fontSize: 16.00,
-                                ),
-                              ),
-                              pw.Text(
                                 "Status",
                                 style: const pw.TextStyle(
                                   fontSize: 16.00,
@@ -183,13 +176,7 @@ class PDFService {
                                 ),
                               ),
                               pw.Text(
-                                price,
-                                style: const pw.TextStyle(
-                                  fontSize: 16.00,
-                                ),
-                              ),
-                              pw.Text(
-                                noOfDays.toString(),
+                                "$price₹",
                                 style: const pw.TextStyle(
                                   fontSize: 16.00,
                                 ),

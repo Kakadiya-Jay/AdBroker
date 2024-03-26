@@ -1,7 +1,7 @@
 class SubscriptionModel {
   final String planName;
-  final int planPrice;
-  final int noOfViews;
+  final num planPrice;
+  final num noOfViews;
 
   SubscriptionModel({
     required this.planName,

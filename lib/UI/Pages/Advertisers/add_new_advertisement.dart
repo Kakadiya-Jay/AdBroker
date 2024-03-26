@@ -53,14 +53,19 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
   var adCategoryList = [
     "Choose an Ad Category",
     "Gaming",
-    "Product",
+    "Entertainements",
+    "Movie",
+    "OTT",
+    "Cinema",
     "Education",
-    "Gadgets",
     "Institute",
+    "Product",
+    "Tech Products",
+    "Gadgets",
     "E-commerce",
     "Loan",
     "Finance",
-    "Movie",
+    "Custom"
   ];
   var adTypes = [
     "Choose an Ad Type",

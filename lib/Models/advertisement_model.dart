@@ -6,7 +6,8 @@ class Advertisements {
   final String adImageUrl;
   final String adType;
   final String adCategory;
-  final int remainViews;
+  final num remainViews;
+  final num price;
   final String adStatus;
   final bool adApprove;
 
@@ -18,6 +19,7 @@ class Advertisements {
     required this.adImageUrl,
     required this.adType,
     required this.adCategory,
+    required this.price,
     required this.remainViews,
     required this.adStatus,
     required this.adApprove,
@@ -33,6 +35,7 @@ class Advertisements {
       adType: json['type'],
       adCategory: json['category'],
       remainViews: json['remain_Views'],
+      price: json['amount'],
       adStatus: json['status'],
       adApprove: json['approve'],
     );

@@ -61,13 +61,12 @@ class _PendingAdsPageState extends State<PendingAdsPage> {
           remainViews: widget.pendingAds[index].remainViews,
           noOfPlatforms: 0,
           adStatus: widget.pendingAds[index].adStatus,
-          noOfDaysLeft: 0,
           adCategory: widget.pendingAds[index].adCategory,
           adType: widget.pendingAds[index].adType,
           brandName: brandName,
           brandURL: brandURL,
           animationKey: widget.pendingAds[index].id,
-          price: "499",
+          price: widget.pendingAds[index].price,
         );
       },
     ).pSymmetric(v: 6);

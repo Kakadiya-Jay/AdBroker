@@ -61,13 +61,12 @@ class _HistoryAdsPageState extends State<HistoryAdsPage> {
           remainViews: widget.historyAds[index].remainViews,
           noOfPlatforms: 0,
           adStatus: widget.historyAds[index].adStatus,
-          noOfDaysLeft: 0,
           adCategory: widget.historyAds[index].adCategory,
           adType: widget.historyAds[index].adType,
           brandName: brandName,
           brandURL: brandURL,
           animationKey: widget.historyAds[index].id,
-          price: "499",
+          price: widget.historyAds[index].price,
         );
       },
     ).pSymmetric(v: 6);
