@@ -39,7 +39,7 @@ class _UpdateAdvBusinessDetailsPageState
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: Text(
-          "Egit Details",
+          "Edit Details",
           style: Theme.of(context).textTheme.displayMedium,
         ),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -66,6 +66,7 @@ class _UpdateAdvBusinessDetailsPageState
               ),
               TextFormField(
                 initialValue: widget.brandName,
+                style: Theme.of(context).textTheme.displaySmall,
                 onChanged: (value) {
                   setState(() {
                     widget.brandName = value.trim();
@@ -73,12 +74,9 @@ class _UpdateAdvBusinessDetailsPageState
                 },
                 decoration: InputDecoration(
                   hintText: "AdBrokers",
-                  filled: true,
-                  fillColor: const Color.fromARGB(255, 194, 194, 194),
-                  prefixIcon: const Icon(CupertinoIcons.textformat_abc),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: const BorderSide(width: 1, color: Colors.black),
+                  prefixIcon: Icon(
+                    CupertinoIcons.textformat_abc,
+                    color: Theme.of(context).shadowColor,
                   ),
                 ),
               ),
@@ -94,6 +92,7 @@ class _UpdateAdvBusinessDetailsPageState
               ),
               TextFormField(
                 initialValue: widget.brandURL,
+                style: Theme.of(context).textTheme.displaySmall,
                 onChanged: (value) {
                   setState(() {
                     widget.brandURL = value.trim();
@@ -101,12 +100,9 @@ class _UpdateAdvBusinessDetailsPageState
                 },
                 decoration: InputDecoration(
                   hintText: "www.AdBrokers.com",
-                  filled: true,
-                  fillColor: const Color.fromARGB(255, 194, 194, 194),
-                  prefixIcon: const Icon(CupertinoIcons.link),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: const BorderSide(width: 1, color: Colors.black),
+                  prefixIcon: Icon(
+                    CupertinoIcons.link,
+                    color: Theme.of(context).shadowColor,
                   ),
                 ),
               ),
@@ -122,6 +118,7 @@ class _UpdateAdvBusinessDetailsPageState
               ),
               TextFormField(
                 initialValue: widget.brandCategory,
+                style: Theme.of(context).textTheme.displaySmall,
                 onChanged: (value) {
                   setState(() {
                     widget.brandCategory = value.trim();
@@ -129,12 +126,9 @@ class _UpdateAdvBusinessDetailsPageState
                 },
                 decoration: InputDecoration(
                   hintText: "Advertising Network",
-                  filled: true,
-                  fillColor: const Color.fromARGB(255, 194, 194, 194),
-                  prefixIcon: const Icon(Icons.category_rounded),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: const BorderSide(width: 1, color: Colors.black),
+                  prefixIcon: Icon(
+                    Icons.category_rounded,
+                    color: Theme.of(context).shadowColor,
                   ),
                 ),
               ),
@@ -150,6 +144,7 @@ class _UpdateAdvBusinessDetailsPageState
               ),
               TextFormField(
                 initialValue: widget.brandAddress,
+                style: Theme.of(context).textTheme.displaySmall,
                 onChanged: (value) {
                   setState(() {
                     widget.brandAddress = value.trim();
@@ -157,12 +152,9 @@ class _UpdateAdvBusinessDetailsPageState
                 },
                 decoration: InputDecoration(
                   hintText: "Surat,Gujarat,India",
-                  filled: true,
-                  fillColor: const Color.fromARGB(255, 194, 194, 194),
-                  prefixIcon: const Icon(CupertinoIcons.location),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: const BorderSide(width: 1, color: Colors.black),
+                  prefixIcon: Icon(
+                    CupertinoIcons.location,
+                    color: Theme.of(context).shadowColor,
                   ),
                 ),
               ),
@@ -178,6 +170,7 @@ class _UpdateAdvBusinessDetailsPageState
               ),
               TextFormField(
                 initialValue: widget.valuation,
+                style: Theme.of(context).textTheme.displaySmall,
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
                   setState(() {
@@ -186,12 +179,9 @@ class _UpdateAdvBusinessDetailsPageState
                 },
                 decoration: InputDecoration(
                   hintText: "1000000",
-                  filled: true,
-                  fillColor: const Color.fromARGB(255, 194, 194, 194),
-                  prefixIcon: const Icon(CupertinoIcons.location),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: const BorderSide(width: 1, color: Colors.black),
+                  prefixIcon: Icon(
+                    CupertinoIcons.money_dollar,
+                    color: Theme.of(context).shadowColor,
                   ),
                 ),
               ),

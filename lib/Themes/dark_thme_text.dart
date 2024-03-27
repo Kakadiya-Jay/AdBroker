@@ -12,12 +12,12 @@ TextTheme DarkThemeText() {
     labelLarge: TextStyle(
       fontSize: 28,
       fontWeight: FontWeight.w700,
-      color: Color.fromARGB(255, 13, 13, 13),
+      color: Color(0xfff9feff),
     ),
     labelMedium: TextStyle(
-      fontSize: 18,
-      fontWeight: FontWeight.w500,
-      color: Color.fromARGB(255, 13, 13, 13),
+      fontSize: 24,
+      fontWeight: FontWeight.w400,
+      color: Color(0xfff9feff),
     ),
     displayMedium: TextStyle(
       fontSize: 18,
@@ -37,7 +37,7 @@ TextTheme DarkThemeText() {
     headlineSmall: TextStyle(
       color: Color(0xFFF9F9F9),
       fontSize: 12,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w400,
     ),
     labelSmall: TextStyle(
       color: Color(0xFFE6E6E7),

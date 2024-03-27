@@ -21,8 +21,8 @@ class PDFService {
     String imagePath,
     String adType,
     num remainViews,
-    num price,
     num noOfPlatforms,
+    num price,
     String adStatus,
   ) async {
     try {
@@ -176,7 +176,7 @@ class PDFService {
                                 ),
                               ),
                               pw.Text(
-                                "$price₹",
+                                "$price",
                                 style: const pw.TextStyle(
                                   fontSize: 16.00,
                                 ),

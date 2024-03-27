@@ -221,6 +221,7 @@ class _PubEditProfilePageState extends State<PubEditProfilePage> {
                 const SizedBox(height: 30),
                 TextFormField(
                   initialValue: widget.userName,
+                  style: Theme.of(context).textTheme.displaySmall,
                   onChanged: (value) {
                     setState(() {
                       widget.userName = value.trim();
@@ -229,19 +230,16 @@ class _PubEditProfilePageState extends State<PubEditProfilePage> {
                   decoration: InputDecoration(
                     labelText: "User Name",
                     hintText: "Tony Howard Stark",
-                    filled: true,
-                    fillColor: const Color.fromARGB(255, 194, 194, 194),
-                    prefixIcon: const Icon(CupertinoIcons.person),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide:
-                          const BorderSide(width: 1, color: Colors.black),
+                    prefixIcon: Icon(
+                      CupertinoIcons.person,
+                      color: Theme.of(context).shadowColor,
                     ),
                   ),
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
                   initialValue: widget.userEmail,
+                  style: Theme.of(context).textTheme.displaySmall,
                   keyboardType: TextInputType.emailAddress,
                   onChanged: (value) {
                     setState(() {
@@ -251,13 +249,9 @@ class _PubEditProfilePageState extends State<PubEditProfilePage> {
                   decoration: InputDecoration(
                     labelText: "Email",
                     hintText: "helloNew77@gmail.com",
-                    filled: true,
-                    fillColor: const Color.fromARGB(255, 194, 194, 194),
-                    prefixIcon: const Icon(CupertinoIcons.mail),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide:
-                          const BorderSide(width: 1, color: Colors.black),
+                    prefixIcon: Icon(
+                      CupertinoIcons.mail,
+                      color: Theme.of(context).shadowColor,
                     ),
                   ),
                 ),
@@ -268,17 +262,14 @@ class _PubEditProfilePageState extends State<PubEditProfilePage> {
                   },
                   keyboardType: TextInputType.phone,
                   initialValue: widget.userContact,
+                  style: Theme.of(context).textTheme.displaySmall,
                   maxLength: 10,
                   decoration: InputDecoration(
                     labelText: "Contact",
                     hintText: "9978******",
-                    filled: true,
-                    fillColor: const Color.fromARGB(255, 194, 194, 194),
-                    prefixIcon: const Icon(CupertinoIcons.phone),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide:
-                          const BorderSide(width: 1, color: Colors.black),
+                    prefixIcon: Icon(
+                      CupertinoIcons.phone,
+                      color: Theme.of(context).shadowColor,
                     ),
                   ),
                 ),

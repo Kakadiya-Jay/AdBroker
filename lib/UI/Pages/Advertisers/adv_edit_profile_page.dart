@@ -90,7 +90,7 @@ class _AdvEditProfilePageState extends State<AdvEditProfilePage> {
       return ex.toString();
     }
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,7 +100,9 @@ class _AdvEditProfilePageState extends State<AdvEditProfilePage> {
           "Edit Profile",
           style: Theme.of(context).textTheme.titleLarge,
         ),
-        iconTheme: IconThemeData(color: Theme.of(context).shadowColor,),
+        iconTheme: IconThemeData(
+          color: Theme.of(context).shadowColor,
+        ),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 2.0,
         centerTitle: true,
@@ -214,10 +216,11 @@ class _AdvEditProfilePageState extends State<AdvEditProfilePage> {
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const SizedBox(height: 20),
-                const Divider(height: 1, thickness: 0.1),
+                const Divider(height: 1, thickness: 0.5),
                 const SizedBox(height: 30),
                 TextFormField(
                   initialValue: widget.userName,
+                  style: Theme.of(context).textTheme.displaySmall,
                   onChanged: (value) {
                     setState(() {
                       widget.userName = value.trim();
@@ -226,13 +229,9 @@ class _AdvEditProfilePageState extends State<AdvEditProfilePage> {
                   decoration: InputDecoration(
                     labelText: "User Name",
                     hintText: "Peter Benjamen Parker",
-                    filled: true,
-                    fillColor: const Color.fromARGB(255, 194, 194, 194),
-                    prefixIcon: const Icon(CupertinoIcons.person),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide:
-                          const BorderSide(width: 1, color: Colors.black),
+                    prefixIcon: Icon(
+                      CupertinoIcons.person,
+                      color: Theme.of(context).shadowColor,
                     ),
                   ),
                 ),
@@ -240,6 +239,7 @@ class _AdvEditProfilePageState extends State<AdvEditProfilePage> {
                 TextFormField(
                   initialValue: widget.userEmail,
                   keyboardType: TextInputType.emailAddress,
+                  style: Theme.of(context).textTheme.displaySmall,
                   onChanged: (value) {
                     setState(() {
                       widget.userEmail = value.trim();
@@ -248,13 +248,9 @@ class _AdvEditProfilePageState extends State<AdvEditProfilePage> {
                   decoration: InputDecoration(
                     labelText: "Email",
                     hintText: "helloNew77@gmail.com",
-                    filled: true,
-                    fillColor: const Color.fromARGB(255, 194, 194, 194),
-                    prefixIcon: const Icon(CupertinoIcons.mail),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide:
-                          const BorderSide(width: 1, color: Colors.black),
+                    prefixIcon: Icon(
+                      CupertinoIcons.mail,
+                      color: Theme.of(context).shadowColor,
                     ),
                   ),
                 ),
@@ -266,16 +262,13 @@ class _AdvEditProfilePageState extends State<AdvEditProfilePage> {
                   keyboardType: TextInputType.phone,
                   initialValue: widget.userContact,
                   maxLength: 10,
+                  style: Theme.of(context).textTheme.displaySmall,
                   decoration: InputDecoration(
                     labelText: "Contact",
                     hintText: "9313******",
-                    filled: true,
-                    fillColor: const Color.fromARGB(255, 194, 194, 194),
-                    prefixIcon: const Icon(CupertinoIcons.phone),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide:
-                          const BorderSide(width: 1, color: Colors.black),
+                    prefixIcon: Icon(
+                      CupertinoIcons.phone,
+                      color: Theme.of(context).shadowColor,
                     ),
                   ),
                 ),
