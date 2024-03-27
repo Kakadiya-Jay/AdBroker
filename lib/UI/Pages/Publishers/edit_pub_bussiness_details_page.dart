@@ -32,7 +32,7 @@ class _UpdatePubBusinessDetailsState extends State<UpdatePubBusinessDetails> {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: Text(
-          "Egit Details",
+          "Edit Details",
           style: Theme.of(context).textTheme.displayMedium,
         ),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -59,6 +59,7 @@ class _UpdatePubBusinessDetailsState extends State<UpdatePubBusinessDetails> {
               ),
               TextFormField(
                 initialValue: widget.platformName,
+                style: Theme.of(context).textTheme.displaySmall,
                 onChanged: (value) {
                   setState(() {
                     widget.platformName = value.trim();
@@ -66,12 +67,9 @@ class _UpdatePubBusinessDetailsState extends State<UpdatePubBusinessDetails> {
                 },
                 decoration: InputDecoration(
                   hintText: "AdBrokers",
-                  filled: true,
-                  fillColor: const Color.fromARGB(255, 194, 194, 194),
-                  prefixIcon: const Icon(CupertinoIcons.textformat_abc),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: const BorderSide(width: 1, color: Colors.black),
+                  prefixIcon: Icon(
+                    CupertinoIcons.textformat_abc,
+                    color: Theme.of(context).shadowColor,
                   ),
                 ),
               ),
@@ -87,19 +85,17 @@ class _UpdatePubBusinessDetailsState extends State<UpdatePubBusinessDetails> {
               ),
               TextFormField(
                 initialValue: widget.platformURL,
+                style: Theme.of(context).textTheme.displaySmall,
                 onChanged: (value) {
                   setState(() {
                     widget.platformURL = value.trim();
                   });
                 },
                 decoration: InputDecoration(
-                  hintText: "AdBrokers",
-                  filled: true,
-                  fillColor: const Color.fromARGB(255, 194, 194, 194),
-                  prefixIcon: const Icon(CupertinoIcons.link),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: const BorderSide(width: 1, color: Colors.black),
+                  hintText: "https://www.AdBrokers.com",
+                  prefixIcon: Icon(
+                    CupertinoIcons.link,
+                    color: Theme.of(context).shadowColor,
                   ),
                 ),
               ),
@@ -115,19 +111,17 @@ class _UpdatePubBusinessDetailsState extends State<UpdatePubBusinessDetails> {
               ),
               TextFormField(
                 initialValue: widget.monthlyTraffic,
+                style: Theme.of(context).textTheme.displaySmall,
                 onChanged: (value) {
                   setState(() {
                     widget.monthlyTraffic = value.trim();
                   });
                 },
                 decoration: InputDecoration(
-                  hintText: "AdBrokers",
-                  filled: true,
-                  fillColor: const Color.fromARGB(255, 194, 194, 194),
-                  prefixIcon: const Icon(CupertinoIcons.link),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: const BorderSide(width: 1, color: Colors.black),
+                  hintText: "10k-20k",
+                  prefixIcon: Icon(
+                    CupertinoIcons.group,
+                    color: Theme.of(context).shadowColor,
                   ),
                 ),
               ),

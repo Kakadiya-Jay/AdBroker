@@ -188,6 +188,7 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
                 ),
                 TextFormField(
                   controller: adTitle,
+                  style: Theme.of(context).textTheme.displaySmall,
                   validator: (value) {
                     if (value!.isEmpty && value == "") {
                       return "Please enter ad title";
@@ -197,16 +198,11 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
                     }
                     return null;
                   },
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Ad title',
-                    filled: true,
-                    fillColor: Color.fromARGB(255, 194, 194, 194),
-                    prefixIcon: Icon(Icons.label_important_outline_rounded),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                      borderSide: BorderSide(width: 1),
+                    prefixIcon: Icon(
+                      Icons.label_important_outline_rounded,
+                      color: Theme.of(context).shadowColor,
                     ),
                   ),
                 ),
@@ -217,46 +213,48 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
                   width: MediaQuery.of(context).size.width,
                   height: 56,
                   decoration: ShapeDecoration(
-                    color: const Color.fromARGB(255, 194, 194, 194),
+                    color: Theme.of(context).canvasColor,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      side: const BorderSide(
-                        width: 1,
-                        color: Colors.black,
-                      ),
+                      borderRadius: BorderRadius.circular(10),
+                      side: Theme.of(context).brightness != Brightness.dark
+                          ? const BorderSide(
+                              width: 1,
+                              color: Color(0xFF4F5359),
+                            )
+                          : const BorderSide(
+                              width: 1,
+                              color: Color(0xFFE6E6E7),
+                            ),
                     ),
                   ),
                   child: Center(
-                    child: DropdownButton(
-                      borderRadius: BorderRadius.circular(16),
-                      dropdownColor: const Color.fromARGB(255, 194, 194, 194),
-                      elevation: 4,
-                      value: adCategory,
-                      icon: const Icon(
-                        CupertinoIcons.chevron_down,
-                      ),
-                      isExpanded: true,
-                      items: adCategoryList.map((String item) {
-                        return DropdownMenuItem(
-                          value: item,
-                          child: Text(
-                            item,
-                            style: Theme.of(context)
-                                .textTheme
-                                .displaySmall!
-                                .copyWith(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                          ),
-                        );
-                      }).toList(),
-                      onChanged: (String? value) {
-                        setState(() {
-                          adCategory = value!;
-                        });
-                      },
-                    ).px16(),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton(
+                        borderRadius: BorderRadius.circular(16),
+                        dropdownColor: Theme.of(context).cardColor,
+                        elevation: 4,
+                        value: adCategory,
+                        icon: Icon(
+                          CupertinoIcons.chevron_down,
+                          color: Theme.of(context).shadowColor,
+                        ),
+                        isExpanded: true,
+                        items: adCategoryList.map((String item) {
+                          return DropdownMenuItem(
+                            value: item,
+                            child: Text(
+                              item,
+                              style: Theme.of(context).textTheme.displaySmall,
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (String? value) {
+                          setState(() {
+                            adCategory = value!;
+                          });
+                        },
+                      ).px16(),
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -266,37 +264,38 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
                   width: MediaQuery.of(context).size.width,
                   height: 56,
                   decoration: ShapeDecoration(
-                    color: const Color.fromARGB(255, 194, 194, 194),
+                    color: Theme.of(context).canvasColor,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      side: const BorderSide(
-                        width: 1,
-                        color: Colors.black,
-                      ),
+                      borderRadius: BorderRadius.circular(12),
+                      side: !context.isDarkMode
+                          ? const BorderSide(
+                              width: 1,
+                              color: Color(0xFF4F5359),
+                            )
+                          : const BorderSide(
+                              width: 1,
+                              color: Color(0xFFE6E6E7),
+                            ),
                     ),
                   ),
                   child: Center(
                     child: DropdownButton(
                       borderRadius: BorderRadius.circular(16),
-                      dropdownColor: const Color.fromARGB(255, 194, 194, 194),
+                      dropdownColor: Theme.of(context).cardColor,
                       elevation: 4,
                       value: adType,
-                      icon: const Icon(
+                      icon: Icon(
                         CupertinoIcons.chevron_down,
+                        color: Theme.of(context).shadowColor,
                       ),
                       isExpanded: true,
+                      underline: const SizedBox(),
                       items: adTypes.map((String item) {
                         return DropdownMenuItem(
                           value: item,
                           child: Text(
                             item,
-                            style: Theme.of(context)
-                                .textTheme
-                                .displaySmall!
-                                .copyWith(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w400,
-                                ),
+                            style: Theme.of(context).textTheme.displaySmall,
                           ),
                         );
                       }).toList(),
@@ -321,71 +320,76 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
                       builder: (context) {
                         return Wrap(
                           children: [
-                            // const Text(
-                            //   "Choose Plans",
-                            //   style: TextStyle(
-                            //     fontSize: 24,
-                            //     fontWeight: FontWeight.w700,
-                            //     color: Color(0xffFFE501),
-                            //   ),
-                            // ).centered(),
                             const SizedBox(
-                              height: 10,
+                              height: 30,
                             ),
                             Text(
                               "Choose plan according your needs",
                               textAlign: TextAlign.center,
-                              style: Theme.of(context).textTheme.titleSmall,
+                              style: Theme.of(context).textTheme.displayMedium,
                             ).centered(),
                             const SizedBox(
-                              height: 10,
+                              height: 20,
                             ),
-                            const Divider(
+                            Divider(
                               thickness: 1,
+                              color: Theme.of(context).shadowColor,
+                            ),
+                            const SizedBox(
+                              height: 20,
                             ),
                             ListView.builder(
                               itemCount: subscriptions.length,
                               shrinkWrap: true,
                               physics: const BouncingScrollPhysics(),
                               itemBuilder: (context, index) {
-                                return ListTile(
-                                  onTap: () {
-                                    setState(() {
-                                      planName = subscriptions[index].planName;
-                                      planPrice =
-                                          subscriptions[index].planPrice;
-                                      noOfViews =
-                                          subscriptions[index].noOfViews;
-                                    });
-                                    Navigator.pop(context);
-                                  },
-                                  leading: Icon(
-                                    CupertinoIcons.money_dollar,
-                                    color: Theme.of(context).shadowColor,
+                                return Card(
+                                  color: Theme.of(context).cardColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(6),
                                   ),
-                                  title: Text(
-                                    subscriptions[index].planName,
-                                    style:
-                                        Theme.of(context).textTheme.titleSmall,
-                                  ),
-                                  subtitle: Text(
-                                    "${subscriptions[index].planPrice}₹",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displaySmall,
-                                  ),
-                                  trailing: Text(
-                                    "${subscriptions[index].noOfViews.toString()}Views",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displaySmall!
-                                        .copyWith(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                  ),
+                                  elevation: 8.0,
+                                  child: ListTile(
+                                    onTap: () {
+                                      setState(() {
+                                        planName =
+                                            subscriptions[index].planName;
+                                        planPrice =
+                                            subscriptions[index].planPrice;
+                                        noOfViews =
+                                            subscriptions[index].noOfViews;
+                                      });
+                                      Navigator.pop(context);
+                                    },
+                                    leading: Icon(
+                                      CupertinoIcons.money_dollar,
+                                      color: Theme.of(context).shadowColor,
+                                    ),
+                                    title: Text(
+                                      subscriptions[index].planName,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall,
+                                    ),
+                                    subtitle: Text(
+                                      "${subscriptions[index].planPrice}₹",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displaySmall,
+                                    ),
+                                    trailing: Text(
+                                      "${subscriptions[index].noOfViews.toString()}Views",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displaySmall!
+                                          .copyWith(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                    ),
+                                  ).pSymmetric(v: 2),
                                 );
                               },
-                            ).pSymmetric(h: 16),
+                            ),
                           ],
                         ).p(8);
                       },
@@ -407,7 +411,7 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
                         ListTile(
                           title: Text(
                             "Your Plan",
-                            style: Theme.of(context).textTheme.displaySmall,
+                            style: Theme.of(context).textTheme.displayMedium,
                           ),
                           trailing: Icon(
                             CupertinoIcons.chevron_down,

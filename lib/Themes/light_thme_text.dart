@@ -12,12 +12,12 @@ TextTheme LightThemeText() {
     labelLarge: TextStyle(
       fontSize: 28,
       fontWeight: FontWeight.w700,
-      color: Color.fromARGB(255, 13, 13, 13),
+      color: Color(0xff19404D),
     ),
     labelMedium: TextStyle(
-      fontSize: 18,
-      fontWeight: FontWeight.w700,
-      color: Color.fromARGB(255, 13, 13, 13),
+      fontSize: 24,
+      fontWeight: FontWeight.w400,
+      color: Color(0xff19404D),
     ),
     displayMedium: TextStyle(
       fontSize: 18,
@@ -37,7 +37,7 @@ TextTheme LightThemeText() {
     headlineSmall: TextStyle(
       color: Color(0xff19404D),
       fontSize: 12,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w400,
     ),
     labelSmall: TextStyle(
       color: Color(0xff19404D),

@@ -111,13 +111,15 @@ class _SearchAdsPageState extends State<SearchAdsPage> {
               TextFormField(
                 keyboardType: TextInputType.text,
                 controller: searchingText,
+                style: Theme.of(context).textTheme.displaySmall,
                 onChanged: (value) {
                   filterAdsByAdTitle(value);
                 },
                 decoration: InputDecoration(
-                  prefixIcon: const Icon(
+                  prefixIcon: Icon(
                     CupertinoIcons.search,
-                  ).scale(scaleValue: 1.2),
+                    color: Theme.of(context).shadowColor,
+                  ),
                   suffixIcon: IconButton(
                     onPressed: () {
                       searchingText.clear();
@@ -125,20 +127,12 @@ class _SearchAdsPageState extends State<SearchAdsPage> {
                         filteredAds = widget.advertisements;
                       });
                     },
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.cancel_outlined,
-                    ).scale(scaleValue: 1.2),
-                  ),
-                  filled: true,
-                  fillColor: const Color.fromARGB(255, 194, 194, 194),
-                  hintText: "Search Ads",
-                  border: OutlineInputBorder(
-                    borderSide: const BorderSide(
-                      width: 1,
-                      color: Color(0xFF4F5359),
+                      color: Theme.of(context).shadowColor,
                     ),
-                    borderRadius: BorderRadius.circular(12.0),
                   ),
+                  hintText: "Search Ads",
                 ),
               ).pSymmetric(h: 16),
               const SizedBox(
