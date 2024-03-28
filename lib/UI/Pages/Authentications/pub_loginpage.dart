@@ -85,18 +85,30 @@ class _PubLoginPageState extends State<PubLoginPage> {
                               const SizedBox(
                                 height: 18,
                               ),
-                              Text(
+                              const Text(
                                 "Login As Publisher",
                                 textAlign: TextAlign.left,
-                                style: Theme.of(context).textTheme.labelLarge,
+                                style: TextStyle(
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(
+                                    0xff19404D,
+                                  ),
+                                ),
                               ),
                               const SizedBox(
                                 height: 30,
                               ),
-                              Text(
+                              const Text(
                                 "Your Email",
                                 textAlign: TextAlign.left,
-                                style: Theme.of(context).textTheme.labelMedium,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(
+                                    0xff19404D,
+                                  ),
+                                ),
                               ),
                               const SizedBox(
                                 height: 5,
@@ -127,10 +139,16 @@ class _PubLoginPageState extends State<PubLoginPage> {
                               const SizedBox(
                                 height: 25,
                               ),
-                              Text(
+                              const Text(
                                 "Password",
                                 textAlign: TextAlign.left,
-                                style: Theme.of(context).textTheme.labelMedium,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(
+                                    0xff19404D,
+                                  ),
+                                ),
                               ),
                               const SizedBox(
                                 height: 5,
@@ -259,7 +277,8 @@ class _PubLoginPageState extends State<PubLoginPage> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => const PubSignUpPage(
+                                          builder: (context) =>
+                                              const PubSignUpPage(
                                             userRole: "Publishers",
                                           ),
                                         ),

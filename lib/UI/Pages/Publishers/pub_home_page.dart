@@ -1,5 +1,6 @@
 import 'package:ad_brokers/Helpers/helper_function.dart';
 import 'package:ad_brokers/Services/auth_service.dart';
+import 'package:ad_brokers/UI/Pages/Publishers/pub_registar_platform_page.dart';
 import 'package:ad_brokers/UI/Widgets/running_ads_template_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -251,7 +252,14 @@ class _PubHomePageState extends State<PubHomePage> {
                     ),
                     const Spacer(),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (context) => const RagisterPlatformPage(),
+                          ),
+                        );
+                      },
                       child: Row(
                         children: [
                           const Text(
@@ -278,7 +286,7 @@ class _PubHomePageState extends State<PubHomePage> {
                 ),
                 Card(
                   color: Theme.of(context).scaffoldBackgroundColor,
-                  elevation: 2.0,
+                  elevation: 4.0,
                   child: ListTile(
                     leading: Icon(
                       CupertinoIcons.eye,

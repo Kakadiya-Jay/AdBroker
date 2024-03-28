@@ -123,7 +123,7 @@ class _AdvBusinessDetailsPageState extends State<AdvBusinessDetailsPage> {
                             if (value!.isEmpty && value == "") {
                               return "Url Can't be empty";
                             }
-                            if (value.contains(RegExp(
+                            if (!value.contains(RegExp(
                                 r"(https?|http)://([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?"))) {
                               return "URL format is incorrect";
                             }
@@ -186,10 +186,10 @@ class _AdvBusinessDetailsPageState extends State<AdvBusinessDetailsPage> {
                           controller: brandAddressText,
                           validator: (value) {
                             if (value!.isEmpty && value == "") {
-                              return "Please enter brand category";
+                              return "Please enter Address";
                             }
                             if (!value.contains(RegExp(r'[A-Z,a-z,0-9]'))) {
-                              return "Category should be in Alphanumeric form";
+                              return "Address should be in Alphanumeric form";
                             }
                             return null;
                           },
@@ -219,10 +219,10 @@ class _AdvBusinessDetailsPageState extends State<AdvBusinessDetailsPage> {
                           keyboardType: TextInputType.number,
                           validator: (value) {
                             if (value!.isEmpty && value == "") {
-                              return "Please enter brand category";
+                              return "Please enter Valuation";
                             }
-                            if (!value.contains(RegExp(r'[A-Z,a-z,0-9]'))) {
-                              return "Category should be in Alphanumeric form";
+                            if (!value.contains(RegExp(r'[0-9]'))) {
+                              return "Category should be in Numeric form";
                             }
                             return null;
                           },
@@ -230,7 +230,8 @@ class _AdvBusinessDetailsPageState extends State<AdvBusinessDetailsPage> {
                             filled: true,
                             fillColor: const Color(0xFFE6E3E9),
                             hintText: "Ex:- 12000",
-                            prefixIcon: const Icon(CupertinoIcons.number_circle),
+                            prefixIcon:
+                                const Icon(CupertinoIcons.number_circle),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),

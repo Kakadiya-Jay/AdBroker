@@ -94,19 +94,30 @@ class _AdvLoginPageState extends State<AdvLoginPage> {
                                 const SizedBox(
                                   height: 18,
                                 ),
-                                Text(
+                                const Text(
                                   "Login As Advertiser",
                                   textAlign: TextAlign.left,
-                                  style: Theme.of(context).textTheme.labelLarge,
+                                  style: TextStyle(
+                                    fontSize: 28,
+                                    fontWeight: FontWeight.w700,
+                                    color: Color(
+                                      0xff19404D,
+                                    ),
+                                  ),
                                 ),
                                 const SizedBox(
                                   height: 30,
                                 ),
-                                Text(
+                                const Text(
                                   "Your Email",
                                   textAlign: TextAlign.left,
-                                  style:
-                                      Theme.of(context).textTheme.labelMedium,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(
+                                      0xff19404D,
+                                    ),
+                                  ),
                                 ),
                                 const SizedBox(
                                   height: 5,
@@ -137,11 +148,16 @@ class _AdvLoginPageState extends State<AdvLoginPage> {
                                 const SizedBox(
                                   height: 25,
                                 ),
-                                Text(
+                                const Text(
                                   "Password",
                                   textAlign: TextAlign.left,
-                                  style:
-                                      Theme.of(context).textTheme.labelMedium,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(
+                                      0xff19404D,
+                                    ),
+                                  ),
                                 ),
                                 const SizedBox(
                                   height: 5,
@@ -270,7 +286,8 @@ class _AdvLoginPageState extends State<AdvLoginPage> {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) => const AdvSignUpPage(
+                                            builder: (context) =>
+                                                const AdvSignUpPage(
                                               userRole: "Advertisers",
                                             ),
                                           ),
@@ -324,7 +341,8 @@ class _AdvLoginPageState extends State<AdvLoginPage> {
         await HelperFunctions.saveUserNameSF(snapshot.docs[0]["name"]);
         await HelperFunctions.saveUserContactSF(snapshot.docs[0]["contact"]);
         await HelperFunctions.saveUserRoleSF(snapshot.docs[0]["role"]);
-        await HelperFunctions.saveAdvBrandNameSF(snapshot.docs[0]["brand_name"]);
+        await HelperFunctions.saveAdvBrandNameSF(
+            snapshot.docs[0]["brand_name"]);
         await HelperFunctions.saveAdvBrandURLSF(snapshot.docs[0]["brand_url"]);
         await HelperFunctions.saveUserImageURLSF(
             snapshot.docs[0]["profile_pic"]);

@@ -10,7 +10,7 @@ import 'package:velocity_x/velocity_x.dart';
 
 class AdvSignUpPage extends StatefulWidget {
   final String? userRole;
-  const AdvSignUpPage({super.key,this.userRole});
+  const AdvSignUpPage({super.key, this.userRole});
 
   @override
   State<AdvSignUpPage> createState() => _AdvSignUpPageState();
@@ -38,10 +38,10 @@ class _AdvSignUpPageState extends State<AdvSignUpPage> {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: _isLoading
           ? Center(
-        child: CupertinoActivityIndicator(
-          color: Theme.of(context).shadowColor,
-        ),
-      ).scale(scaleValue: 2)
+              child: CupertinoActivityIndicator(
+                color: Theme.of(context).shadowColor,
+              ),
+            ).scale(scaleValue: 2)
           : SafeArea(
               child: SingleChildScrollView(
                 child: Column(
@@ -91,19 +91,30 @@ class _AdvSignUpPageState extends State<AdvSignUpPage> {
                                 const SizedBox(
                                   height: 11,
                                 ),
-                                Text(
+                                const Text(
                                   "Register",
                                   textAlign: TextAlign.left,
-                                  style: Theme.of(context).textTheme.labelLarge,
+                                  style: TextStyle(
+                                    fontSize: 28,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(
+                                      0xff19404D,
+                                    ),
+                                  ),
                                 ),
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                Text(
+                                const Text(
                                   "Full Name",
                                   textAlign: TextAlign.left,
-                                  style:
-                                      Theme.of(context).textTheme.labelMedium,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(
+                                      0xff19404D,
+                                    ),
+                                  ),
                                 ),
                                 const SizedBox(
                                   height: 5,
@@ -135,11 +146,16 @@ class _AdvSignUpPageState extends State<AdvSignUpPage> {
                                 const SizedBox(
                                   height: 10,
                                 ),
-                                Text(
+                                const Text(
                                   "Email Address",
                                   textAlign: TextAlign.left,
-                                  style:
-                                      Theme.of(context).textTheme.labelMedium,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(
+                                      0xff19404D,
+                                    ),
+                                  ),
                                 ),
                                 const SizedBox(
                                   height: 5,
@@ -170,11 +186,16 @@ class _AdvSignUpPageState extends State<AdvSignUpPage> {
                                 const SizedBox(
                                   height: 10,
                                 ),
-                                Text(
+                                const Text(
                                   "Phone",
                                   textAlign: TextAlign.left,
-                                  style:
-                                      Theme.of(context).textTheme.labelMedium,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(
+                                      0xff19404D,
+                                    ),
+                                  ),
                                 ),
                                 const SizedBox(
                                   height: 5,
@@ -203,11 +224,16 @@ class _AdvSignUpPageState extends State<AdvSignUpPage> {
                                     ),
                                   ),
                                 ),
-                                Text(
+                                const Text(
                                   "Password",
                                   textAlign: TextAlign.left,
-                                  style:
-                                      Theme.of(context).textTheme.labelMedium,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(
+                                      0xff19404D,
+                                    ),
+                                  ),
                                 ),
                                 const SizedBox(
                                   height: 5,
@@ -300,7 +326,8 @@ class _AdvSignUpPageState extends State<AdvSignUpPage> {
                                         Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) => const AdvLoginPage(
+                                            builder: (context) =>
+                                                const AdvLoginPage(
                                               userRole: "Advertisers",
                                             ),
                                           ),
@@ -351,8 +378,7 @@ class _AdvSignUpPageState extends State<AdvSignUpPage> {
         await HelperFunctions.saveUserContactSF(phoneText.text.toString());
         await HelperFunctions.saveUserRoleSF(widget.userRole.toString());
         await HelperFunctions.saveUserImageURLSF("");
-        Navigator.pushNamed(
-            context, "/adv/registerBusinessPage");
+        Navigator.pushNamed(context, "/adv/registerBusinessPage");
       } else {
         setState(() {
           _isLoading = false;

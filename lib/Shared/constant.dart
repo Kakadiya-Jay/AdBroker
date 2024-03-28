@@ -10,4 +10,7 @@ class APIConstant {
 
   //Payment
   static String makeAdvertiserPayment = "/transaction/advertise";
+
+  //Register New Platform
+  static String registerNewPlatform = "/application";
 }
