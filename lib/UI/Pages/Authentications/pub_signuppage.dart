@@ -83,18 +83,30 @@ class _PubSignUpPageState extends State<PubSignUpPage> {
                               const SizedBox(
                                 height: 11,
                               ),
-                              Text(
+                              const Text(
                                 "Register As Publisher",
                                 textAlign: TextAlign.left,
-                                style: Theme.of(context).textTheme.labelLarge,
+                                style: TextStyle(
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(
+                                    0xff19404D,
+                                  ),
+                                ),
                               ),
                               const SizedBox(
                                 height: 20,
                               ),
-                              Text(
+                              const Text(
                                 "Full Name",
                                 textAlign: TextAlign.left,
-                                style: Theme.of(context).textTheme.labelMedium,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(
+                                    0xff19404D,
+                                  ),
+                                ),
                               ),
                               const SizedBox(
                                 height: 5,
@@ -125,10 +137,16 @@ class _PubSignUpPageState extends State<PubSignUpPage> {
                               const SizedBox(
                                 height: 10,
                               ),
-                              Text(
+                              const Text(
                                 "Email Address",
                                 textAlign: TextAlign.left,
-                                style: Theme.of(context).textTheme.labelMedium,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(
+                                    0xff19404D,
+                                  ),
+                                ),
                               ),
                               const SizedBox(
                                 height: 5,
@@ -159,10 +177,16 @@ class _PubSignUpPageState extends State<PubSignUpPage> {
                               const SizedBox(
                                 height: 10,
                               ),
-                              Text(
+                              const Text(
                                 "Phone",
                                 textAlign: TextAlign.left,
-                                style: Theme.of(context).textTheme.labelMedium,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(
+                                    0xff19404D,
+                                  ),
+                                ),
                               ),
                               const SizedBox(
                                 height: 5,
@@ -190,10 +214,16 @@ class _PubSignUpPageState extends State<PubSignUpPage> {
                                   ),
                                 ),
                               ),
-                              Text(
+                              const Text(
                                 "Password",
                                 textAlign: TextAlign.left,
-                                style: Theme.of(context).textTheme.labelMedium,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(
+                                    0xff19404D,
+                                  ),
+                                ),
                               ),
                               const SizedBox(
                                 height: 5,

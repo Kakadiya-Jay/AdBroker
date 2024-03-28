@@ -72,6 +72,82 @@ class _VisitorSideHomePageState extends State<VisitorSideHomePage> {
       ),
       drawer: Drawer(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        child: ListView(
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Theme.of(context).cardColor,
+              ),
+              curve: Curves.easeIn,
+              child: UserAccountsDrawerHeader(
+                accountName: Text(
+                  "AdBrokers",
+                  style: Theme.of(context).textTheme.displayMedium,
+                ),
+                accountEmail: Text(
+                  "AdBrokers@gmail.com",
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
+                currentAccountPictureSize: const Size.square(50),
+                currentAccountPicture: CircleAvatar(
+                  backgroundColor: Theme.of(context).cardColor,
+                  child: Text(
+                    "A",
+                    style: Theme.of(context).textTheme.labelLarge,
+                  ), //Text
+                ), //circleA
+              ),
+            ),
+            ListTile(
+              leading: Icon(
+                CupertinoIcons.info,
+                color: Theme.of(context).shadowColor,
+              ),
+              title: Text(
+                "About Us",
+                style: Theme.of(context).textTheme.displaySmall,
+              ),
+              onTap: () {
+                Navigator.pushNamed(context, "/visitor/aboutUsPage");
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.connect_without_contact,
+                color: Theme.of(context).shadowColor,
+              ),
+              title: Text(
+                "Contact Us",
+                style: Theme.of(context).textTheme.displaySmall,
+              ),
+              onTap: () {
+                Navigator.pushNamed(context, "/visitor/contactUsPage");
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.follow_the_signs,
+                color: Theme.of(context).shadowColor,
+              ),
+              title: Text(
+                "Follow Us",
+                style: Theme.of(context).textTheme.displaySmall,
+              ),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: Icon(
+                CupertinoIcons.doc_append,
+                color: Theme.of(context).shadowColor,
+              ),
+              title: Text(
+                "Documentation",
+                style: Theme.of(context).textTheme.displaySmall,
+              ),
+              onTap: () {},
+            ),
+          ],
+        ),
       ),
       body: ListView(
         children: [

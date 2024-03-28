@@ -31,6 +31,7 @@ functionality-commit-7 :- Functionality commit 7 ,Call Subscription API and crea
 functionality-commit-8 :- Functionality commit 8 , Payment Integration and change the flow of add new advertisement.
 functionality-commit-9 :- Functionality commit 9 , Implement two New Apis One is updated "createAds" and second is new "makePayment" API in Advertiser side. Also Add some custom widget in UiHelper class.
 functionality-commit-10 :- Functionality commit 10 , successfully implement both new Apis. 
+functionality-commit-11 :- Functionality commit 11 , On Publisher side, Create form for Publisher in which they can register their platforms
 
 change-theme-1 :- Theme Commit 1, In which All app's theme hase to been changed.
 change-theme-2 :- Theme Commit 2, In which TextFormField Widget theme is changed.
