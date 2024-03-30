@@ -1,5 +1,6 @@
 import 'package:ad_brokers/Helpers/helper_function.dart';
 import 'package:ad_brokers/Services/auth_service.dart';
+import 'package:ad_brokers/UI/Pages/Publishers/pub_profile_page.dart';
 import 'package:ad_brokers/UI/Pages/Publishers/pub_registar_platform_page.dart';
 import 'package:ad_brokers/UI/Widgets/running_ads_template_card.dart';
 import 'package:flutter/cupertino.dart';
@@ -155,6 +156,14 @@ class _PubHomePageState extends State<PubHomePage> {
                     ),
                   ),
                   child: ListTile(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (context) => const PubProfilePage(),
+                        ),
+                      );
+                    },
                     leading: isImageLoaded != true
                         ? const CupertinoActivityIndicator(
                             color: Colors.grey,

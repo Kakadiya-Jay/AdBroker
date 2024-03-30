@@ -10,7 +10,13 @@ class APIConstant {
 
   //Payment
   static String makeAdvertiserPayment = "/transaction/advertise";
+  static String makePublisherWithdrawal = "/transaction/withdrawal";
 
   //Register New Platform
   static String registerNewPlatform = "/application";
+
+  //Wallet
+  static String getAdvTotalExpense = "/transaction/myTotalExpense";
+  static String getPubTotalRevenue = "/transaction/myTotalEarning";
+  static String getPubCurrentBalance = "/transaction/currentBalance";
 }
