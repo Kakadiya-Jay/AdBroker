@@ -4,6 +4,11 @@ import 'package:flutter/material.dart';
 
 TextTheme DarkThemeText() {
   return const TextTheme(
+    displayLarge: TextStyle(
+      fontSize: 36,
+      fontWeight: FontWeight.w700,
+      color: Color(0xfff9feff),
+    ),
     titleLarge: TextStyle(
       fontSize: 28,
       fontWeight: FontWeight.w700,

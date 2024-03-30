@@ -39,4 +39,34 @@ class PaymentService {
       return ex.toString();
     }
   }
+
+  Future makePublisherWithdrawal(String pubId, num amount) async {
+    try {
+      var url =
+          Uri.parse(APIConstant.baseURL + APIConstant.makePublisherWithdrawal);
+      var response = await http.post(
+        url,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, dynamic>{
+          "publisherId": pubId,
+          "amount": amount,
+        }),
+      );
+
+      if (response.statusCode == 500) {
+        final res = json.decode(response.body);
+        return res;
+      } else {
+        throw APIException();
+      }
+    } on APIException catch (ex) {
+      debugPrint("Oops its an Error :- ${ex.printErrorMessage()}");
+      return null;
+    } catch (ex) {
+      debugPrint("Oops its an Error :- ${ex.toString()}");
+      return null;
+    }
+  }
 }

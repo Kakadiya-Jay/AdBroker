@@ -3,8 +3,11 @@
 import 'package:ad_brokers/Helpers/helper_function.dart';
 import 'package:ad_brokers/Models/advertisement_model.dart';
 import 'package:ad_brokers/Services/ads_service.dart';
+import 'package:ad_brokers/Services/wallet_service.dart';
+import 'package:ad_brokers/UI/Pages/Advertisers/adv_profile_page.dart';
 import 'package:ad_brokers/UI/Pages/Advertisers/search_ads_page.dart';
 import 'package:ad_brokers/UI/Widgets/ads_template_card.dart';
+import 'package:ad_brokers/UI/Widgets/uihelper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +27,8 @@ class _AdvHomePageState extends State<AdvHomePage> {
   String brandName = "";
   String brandURL = "";
   bool isImageLoaded = true;
+  num totalExpanse = 0;
+  final walletService = WalletService();
 
   @override
   void initState() {
@@ -31,6 +36,7 @@ class _AdvHomePageState extends State<AdvHomePage> {
     gettingUserData();
     loadImage();
     getAdvertisements();
+    getTotalExpanse();
   }
 
   gettingUserData() async {
@@ -127,6 +133,23 @@ class _AdvHomePageState extends State<AdvHomePage> {
     return advertisements;
   }
 
+  getTotalExpanse() async {
+    await walletService
+        .advTotalExpanse(FirebaseAuth.instance.currentUser!.uid.toString())
+        .then((value) {
+      if (value != null) {
+        setState(() {
+          totalExpanse = value;
+        });
+      } else {
+        UiHelper.customErrorSnackBar(
+          context,
+          "Something went wrong",
+        );
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     String greetMessage = greetUser();
@@ -193,7 +216,12 @@ class _AdvHomePageState extends State<AdvHomePage> {
                   ),
                   child: ListTile(
                     onTap: () {
-                      Navigator.pushNamed(context, "/adv/profilePage");
+                      Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (context) => const AdvProfilePage(),
+                        ),
+                      );
                     },
                     leading: isImageLoaded != true
                         ? const CupertinoActivityIndicator(
@@ -362,6 +390,37 @@ class _AdvHomePageState extends State<AdvHomePage> {
                 ),
                 const Divider(
                   thickness: 0.5,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "Your Total Expense",
+                  style: Theme.of(context).textTheme.displayMedium,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Card(
+                  color: Theme.of(context).cardColor,
+                  elevation: 4.0,
+                  child: ListTile(
+                    leading: ImageIcon(
+                      const AssetImage("assets/icons/Expense.png"),
+                      color: Theme.of(context).shadowColor,
+                    ).scale(scaleValue: 1.5),
+                    title: Text(
+                      "Total Expense",
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
+                    subtitle: Text(
+                      "$totalExpanse₹",
+                      style:
+                          Theme.of(context).textTheme.displayMedium!.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                    ),
+                  ),
                 ),
                 const SizedBox(
                   height: 20,
