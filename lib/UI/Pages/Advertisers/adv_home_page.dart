@@ -86,7 +86,7 @@ class _AdvHomePageState extends State<AdvHomePage> {
       isImageLoaded = false;
     });
     await Future.delayed(
-      const Duration(seconds: 2),
+      const Duration(seconds: 1),
       () => loadUserProfileImage(),
     );
     setState(() {
@@ -254,6 +254,7 @@ class _AdvHomePageState extends State<AdvHomePage> {
                     ),
                     subtitle: Text(
                       userName,
+                      maxLines: 1,
                       style: const TextStyle(
                         color: Color(0xFFECECED),
                         fontSize: 16,

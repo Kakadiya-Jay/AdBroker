@@ -73,10 +73,16 @@ class _PubBusinessDetailsPageState extends State<PubBusinessDetailsPage> {
                         const SizedBox(
                           height: 30,
                         ),
-                        Text(
+                        const Text(
                           "Platform Name",
                           textAlign: TextAlign.left,
-                          style: Theme.of(context).textTheme.labelMedium,
+                          style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.w700,
+                            color: Color(
+                              0xff19404D,
+                            ),
+                          ),
                         ),
                         const SizedBox(
                           height: 5,
@@ -107,10 +113,16 @@ class _PubBusinessDetailsPageState extends State<PubBusinessDetailsPage> {
                         const SizedBox(
                           height: 20,
                         ),
-                        Text(
+                        const Text(
                           "Platform URL",
                           textAlign: TextAlign.left,
-                          style: Theme.of(context).textTheme.labelMedium,
+                          style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.w700,
+                            color: Color(
+                              0xff19404D,
+                            ),
+                          ),
                         ),
                         const SizedBox(
                           height: 5,
@@ -131,8 +143,7 @@ class _PubBusinessDetailsPageState extends State<PubBusinessDetailsPage> {
                             filled: true,
                             fillColor: const Color(0xFFE6E3E9),
                             hintText: "Ex:- ww.AdBrokers.com",
-                            prefixIcon:
-                                const Icon(CupertinoIcons.link),
+                            prefixIcon: const Icon(CupertinoIcons.link),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
@@ -141,10 +152,16 @@ class _PubBusinessDetailsPageState extends State<PubBusinessDetailsPage> {
                         const SizedBox(
                           height: 20,
                         ),
-                        Text(
+                        const Text(
                           "Monthly Traffic",
                           textAlign: TextAlign.left,
-                          style: Theme.of(context).textTheme.labelMedium,
+                          style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.w700,
+                            color: Color(
+                              0xff19404D,
+                            ),
+                          ),
                         ),
                         const SizedBox(
                           height: 5,
@@ -165,8 +182,7 @@ class _PubBusinessDetailsPageState extends State<PubBusinessDetailsPage> {
                             filled: true,
                             fillColor: const Color(0xFFE6E3E9),
                             hintText: "Ex:- 12000",
-                            prefixIcon:
-                                const Icon(CupertinoIcons.person_3),
+                            prefixIcon: const Icon(CupertinoIcons.person_3),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),

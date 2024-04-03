@@ -5,6 +5,9 @@ class APIConstant {
   static String addNewAdvertisementEndPoint = "/advertise";
   static String getAdvertisementByIdEndPoint = "/advertise/id";
 
+  //Publishers
+  static String getAllPublisherPlatforms = "/application/myApplicaitons";
+
   //Subscriptions
   static String getAllSubscriptions = "/plans";
 

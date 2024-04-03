@@ -21,7 +21,7 @@ class _PubProfilePageState extends State<PubProfilePage> {
   String userImageUrl = "";
   bool isImageLoaded = false;
   final authService = AuthService();
-  
+
   @override
   void initState() {
     gettingUserData();
@@ -62,7 +62,7 @@ class _PubProfilePageState extends State<PubProfilePage> {
       isImageLoaded = false;
     });
     await Future.delayed(
-      const Duration(seconds: 2),
+      const Duration(seconds: 1),
       () => loadUserProfileImage(),
     );
     setState(() {

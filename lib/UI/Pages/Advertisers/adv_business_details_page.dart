@@ -75,10 +75,16 @@ class _AdvBusinessDetailsPageState extends State<AdvBusinessDetailsPage> {
                         const SizedBox(
                           height: 30,
                         ),
-                        Text(
+                        const Text(
                           "Brand Name",
                           textAlign: TextAlign.left,
-                          style: Theme.of(context).textTheme.labelMedium,
+                          style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.w700,
+                            color: Color(
+                              0xff19404D,
+                            ),
+                          ),
                         ),
                         const SizedBox(
                           height: 5,
@@ -109,10 +115,16 @@ class _AdvBusinessDetailsPageState extends State<AdvBusinessDetailsPage> {
                         const SizedBox(
                           height: 20,
                         ),
-                        Text(
+                        const Text(
                           "Brand URL",
                           textAlign: TextAlign.left,
-                          style: Theme.of(context).textTheme.labelMedium,
+                          style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.w700,
+                            color: Color(
+                              0xff19404D,
+                            ),
+                          ),
                         ),
                         const SizedBox(
                           height: 5,
@@ -142,10 +154,16 @@ class _AdvBusinessDetailsPageState extends State<AdvBusinessDetailsPage> {
                         const SizedBox(
                           height: 20,
                         ),
-                        Text(
+                        const Text(
                           "Brand Category",
                           textAlign: TextAlign.left,
-                          style: Theme.of(context).textTheme.labelMedium,
+                          style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.w700,
+                            color: Color(
+                              0xff19404D,
+                            ),
+                          ),
                         ),
                         const SizedBox(
                           height: 5,
@@ -174,10 +192,16 @@ class _AdvBusinessDetailsPageState extends State<AdvBusinessDetailsPage> {
                         const SizedBox(
                           height: 20,
                         ),
-                        Text(
+                        const Text(
                           "Brand Address",
                           textAlign: TextAlign.left,
-                          style: Theme.of(context).textTheme.labelMedium,
+                          style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.w700,
+                            color: Color(
+                              0xff19404D,
+                            ),
+                          ),
                         ),
                         const SizedBox(
                           height: 5,
@@ -206,10 +230,16 @@ class _AdvBusinessDetailsPageState extends State<AdvBusinessDetailsPage> {
                         const SizedBox(
                           height: 20,
                         ),
-                        Text(
+                        const Text(
                           "Valuation",
                           textAlign: TextAlign.left,
-                          style: Theme.of(context).textTheme.labelMedium,
+                          style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.w700,
+                            color: Color(
+                              0xff19404D,
+                            ),
+                          ),
                         ),
                         const SizedBox(
                           height: 5,

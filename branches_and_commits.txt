@@ -33,6 +33,7 @@ functionality-commit-9 :- Functionality commit 9 , Implement two New Apis One is
 functionality-commit-10 :- Functionality commit 10 , successfully implement both new Apis. 
 functionality-commit-11 :- Functionality commit 11 , On Publisher side, Create form for Publisher in which they can register their platforms
 functionality-commit-12 :- Functionality commit 12 , On Publisher side, Implement Register paltform api and also add three new apis all are maintioned respectively 1. get current balance 2. get total revenue 3.withdrawal , and Implement temporary withdrawal system using razorpay and On Advertiser side implement total expanse api.
+functionality-commit-13 :- Functionality commit 13 , On Publisher side, Implement get Platforms api and create two new pages and changed home page ui.
 
 change-theme-1 :- Theme Commit 1, In which All app's theme hase to been changed.
 change-theme-2 :- Theme Commit 2, In which TextFormField Widget theme is changed.

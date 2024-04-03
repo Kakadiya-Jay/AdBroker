@@ -66,7 +66,7 @@ class _AdvProfilePageState extends State<AdvProfilePage> {
       isImageLoaded = false;
     });
     await Future.delayed(
-      const Duration(seconds: 2),
+      const Duration(seconds: 1),
       () => loadUserProfileImage(),
     );
     setState(() {
