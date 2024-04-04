@@ -17,6 +17,7 @@ class ProfitPage extends StatefulWidget {
 }
 
 class _ProfitPageState extends State<ProfitPage> {
+  final formkey = GlobalKey<FormState>();
   final walletService = WalletService();
   num currentBalance = 0;
   num totalRevenue = 0;
@@ -116,69 +117,145 @@ class _ProfitPageState extends State<ProfitPage> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 20.0,
-              ),
-              Text(
-                "Current Balance",
-                style: Theme.of(context).textTheme.displayLarge,
-              ),
-              const SizedBox(
-                height: 10.0,
-              ),
-              Text(
-                "$currentBalance₹",
-                style: Theme.of(context).textTheme.labelLarge,
-              ),
-              const SizedBox(
-                height: 20.0,
-              ),
-              Card(
-                color: Theme.of(context).cardColor,
-                elevation: 4.0,
-                child: ListTile(
-                  leading: Icon(
-                    CupertinoIcons.money_dollar_circle,
-                    color: Theme.of(context).shadowColor,
+          child: Form(
+            key: formkey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 20.0,
+                ),
+                Text(
+                  "Current Balance",
+                  style: Theme.of(context).textTheme.displayLarge,
+                ),
+                const SizedBox(
+                  height: 10.0,
+                ),
+                Text(
+                  "$currentBalance₹",
+                  style: Theme.of(context).textTheme.labelLarge,
+                ),
+                const SizedBox(
+                  height: 20.0,
+                ),
+                Card(
+                  color: Theme.of(context).cardColor,
+                  elevation: 4.0,
+                  child: ListTile(
+                    leading: Icon(
+                      CupertinoIcons.money_dollar_circle,
+                      color: Theme.of(context).shadowColor,
+                    ),
+                    title: Text(
+                      "Total Revenue",
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
+                    subtitle: Text(
+                      "$totalRevenue₹",
+                      style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
                   ),
-                  title: Text(
-                    "Total Revenue",
-                    style: Theme.of(context).textTheme.headlineSmall,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Divider(
+                  color: Theme.of(context).shadowColor,
+                  thickness: 0.5,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "Withdraw earning to your account",
+                  style: Theme.of(context).textTheme.displayMedium,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "Enter Amount",
+                  style: Theme.of(context).textTheme.displaySmall,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
+                  controller: withdrawalamount,
+                  style: Theme.of(context).textTheme.displaySmall,
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) {
+                    if (value != "") {
+                      if (double.parse(value) <= currentBalance) {
+                        setState(() {
+                          isValidAmount = true;
+                        });
+                      } else {
+                        setState(() {
+                          isValidAmount = false;
+                        });
+                      }
+                    }
+                    return;
+                  },
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Please enter amount";
+                    }
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                    hintText: "Ex:- 100",
+                    prefixIcon: Icon(
+                      CupertinoIcons.money_dollar,
+                      color: Theme.of(context).shadowColor,
+                    ),
                   ),
-                  subtitle: Text(
-                    "$totalRevenue₹",
-                    style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                isValidAmount == false
+                    ? const Text(
+                        "Note:- You have not enough amount to Withdraw",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.redAccent,
                           fontWeight: FontWeight.bold,
                         ),
-                  ),
+                      )
+                    : const Text(""),
+                const SizedBox(
+                  height: 20,
                 ),
-              ),
-              const SizedBox(
-                height: 20.0,
-              ),
-              CupertinoButton(
-                onPressed: () {
-                  openPaymentModel();
-                },
-                color: const Color(0xffFFE501),
-                child: const Text(
-                  "Withdraw amount",
-                  style: TextStyle(
-                    color: Color(0xFF3C096C),
-                    fontWeight: FontWeight.w700,
-                    fontSize: 18,
+                CupertinoButton(
+                  onPressed: () {
+                    if (formkey.currentState!.validate()) {
+                      var amount =
+                          double.parse(withdrawalamount.text.toString());
+                      if (amount < currentBalance) {
+                        openCheckout(amount);
+                      }
+                    }
+                  },
+                  color: const Color(0xffFFE501),
+                  child: const Text(
+                    "Withdraw",
+                    style: TextStyle(
+                      color: Color(0xFF3C096C),
+                      fontWeight: FontWeight.w700,
+                      fontSize: 18,
+                    ),
                   ),
-                ),
-              ).centered(),
-              const SizedBox(
-                height: 20.0,
-              ),
-            ],
-          ).p8(),
-        ),
+                ).centered(),
+              ],
+            ).p8(),
+          ),
+        ).centered(),
       ),
     );
   }
@@ -215,124 +292,6 @@ class _ProfitPageState extends State<ProfitPage> {
         );
       }
     });
-  }
-
-  openPaymentModel() {
-    return showModalBottomSheet(
-      context: context,
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      elevation: 4.0,
-      builder: (context) {
-        return Wrap(
-          children: [
-            const SizedBox(
-              height: 40,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Current Balance",
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  "$currentBalance₹",
-                  style: Theme.of(context).textTheme.displayMedium,
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 40,
-            ),
-            Divider(
-              color: Theme.of(context).shadowColor,
-            ),
-            const SizedBox(
-              height: 40,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Enter Amount",
-                  style: Theme.of(context).textTheme.displayMedium,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                TextFormField(
-                  controller: withdrawalamount,
-                  style: Theme.of(context).textTheme.displaySmall,
-                  keyboardType: TextInputType.number,
-                  onChanged: (value) {
-                    if (value != "") {
-                      if (double.parse(value) < currentBalance) {
-                        setState(() {
-                          isValidAmount = true;
-                        });
-                      } else {
-                        setState(() {
-                          isValidAmount = false;
-                        });
-                      }
-                    }
-                    return;
-                  },
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Please enter amount";
-                    }
-                    return null;
-                  },
-                  decoration: InputDecoration(
-                    hintText: "Ex:- 100",
-                    prefixIcon: Icon(
-                      CupertinoIcons.money_dollar,
-                      color: Theme.of(context).shadowColor,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                isValidAmount == false
-                    ? const Text(
-                        "Note:- You have not amount to Withdraw",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.redAccent,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    : const Text(""),
-                const SizedBox(
-                  height: 30,
-                ),
-                CupertinoButton(
-                  onPressed: () {
-                    openCheckout(
-                        double.parse(withdrawalamount.text.toString()));
-                  },
-                  color: const Color(0xffFFE501),
-                  child: const Text(
-                    "Proceed",
-                    style: TextStyle(
-                      color: Color(0xFF3C096C),
-                      fontWeight: FontWeight.w700,
-                      fontSize: 18,
-                    ),
-                  ),
-                ).centered(),
-              ],
-            ),
-          ],
-        ).centered().p16();
-      },
-    );
   }
 
   afterSuccessPaymentService() async {

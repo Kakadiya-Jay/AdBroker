@@ -94,6 +94,12 @@ class _PubEditProfilePageState extends State<PubEditProfilePage> {
   }
 
   @override
+  void initState() {
+    imageUrl = widget.userImageUrl;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -280,19 +286,16 @@ class _PubEditProfilePageState extends State<PubEditProfilePage> {
                   width: MediaQuery.of(context).size.width,
                   height: 48,
                   child: CupertinoButton(
-                    onPressed: imageUrl == ""
-                        ? null
-                        : () {
-                            if (widget.userName != "" &&
-                                widget.userEmail != "" &&
-                                widget.userContact != "" &&
-                                imageUrl != "") {
-                              updateAdvertiserProfile();
-                            } else {
-                              UiHelper.customAlertBox(context,
-                                  "Enter Required Fields or Upload New Image");
-                            }
-                          },
+                    onPressed: () {
+                      if (widget.userName != "" &&
+                          widget.userEmail != "" &&
+                          widget.userContact != "") {
+                        updateAdvertiserProfile();
+                      } else {
+                        UiHelper.customFailureAlertBox(
+                            context, "Enter Required Fields");
+                      }
+                    },
                     color: const Color(0xffFFE501),
                     child: const Text(
                       "Edit Profile",

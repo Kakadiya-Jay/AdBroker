@@ -4,7 +4,6 @@ import 'package:ad_brokers/UI/Widgets/uihelper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ShowPubPlatformDetails extends StatefulWidget {
@@ -72,13 +71,16 @@ class _ShowPubPlatformDetailsState extends State<ShowPubPlatformDetails> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Image.asset(
-                      "assets/icons/default-app-icon.png",
-                      height: 100,
-                      width: 100,
-                      fit: BoxFit.fill,
-                      filterQuality: FilterQuality.high,
-                    ).centered(),
+                    Hero(
+                      tag: widget.platforms[0].id,
+                      child: Image.asset(
+                        "assets/icons/default-app-icon.png",
+                        height: 100,
+                        width: 100,
+                        fit: BoxFit.fill,
+                        filterQuality: FilterQuality.high,
+                      ).centered(),
+                    ),
                     const SizedBox(
                       height: 20,
                     ),

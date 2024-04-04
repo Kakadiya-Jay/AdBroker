@@ -1,6 +1,7 @@
 import 'package:ad_brokers/Helpers/helper_function.dart';
 import 'package:ad_brokers/Services/auth_service.dart';
 import 'package:ad_brokers/UI/Pages/Publishers/pub_edit_profile_page.dart';
+import 'package:ad_brokers/UI/Widgets/make_user_dp_card.dart';
 import 'package:ad_brokers/UI/Widgets/profile_option_list_template.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -118,6 +119,19 @@ class _PubProfilePageState extends State<PubProfilePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ListTile(
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return MakeUserDpCard(
+                      name: userName,
+                      imagePath: userImageUrl,
+                      email: userEmail,
+                      phone: userContact,
+                    );
+                  },
+                );
+              },
               leading: SizedBox(
                 height: 56,
                 width: 56,
