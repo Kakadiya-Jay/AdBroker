@@ -55,12 +55,15 @@ class ShowPlatformTemplateCard extends StatelessWidget {
                 height: 5,
               ),
               ListTile(
-                leading: Image.asset(
-                  "assets/icons/default-app-icon.png",
-                  height: 65,
-                  width: 65,
-                  fit: BoxFit.fill,
-                  filterQuality: FilterQuality.high,
+                leading: Hero(
+                  tag: id,
+                  child: Image.asset(
+                    "assets/icons/default-app-icon.png",
+                    height: 65,
+                    width: 65,
+                    fit: BoxFit.fill,
+                    filterQuality: FilterQuality.high,
+                  ),
                 ),
                 title: Text(
                   appName,
