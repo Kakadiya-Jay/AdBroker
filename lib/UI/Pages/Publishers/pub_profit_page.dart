@@ -101,6 +101,18 @@ class _ProfitPageState extends State<ProfitPage> {
           style: Theme.of(context).textTheme.displayMedium,
         ),
         centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () {
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                "/pub/frontPage",
+                (route) => false,
+              );
+            },
+          ),
+        ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(

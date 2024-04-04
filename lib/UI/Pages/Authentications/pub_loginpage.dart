@@ -331,6 +331,8 @@ class _PubLoginPageState extends State<PubLoginPage> {
         await HelperFunctions.saveUserNameSF(snapshot.docs[0]["name"]);
         await HelperFunctions.saveUserContactSF(snapshot.docs[0]["contact"]);
         await HelperFunctions.saveUserRoleSF(snapshot.docs[0]["role"]);
+        await HelperFunctions.saveAdvBrandNameSF(
+            snapshot.docs[0]["platform_name"]);
         await HelperFunctions.saveUserImageURLSF(
             snapshot.docs[0]["profile_pic"]);
 

@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class RagisterPlatformPage extends StatefulWidget {
-  const RagisterPlatformPage({super.key});
+class RegisterPlatformPage extends StatefulWidget {
+  const RegisterPlatformPage({super.key});
 
   @override
-  State<RagisterPlatformPage> createState() => _RagisterPlatformPageState();
+  State<RegisterPlatformPage> createState() => _RegisterPlatformPageState();
 }
 
-class _RagisterPlatformPageState extends State<RagisterPlatformPage> {
+class _RegisterPlatformPageState extends State<RegisterPlatformPage> {
   final formkey = GlobalKey<FormState>();
   final appName = TextEditingController();
   final bundleId = TextEditingController();

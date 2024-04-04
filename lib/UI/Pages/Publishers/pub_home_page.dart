@@ -1,8 +1,14 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:ad_brokers/Helpers/helper_function.dart';
+import 'package:ad_brokers/Models/publisher_platforms_model.dart';
 import 'package:ad_brokers/Services/auth_service.dart';
+import 'package:ad_brokers/Services/publisher_platform_service.dart';
 import 'package:ad_brokers/UI/Pages/Publishers/pub_profile_page.dart';
-import 'package:ad_brokers/UI/Pages/Publishers/pub_registar_platform_page.dart';
-import 'package:ad_brokers/UI/Widgets/running_ads_template_card.dart';
+import 'package:ad_brokers/UI/Pages/Publishers/pub_register_platform_page.dart';
+import 'package:ad_brokers/UI/Pages/Publishers/show_pub_platform_details.dart';
+import 'package:ad_brokers/UI/Widgets/show_platfrom_template_card.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -19,6 +25,7 @@ class _PubHomePageState extends State<PubHomePage> {
   String userRole = "";
   String userImageUrl = "";
   final authService = AuthService();
+  final platformService = PublisherPlatformService();
 
   bool isImageLoaded = false;
 
@@ -26,6 +33,7 @@ class _PubHomePageState extends State<PubHomePage> {
   void initState() {
     gettingUserData();
     loadImage();
+    gettingPlatforms();
     super.initState();
   }
 
@@ -66,12 +74,28 @@ class _PubHomePageState extends State<PubHomePage> {
       isImageLoaded = false;
     });
     await Future.delayed(
-      const Duration(seconds: 2),
+      const Duration(seconds: 1),
       () => loadUserProfileImage(),
     );
     setState(() {
       isImageLoaded = true;
     });
+  }
+
+  List<PlatformModel> platforms = [];
+  String pubId = FirebaseAuth.instance.currentUser!.uid.toString();
+
+  Future<List<PlatformModel>> gettingPlatforms() async {
+    try {
+      final platformResponse =
+          await platformService.getAllPublisherPlatform(pubId);
+      platforms = platformResponse!;
+      return platforms;
+    } catch (e) {
+      debugPrint(e.toString());
+      // UiHelper.customErrorSnackBar(context, "Something went wrong..");
+      return [];
+    }
   }
 
   Widget loadUserProfileImage() {
@@ -122,6 +146,17 @@ class _PubHomePageState extends State<PubHomePage> {
           IconButton(
             onPressed: () {},
             icon: const Icon(Icons.notifications_none_rounded),
+            color: Colors.white,
+          ).scale(scaleValue: 1.2),
+          IconButton(
+            onPressed: () {
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                "/pub/frontPage",
+                (route) => false,
+              );
+            },
+            icon: const Icon(Icons.refresh),
             color: Colors.white,
           ).scale(scaleValue: 1.2),
         ],
@@ -195,6 +230,7 @@ class _PubHomePageState extends State<PubHomePage> {
                     ),
                     subtitle: Text(
                       userName,
+                      maxLines: 1,
                       style: const TextStyle(
                         color: Color(0xFFECECED),
                         fontSize: 16,
@@ -231,25 +267,26 @@ class _PubHomePageState extends State<PubHomePage> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Card(
-                  elevation: 4.0,
-                  shadowColor: Theme.of(context).shadowColor,
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: 200,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
-                      child: Image.asset(
-                        "assets/images/subscription-banner-with-contant.png",
-                        fit: BoxFit.fill,
-                        filterQuality: FilterQuality.high,
-                      ),
-                    ),
-                  ),
-                ),
+                // const SizedBox(
+                //   height: 20,
+                // ),
+                // Card(
+                //   elevation: 4.0,
+                //   shadowColor: Theme.of(context).shadowColor,
+                //   child: SizedBox(
+                //     width: MediaQuery.of(context).size.width,
+                //     height: 200,
+                //     child: ClipRRect(
+                //       borderRadius: BorderRadius.circular(16),
+                //       child: Image.asset(
+                //         "assets/images/subscription-banner-with-contant.png",
+                //         fit: BoxFit.fill,
+                //         filterQuality: FilterQuality.high,
+                //       ),
+                //     ),
+                //   ),
+                // ),
+
                 const SizedBox(
                   height: 20,
                 ),
@@ -265,14 +302,14 @@ class _PubHomePageState extends State<PubHomePage> {
                         Navigator.push(
                           context,
                           CupertinoPageRoute(
-                            builder: (context) => const RagisterPlatformPage(),
+                            builder: (context) => const RegisterPlatformPage(),
                           ),
                         );
                       },
                       child: Row(
                         children: [
                           const Text(
-                            "View All",
+                            "New Platform",
                             textAlign: TextAlign.right,
                             style: TextStyle(
                               color: Color(0xFFFFC228),
@@ -293,76 +330,132 @@ class _PubHomePageState extends State<PubHomePage> {
                 const SizedBox(
                   height: 10,
                 ),
-                Card(
-                  color: Theme.of(context).scaffoldBackgroundColor,
-                  elevation: 4.0,
-                  child: ListTile(
-                    leading: Icon(
-                      CupertinoIcons.eye,
-                      color: Theme.of(context).shadowColor,
-                    ),
-                    title: Text(
-                      "AdBrokers",
-                      style: Theme.of(context).textTheme.displayMedium,
-                    ),
-                    subtitle: Text(
-                      "localhost/AdBrokers/pages/index.php",
-                      maxLines: 1,
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                  ).p4(),
-                ).pSymmetric(v: 2),
-                const SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  children: [
-                    Text(
-                      "Running Ads",
-                      style: Theme.of(context).textTheme.displayMedium,
-                    ),
-                    const Spacer(),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Row(
-                        children: [
-                          const Text(
-                            "View All",
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                              color: Color(0xFFFFC228),
-                              fontSize: 14,
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w500,
-                            ),
+                SizedBox(
+                  height: 245,
+                  child: FutureBuilder<List<PlatformModel>>(
+                    future: gettingPlatforms(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(
+                          child: CupertinoActivityIndicator(
+                            color: Theme.of(context).shadowColor,
                           ),
-                          const Icon(
-                            CupertinoIcons.arrow_right,
-                            color: Color(0xFFFFC228),
-                          ).scale(scaleValue: 0.8)
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      RunningAdsTemplateCard(
-                        imagePath: "assets/images/Sample-Ad-Image-1.jpg",
-                        brandName: "ABCD Company",
-                        noOfViews: 12000,
-                        adsCategory: "Product Sale",
-                        totalClicks: 100,
-                        profitAmount: 320,
-                      ),
-                    ],
+                        ).scale(scaleValue: 2.0);
+                      } else if (snapshot.hasError) {
+                        return Center(
+                          child: Text(
+                            'Error: ${snapshot.error}\nOr else please check your internet connection',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.displayMedium,
+                          ),
+                        );
+                      } else {
+                        if (snapshot.data!.isEmpty) {
+                          return SizedBox(
+                            height: 160,
+                            width: MediaQuery.of(context).size.width,
+                            child: Card(
+                              elevation: 4.0,
+                              color: Theme.of(context).cardColor,
+                              child: Center(
+                                child: Text(
+                                  "No data available..",
+                                  textAlign: TextAlign.center,
+                                  style:
+                                      Theme.of(context).textTheme.displayMedium,
+                                ),
+                              ),
+                            ),
+                          );
+                        } else {
+                          return ListView.builder(
+                            itemCount: platforms.length,
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return ShowPlatformTemplateCard(
+                                id: platforms[index].id,
+                                imagePath: "",
+                                appName: platforms[index].name,
+                                bundleId: platforms[index].bundleId,
+                                appCategory: platforms[index].category,
+                                redirectUrl: platforms[index].redirectURL,
+                                totalViews: platforms[index].totalViews,
+                                totalClicks: platforms[index].totalClicks,
+                                totalEarning: platforms[index].totalEarnings,
+                                onClickAction: () {
+                                  List<PlatformModel> sharedPlatform = [];
+                                  sharedPlatform.add(platforms[index]);
+                                  Navigator.push(
+                                    context,
+                                    CupertinoPageRoute(
+                                      builder: (context) =>
+                                          ShowPubPlatformDetails(
+                                        platforms: sharedPlatform,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          );
+                        }
+                      }
+                    },
                   ),
                 ),
+                // const SizedBox(
+                //   height: 20,
+                // ),
+                // // Row(
+                //   children: [
+                //     Text(
+                //       "Running Ads",
+                //       style: Theme.of(context).textTheme.displayMedium,
+                //     ),
+                //     const Spacer(),
+                //     GestureDetector(
+                //       onTap: () {},
+                //       child: Row(
+                //         children: [
+                //           const Text(
+                //             "View All",
+                //             textAlign: TextAlign.right,
+                //             style: TextStyle(
+                //               color: Color(0xFFFFC228),
+                //               fontSize: 14,
+                //               fontFamily: 'Poppins',
+                //               fontWeight: FontWeight.w500,
+                //             ),
+                //           ),
+                //           const Icon(
+                //             CupertinoIcons.arrow_right,
+                //             color: Color(0xFFFFC228),
+                //           ).scale(scaleValue: 0.8)
+                //         ],
+                //       ),
+                //     )
+                //   ],
+                // ),
+                // const SizedBox(
+                //   height: 20,
+                // ),
+                // const SingleChildScrollView(
+                //   scrollDirection: Axis.horizontal,
+                //   child: Row(
+                //     children: [
+                //       RunningAdsTemplateCard(
+                //         imagePath: "assets/images/Sample-Ad-Image-1.jpg",
+                //         brandName: "ABCD Company",
+                //         noOfViews: 12000,
+                //         adsCategory: "Product Sale",
+                //         totalClicks: 100,
+                //         profitAmount: 320,
+                //       ),
+                //     ],
+                //   ),
+                // ),
+
                 const SizedBox(
                   height: 20,
                 ),
