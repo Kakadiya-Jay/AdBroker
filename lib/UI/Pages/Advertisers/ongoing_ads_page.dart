@@ -42,19 +42,22 @@ class _OnGoingAdsPageState extends State<OnGoingAdsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: widget.ongoingAds.length,
-      scrollDirection: Axis.vertical,
-      shrinkWrap: true,
-      itemBuilder: (context, index) {
-        if (widget.ongoingAds.isEmpty) {
-          return Center(
-            child: Text(
-              "No Data Available",
-              style: Theme.of(context).textTheme.displayMedium,
-            ),
-          );
-        } else {
+    if (widget.ongoingAds.isEmpty) {
+      return Center(
+        child: Image.asset(
+          "assets/images/No data-amico.png",
+          height: 330,
+          width: MediaQuery.of(context).size.width * 0.80,
+          filterQuality: FilterQuality.high,
+          fit: BoxFit.fill,
+        ),
+      );
+    } else {
+      return ListView.builder(
+        itemCount: widget.ongoingAds.length,
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
           return MyAdsTemplate(
             imagePath: widget.ongoingAds[index].adImageUrl,
             adTitle: widget.ongoingAds[index].adTitle,
@@ -68,8 +71,8 @@ class _OnGoingAdsPageState extends State<OnGoingAdsPage> {
             animationKey: widget.ongoingAds[index].id,
             price: widget.ongoingAds[index].price,
           );
-        }
-      },
-    ).pSymmetric(v: 6);
+        },
+      ).pSymmetric(v: 6);
+    }
   }
 }

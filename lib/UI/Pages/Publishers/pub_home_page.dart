@@ -92,8 +92,7 @@ class _PubHomePageState extends State<PubHomePage> {
       platforms = platformResponse!;
       return platforms;
     } catch (e) {
-      debugPrint(e.toString());
-      // UiHelper.customErrorSnackBar(context, "Something went wrong..");
+      debugPrint("Error :- ${e.toString()}");
       return [];
     }
   }
@@ -342,9 +341,10 @@ class _PubHomePageState extends State<PubHomePage> {
                           ),
                         ).scale(scaleValue: 2.0);
                       } else if (snapshot.hasError) {
+                        debugPrint("Error:- \n${snapshot.error}");
                         return Center(
                           child: Text(
-                            'Error: ${snapshot.error}\nOr else please check your internet connection',
+                            'Internal Server Error \nOr else please check your internet connection',
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.displayMedium,
                           ),
@@ -352,18 +352,15 @@ class _PubHomePageState extends State<PubHomePage> {
                       } else {
                         if (snapshot.data!.isEmpty) {
                           return SizedBox(
-                            height: 160,
+                            height: 245,
                             width: MediaQuery.of(context).size.width,
-                            child: Card(
-                              elevation: 4.0,
-                              color: Theme.of(context).cardColor,
-                              child: Center(
-                                child: Text(
-                                  "No data available..",
-                                  textAlign: TextAlign.center,
-                                  style:
-                                      Theme.of(context).textTheme.displayMedium,
-                                ),
+                            child: Center(
+                              child: Image.asset(
+                                "assets/images/No data-amico.png",
+                                height: 245,
+                                width: MediaQuery.of(context).size.width * 0.70,
+                                filterQuality: FilterQuality.high,
+                                fit: BoxFit.fill,
                               ),
                             ),
                           );

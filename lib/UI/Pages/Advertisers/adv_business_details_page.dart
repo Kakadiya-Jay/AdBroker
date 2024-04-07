@@ -79,11 +79,9 @@ class _AdvBusinessDetailsPageState extends State<AdvBusinessDetailsPage> {
                           "Brand Name",
                           textAlign: TextAlign.left,
                           style: TextStyle(
-                            fontSize: 28,
+                            fontSize: 18,
                             fontWeight: FontWeight.w700,
-                            color: Color(
-                              0xff19404D,
-                            ),
+                            color: Colors.black,
                           ),
                         ),
                         const SizedBox(
@@ -119,11 +117,9 @@ class _AdvBusinessDetailsPageState extends State<AdvBusinessDetailsPage> {
                           "Brand URL",
                           textAlign: TextAlign.left,
                           style: TextStyle(
-                            fontSize: 28,
+                            fontSize: 18,
                             fontWeight: FontWeight.w700,
-                            color: Color(
-                              0xff19404D,
-                            ),
+                            color: Colors.black,
                           ),
                         ),
                         const SizedBox(
@@ -136,7 +132,7 @@ class _AdvBusinessDetailsPageState extends State<AdvBusinessDetailsPage> {
                               return "Url Can't be empty";
                             }
                             if (!value.contains(RegExp(
-                                r"(https?|http)://([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?"))) {
+                                r"(https?|http)://([-A-Za-z0-9.]+)(/[-A-Za-z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Za-z0-9+&@#/%=~_|!:‌​,.;]*)?"))) {
                               return "URL format is incorrect";
                             }
                             return null;
@@ -158,11 +154,9 @@ class _AdvBusinessDetailsPageState extends State<AdvBusinessDetailsPage> {
                           "Brand Category",
                           textAlign: TextAlign.left,
                           style: TextStyle(
-                            fontSize: 28,
+                            fontSize: 18,
                             fontWeight: FontWeight.w700,
-                            color: Color(
-                              0xff19404D,
-                            ),
+                            color: Colors.black,
                           ),
                         ),
                         const SizedBox(
@@ -196,11 +190,9 @@ class _AdvBusinessDetailsPageState extends State<AdvBusinessDetailsPage> {
                           "Brand Address",
                           textAlign: TextAlign.left,
                           style: TextStyle(
-                            fontSize: 28,
+                            fontSize: 18,
                             fontWeight: FontWeight.w700,
-                            color: Color(
-                              0xff19404D,
-                            ),
+                            color: Colors.black,
                           ),
                         ),
                         const SizedBox(
@@ -234,7 +226,7 @@ class _AdvBusinessDetailsPageState extends State<AdvBusinessDetailsPage> {
                           "Valuation",
                           textAlign: TextAlign.left,
                           style: TextStyle(
-                            fontSize: 28,
+                            fontSize: 18,
                             fontWeight: FontWeight.w700,
                             color: Color(
                               0xff19404D,

@@ -138,36 +138,38 @@ class _SearchAdsPageState extends State<SearchAdsPage> {
               const SizedBox(
                 height: 10,
               ),
-              ListView.builder(
-                itemCount: filteredAds.length,
-                shrinkWrap: true,
-                physics: const BouncingScrollPhysics(),
-                scrollDirection: Axis.vertical,
-                itemBuilder: (context, index) {
-                  if (filteredAds.isEmpty && filteredAds == []) {
-                    return Center(
-                      child: Text(
-                        "No Data Available",
-                        style: Theme.of(context).textTheme.displayMedium,
+              filteredAds.isEmpty
+                  ? Center(
+                      child: Image.asset(
+                        "assets/images/No data-amico.png",
+                        height: 330,
+                        width: MediaQuery.of(context).size.width * 0.80,
+                        filterQuality: FilterQuality.high,
+                        fit: BoxFit.fill,
                       ),
-                    );
-                  }
-                  var advertisement = filteredAds[index];
-                  return MyAdsTemplate(
-                    imagePath: advertisement.adImageUrl,
-                    adTitle: advertisement.adTitle,
-                    remainViews: advertisement.remainViews,
-                    noOfPlatforms: 0,
-                    adStatus: advertisement.adStatus,
-                    adCategory: advertisement.adCategory,
-                    adType: advertisement.adType,
-                    brandName: brandName,
-                    brandURL: brandURL,
-                    animationKey: advertisement.id,
-                    price: advertisement.price,
-                  );
-                },
-              ).pSymmetric(v: 8)
+                    )
+                  : ListView.builder(
+                      itemCount: filteredAds.length,
+                      shrinkWrap: true,
+                      physics: const BouncingScrollPhysics(),
+                      scrollDirection: Axis.vertical,
+                      itemBuilder: (context, index) {
+                        var advertisement = filteredAds[index];
+                        return MyAdsTemplate(
+                          imagePath: advertisement.adImageUrl,
+                          adTitle: advertisement.adTitle,
+                          remainViews: advertisement.remainViews,
+                          noOfPlatforms: 0,
+                          adStatus: advertisement.adStatus,
+                          adCategory: advertisement.adCategory,
+                          adType: advertisement.adType,
+                          brandName: brandName,
+                          brandURL: brandURL,
+                          animationKey: advertisement.id,
+                          price: advertisement.price,
+                        );
+                      },
+                    ).pSymmetric(v: 8)
             ],
           ),
         ),

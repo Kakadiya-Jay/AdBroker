@@ -1,4 +1,4 @@
-import 'package:ad_brokers/UI/Pages/Publishers/pub_chat_page.dart';
+import 'package:ad_brokers/UI/Pages/Publishers/pub_all_platfroms_page.dart';
 import 'package:ad_brokers/UI/Pages/Publishers/pub_home_page.dart';
 import 'package:ad_brokers/UI/Pages/Publishers/pub_profile_page.dart';
 import 'package:ad_brokers/UI/Pages/Publishers/pub_profit_page.dart';
@@ -9,15 +9,16 @@ class PubNavigationBarTemplate extends StatefulWidget {
   const PubNavigationBarTemplate({super.key});
 
   @override
-  State<PubNavigationBarTemplate> createState() => _PubNavigationBarTemplateState();
+  State<PubNavigationBarTemplate> createState() =>
+      _PubNavigationBarTemplateState();
 }
 
 class _PubNavigationBarTemplateState extends State<PubNavigationBarTemplate> {
   int myIndex = 0;
   List<Widget> pageList = [
     const PubHomePage(),
+    const PubAllPlatformPage(),
     const ProfitPage(),
-    const PubChatPage(),
     const PubProfilePage(),
   ];
   @override
@@ -41,12 +42,14 @@ class _PubNavigationBarTemplateState extends State<PubNavigationBarTemplate> {
             label: "Home",
           ),
           BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.money_dollar_circle),
-            label: "Profit",
+            icon: ImageIcon(
+              AssetImage("assets/icons/platform-icon.png"),
+            ),
+            label: "Platforms",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
-            label: "Chat",
+            icon: Icon(CupertinoIcons.money_dollar_circle),
+            label: "Profit",
           ),
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.person),

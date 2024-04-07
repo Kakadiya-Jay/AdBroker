@@ -42,33 +42,37 @@ class _HistoryAdsPageState extends State<HistoryAdsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: widget.historyAds.length,
-      shrinkWrap: true,
-      scrollDirection: Axis.vertical,
-      itemBuilder: (context, index) {
-        if (widget.historyAds.isEmpty) {
-          return Center(
-            child: Text(
-              "No Data Available",
-              style: Theme.of(context).textTheme.displayMedium,
-            ),
+    if (widget.historyAds.isEmpty) {
+      return Center(
+        child: Image.asset(
+          "assets/images/No data-amico.png",
+          height: 330,
+          width: MediaQuery.of(context).size.width * 0.80,
+          filterQuality: FilterQuality.high,
+          fit: BoxFit.fill,
+        ),
+      );
+    } else {
+      return ListView.builder(
+        itemCount: widget.historyAds.length,
+        shrinkWrap: true,
+        scrollDirection: Axis.vertical,
+        itemBuilder: (context, index) {
+          return MyAdsTemplate(
+            imagePath: widget.historyAds[index].adImageUrl,
+            adTitle: widget.historyAds[index].adTitle,
+            remainViews: widget.historyAds[index].remainViews,
+            noOfPlatforms: 0,
+            adStatus: widget.historyAds[index].adStatus,
+            adCategory: widget.historyAds[index].adCategory,
+            adType: widget.historyAds[index].adType,
+            brandName: brandName,
+            brandURL: brandURL,
+            animationKey: widget.historyAds[index].id,
+            price: widget.historyAds[index].price,
           );
-        }
-        return MyAdsTemplate(
-          imagePath: widget.historyAds[index].adImageUrl,
-          adTitle: widget.historyAds[index].adTitle,
-          remainViews: widget.historyAds[index].remainViews,
-          noOfPlatforms: 0,
-          adStatus: widget.historyAds[index].adStatus,
-          adCategory: widget.historyAds[index].adCategory,
-          adType: widget.historyAds[index].adType,
-          brandName: brandName,
-          brandURL: brandURL,
-          animationKey: widget.historyAds[index].id,
-          price: widget.historyAds[index].price,
-        );
-      },
-    ).pSymmetric(v: 6);
+        },
+      ).pSymmetric(v: 6);
+    }
   }
 }
