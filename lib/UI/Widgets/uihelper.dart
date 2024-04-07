@@ -40,6 +40,7 @@ class UiHelper {
         ),
         duration: const Duration(milliseconds: 1500),
         elevation: 8.0,
+        
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       ),
     );

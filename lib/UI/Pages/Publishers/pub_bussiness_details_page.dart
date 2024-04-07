@@ -77,11 +77,9 @@ class _PubBusinessDetailsPageState extends State<PubBusinessDetailsPage> {
                           "Platform Name",
                           textAlign: TextAlign.left,
                           style: TextStyle(
-                            fontSize: 28,
+                            fontSize: 18,
                             fontWeight: FontWeight.w700,
-                            color: Color(
-                              0xff19404D,
-                            ),
+                            color: Colors.black,
                           ),
                         ),
                         const SizedBox(
@@ -117,11 +115,9 @@ class _PubBusinessDetailsPageState extends State<PubBusinessDetailsPage> {
                           "Platform URL",
                           textAlign: TextAlign.left,
                           style: TextStyle(
-                            fontSize: 28,
+                            fontSize: 18,
                             fontWeight: FontWeight.w700,
-                            color: Color(
-                              0xff19404D,
-                            ),
+                            color: Colors.black,
                           ),
                         ),
                         const SizedBox(
@@ -132,10 +128,11 @@ class _PubBusinessDetailsPageState extends State<PubBusinessDetailsPage> {
                           keyboardType: TextInputType.text,
                           validator: (value) {
                             if (value!.isEmpty && value == "") {
-                              return "Please enter brand name";
+                              return "Please enter brand url";
                             }
-                            if (!value.contains(RegExp(r'[A-Z,a-z,0-9]'))) {
-                              return "Name should be in Alphanumeric form";
+                            if (!value.contains(RegExp(
+                                r"(https?|http)://([-A-Za-z0-9.]+)(/[-A-Za-z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Za-z0-9+&@#/%=~_|!:‌​,.;]*)?"))) {
+                              return "URL format is incorrect";
                             }
                             return null;
                           },
@@ -156,11 +153,9 @@ class _PubBusinessDetailsPageState extends State<PubBusinessDetailsPage> {
                           "Monthly Traffic",
                           textAlign: TextAlign.left,
                           style: TextStyle(
-                            fontSize: 28,
+                            fontSize: 18,
                             fontWeight: FontWeight.w700,
-                            color: Color(
-                              0xff19404D,
-                            ),
+                            color: Colors.black,
                           ),
                         ),
                         const SizedBox(

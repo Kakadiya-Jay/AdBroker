@@ -347,42 +347,52 @@ class _AdvHomePageState extends State<AdvHomePage> {
                           ),
                         ).scale(scaleValue: 2.0);
                       } else if (snapshot.hasError) {
+                        debugPrint("Error :- \n ${snapshot.error}");
                         return Center(
                           child: Text(
-                            'Error: ${snapshot.error}\nOr else please check your internet connection',
+                            'Internal Server Error\nOr else please check your internet connection',
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.displayMedium,
                           ),
                         );
-                      } else if (!snapshot.hasData) {
-                        return Center(
-                          child: Text(
-                            "No data available..",
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.displayMedium,
-                          ),
-                        );
-                      }
-                      return ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        itemCount: advertisements.length,
-                        itemBuilder: (context, index) {
-                          return AdsTemplateCard(
-                            imagePath: advertisements[index].adImageUrl,
-                            brandName: brandName,
-                            brandURL: brandURL,
-                            adsStatus: advertisements[index].adStatus,
-                            adTitle: advertisements[index].adTitle,
-                            adCategory: advertisements[index].adCategory,
-                            adType: advertisements[index].adType,
-                            price: advertisements[index].price,
-                            remainViews: advertisements[index].remainViews,
-                            animationKey: advertisements[index].id,
-                            noOfPlatforms: 0,
+                      } else {
+                        if (snapshot.data!.isEmpty) {
+                          return SizedBox(
+                            height: 330,
+                            width: MediaQuery.of(context).size.width,
+                            child: Center(
+                              child: Image.asset(
+                                "assets/images/No data-amico.png",
+                                height: 330,
+                                width: MediaQuery.of(context).size.width * 0.80,
+                                filterQuality: FilterQuality.high,
+                                fit: BoxFit.fill,
+                              ),
+                            ),
                           );
-                        },
-                      );
+                        } else {
+                          return ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemCount: advertisements.length,
+                            itemBuilder: (context, index) {
+                              return AdsTemplateCard(
+                                imagePath: advertisements[index].adImageUrl,
+                                brandName: brandName,
+                                brandURL: brandURL,
+                                adsStatus: advertisements[index].adStatus,
+                                adTitle: advertisements[index].adTitle,
+                                adCategory: advertisements[index].adCategory,
+                                adType: advertisements[index].adType,
+                                price: advertisements[index].price,
+                                remainViews: advertisements[index].remainViews,
+                                animationKey: advertisements[index].id,
+                                noOfPlatforms: 0,
+                              );
+                            },
+                          );
+                        }
+                      }
                     },
                   ),
                 ),

@@ -269,10 +269,7 @@ class _ProfitPageState extends State<ProfitPage> {
           currentBalance = value;
         });
       } else {
-        UiHelper.customErrorSnackBar(
-          context,
-          "Something went wrong",
-        );
+        currentBalance = 0;
       }
     });
   }
@@ -286,10 +283,7 @@ class _ProfitPageState extends State<ProfitPage> {
           totalRevenue = value;
         });
       } else {
-        UiHelper.customErrorSnackBar(
-          context,
-          "Something went wrong",
-        );
+        totalRevenue = 0;
       }
     });
   }

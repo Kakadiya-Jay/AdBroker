@@ -131,8 +131,9 @@ class ShowPlatformTemplateCard extends StatelessWidget {
                                 .textTheme
                                 .displayMedium!
                                 .copyWith(
-                                    color: Colors.green,
-                                    fontWeight: FontWeight.bold),
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.bold,
+                                ),
                           ),
                           Text(
                             "Total Earning",

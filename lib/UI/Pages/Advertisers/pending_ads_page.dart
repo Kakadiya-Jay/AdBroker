@@ -42,33 +42,37 @@ class _PendingAdsPageState extends State<PendingAdsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: widget.pendingAds.length,
-      shrinkWrap: true,
-      scrollDirection: Axis.vertical,
-      itemBuilder: (context, index) {
-        if (widget.pendingAds.isEmpty) {
-          return Center(
-            child: Text(
-              "No Data Available",
-              style: Theme.of(context).textTheme.displayMedium,
-            ),
+    if (widget.pendingAds.isEmpty) {
+      return Center(
+        child: Image.asset(
+          "assets/images/No data-amico.png",
+          height: 330,
+          width: MediaQuery.of(context).size.width * 0.80,
+          filterQuality: FilterQuality.high,
+          fit: BoxFit.fill,
+        ),
+      );
+    } else {
+      return ListView.builder(
+        itemCount: widget.pendingAds.length,
+        shrinkWrap: true,
+        scrollDirection: Axis.vertical,
+        itemBuilder: (context, index) {
+          return MyAdsTemplate(
+            imagePath: widget.pendingAds[index].adImageUrl,
+            adTitle: widget.pendingAds[index].adTitle,
+            remainViews: widget.pendingAds[index].remainViews,
+            noOfPlatforms: 0,
+            adStatus: widget.pendingAds[index].adStatus,
+            adCategory: widget.pendingAds[index].adCategory,
+            adType: widget.pendingAds[index].adType,
+            brandName: brandName,
+            brandURL: brandURL,
+            animationKey: widget.pendingAds[index].id,
+            price: widget.pendingAds[index].price,
           );
-        }
-        return MyAdsTemplate(
-          imagePath: widget.pendingAds[index].adImageUrl,
-          adTitle: widget.pendingAds[index].adTitle,
-          remainViews: widget.pendingAds[index].remainViews,
-          noOfPlatforms: 0,
-          adStatus: widget.pendingAds[index].adStatus,
-          adCategory: widget.pendingAds[index].adCategory,
-          adType: widget.pendingAds[index].adType,
-          brandName: brandName,
-          brandURL: brandURL,
-          animationKey: widget.pendingAds[index].id,
-          price: widget.pendingAds[index].price,
-        );
-      },
-    ).pSymmetric(v: 6);
+        },
+      ).pSymmetric(v: 6);
+    }
   }
 }

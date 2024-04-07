@@ -13,7 +13,7 @@ import 'package:ad_brokers/UI/Pages/Authentications/adv_signuppage.dart';
 import 'package:ad_brokers/UI/Pages/Authentications/pub_loginpage.dart';
 import 'package:ad_brokers/UI/Pages/Authentications/pub_signuppage.dart';
 import 'package:ad_brokers/UI/Pages/Publishers/pub_bussiness_details_page.dart';
-import 'package:ad_brokers/UI/Pages/Publishers/pub_chat_page.dart';
+import 'package:ad_brokers/UI/Pages/Publishers/pub_all_platfroms_page.dart';
 import 'package:ad_brokers/UI/Pages/Publishers/pub_home_page.dart';
 import 'package:ad_brokers/UI/Pages/Publishers/pub_profile_page.dart';
 import 'package:ad_brokers/UI/Pages/Publishers/pub_profit_page.dart';
@@ -46,7 +46,7 @@ var AppRoutes = <String, WidgetBuilder>{
   "/pub/frontPage": (context) => const PubNavigationBarTemplate(),
   "/pub/homePage": (context) => const PubHomePage(),
   "/pub/profitPage": (context) => const ProfitPage(),
-  "/pub/chatPage": (context) => const PubChatPage(),
+  "/pub/chatPage": (context) => const PubAllPlatformPage(),
   "/pub/profilePage": (context) => const PubProfilePage(),
   "/pub/showAdvBusinessDetailsPage": (context) => const ShowPublisherBusinessDetails(),
 };

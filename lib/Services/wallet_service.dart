@@ -18,9 +18,16 @@ class WalletService {
       );
 
       if (response.statusCode == 200) {
+        num totalExpense = 0;
+        debugPrint("Advertiser id $advId");
         final data = json.decode(response.body);
-        num totalExpanse = data[0]["totalExpense"];
-        return totalExpanse;
+        debugPrint("Response =  $data");
+        if (data == [] || data.length == 0) {
+          totalExpense = 0;
+        } else {
+          totalExpense = data[0]["totalExpense"];
+        }
+        return totalExpense;
       }
     } catch (e) {
       debugPrint(e.toString());
@@ -42,7 +49,12 @@ class WalletService {
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        num totalExpanse = data[0]["totalEarning"];
+        num totalExpanse = 0;
+        if (data.length == 0) {
+          totalExpanse = 0;
+        } else {
+          totalExpanse = data["balance"];
+        }
         return totalExpanse;
       }
     } catch (e) {
@@ -65,7 +77,12 @@ class WalletService {
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        num totalExpanse = data["balance"];
+        num totalExpanse = 0;
+        if (data.length == 0 || data == []) {
+          totalExpanse = 0;
+        } else {
+          totalExpanse = data["balance"];
+        }
         return totalExpanse;
       }
     } catch (e) {
@@ -73,6 +90,4 @@ class WalletService {
       return null;
     }
   }
-
-
 }
