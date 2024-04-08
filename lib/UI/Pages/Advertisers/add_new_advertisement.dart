@@ -342,6 +342,7 @@ class _AddNewAdvertisementState extends State<AddNewAdvertisement> {
                               itemCount: subscriptions.length,
                               shrinkWrap: true,
                               physics: const BouncingScrollPhysics(),
+                              scrollDirection: Axis.vertical,
                               itemBuilder: (context, index) {
                                 return Card(
                                   color: Theme.of(context).cardColor,

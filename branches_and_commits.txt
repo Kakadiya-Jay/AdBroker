@@ -37,6 +37,7 @@ functionality-commit-13 :- Functionality commit 13 , On Publisher side, Implemen
 functionality-commit-14 :- Functionality commit 14 , On Publisher side, make user dp in profile and also change the bug inside the update profile page.
 functionality-commit-15 :- Functionality commit 15 , Add no Data available screen in every pages and remove chat screen from publisher side and create new functionality search platform.
 functionality-commit-16 :- Functionality commit 16 , Add view transactions in both sides remove chat screen from advertiser side.
+functionality-commit-17 :- Functionality commit 17 , Add contact us form in both sides and imaplement both apis successfully.
 
 change-theme-1 :- Theme Commit 1, In which All app's theme hase to been changed.
 change-theme-2 :- Theme Commit 2, In which TextFormField Widget theme is changed.

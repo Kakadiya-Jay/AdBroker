@@ -1,5 +1,6 @@
 import 'package:ad_brokers/Helpers/helper_function.dart';
 import 'package:ad_brokers/Services/auth_service.dart';
+import 'package:ad_brokers/UI/Pages/Publishers/pub_contact_us_page.dart';
 import 'package:ad_brokers/UI/Pages/Publishers/pub_edit_profile_page.dart';
 import 'package:ad_brokers/UI/Widgets/make_user_dp_card.dart';
 import 'package:ad_brokers/UI/Widgets/profile_option_list_template.dart';
@@ -267,7 +268,14 @@ class _PubProfilePageState extends State<PubProfilePage> {
             ProfileOptionListTemplate(
               icon: Icons.question_answer,
               menuName: "F&Q",
-              callbackFunction: () {},
+              callbackFunction: () {
+                Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                    builder: (context) => const PubContactUsPage(),
+                  ),
+                );
+              },
             ),
             ProfileOptionListTemplate(
               icon: Icons.extension,

@@ -5,26 +5,33 @@ class ContactUsFormTemplate extends StatelessWidget {
   final TextEditingController queryTitleController;
   final TextEditingController emailController;
   final TextEditingController phoneController;
-  final TextEditingController queryController;
+  final TextEditingController queryDetailsController;
   final String userRole;
-  final Function callbackFunction;
+  final Future<dynamic> sendQuery;
   const ContactUsFormTemplate({
     super.key,
     required this.queryTitleController,
     required this.emailController,
     required this.phoneController,
-    required this.queryController,
+    required this.queryDetailsController,
     required this.userRole,
-    required this.callbackFunction,
+    required this.sendQuery,
   });
 
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
     return Form(
-      key: _formKey,
+      key: formKey,
       child: Column(
         children: [
+          Text(
+            "Role : $userRole",
+            style: Theme.of(context).textTheme.displayMedium,
+          ),
+          const SizedBox(
+            height: 20,
+          ),
           TextFormField(
             controller: queryTitleController,
             validator: (value) {
@@ -86,7 +93,7 @@ class ContactUsFormTemplate extends StatelessWidget {
             height: 20,
           ),
           TextFormField(
-            controller: queryController,
+            controller: queryDetailsController,
             keyboardType: TextInputType.text,
             maxLines: 5,
             validator: (value) {
@@ -110,8 +117,10 @@ class ContactUsFormTemplate extends StatelessWidget {
             height: 48,
             width: MediaQuery.of(context).size.width,
             child: CupertinoButton(
-              onPressed: () {
-                callbackFunction();
+              onPressed: () async {
+                if (formKey.currentState!.validate()) {
+                  await sendQuery;
+                }
               },
               color: const Color(0xffFFE501),
               child: const Text(

@@ -140,7 +140,7 @@ class _AdvBusinessDetailsPageState extends State<AdvBusinessDetailsPage> {
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: const Color(0xFFE6E3E9),
-                            hintText: "Ex:- www.AdBrokers.com",
+                            hintText: "Ex:- https://AdBroker.com",
                             prefixIcon: const Icon(CupertinoIcons.link),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),

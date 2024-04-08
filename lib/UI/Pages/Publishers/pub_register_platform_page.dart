@@ -139,18 +139,15 @@ class _RegisterPlatformPageState extends State<RegisterPlatformPage> {
                           if (value!.isEmpty && value == "") {
                             return "Please enter redirect url";
                           }
-                          if (!Uri.parse(value).isAbsolute) {
-                            return "URL Format is incorrect";
+                          if (!value.contains(RegExp(
+                              r"(https?|http)://([-A-Za-z0-9.]+)(/[-A-Za-z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Za-z0-9+&@#/%=~_|!:‌​,.;]*)?"))) {
+                            return "URL format is incorrect";
                           }
-                          // if (!value.contains(RegExp(
-                          //     r"(https?|http)://([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?"))) {
-                          //   return "URL format is incorrect";
-                          // }
                           return null;
                         },
                         decoration: InputDecoration(
                           labelText: 'Redirect URL',
-                          hintText: 'Ex:- https://AdBrokers.com',
+                          hintText: 'Ex:- https://AdBroker.com',
                           prefixIcon: Icon(
                             CupertinoIcons.link,
                             color: Theme.of(context).shadowColor,

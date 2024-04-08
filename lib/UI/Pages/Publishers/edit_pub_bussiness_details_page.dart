@@ -136,7 +136,9 @@ class _UpdatePubBusinessDetailsState extends State<UpdatePubBusinessDetails> {
                     updatePubBusinessDetails();
                   } else {
                     UiHelper.customErrorSnackBar(
-                        context, "Please enter Required Fields");
+                      context,
+                      "Please enter Required Fields",
+                    );
                   }
                 },
                 color: const Color(0xffFFE501),

@@ -271,7 +271,12 @@ class _AdvProfilePageState extends State<AdvProfilePage> {
             ProfileOptionListTemplate(
               icon: Icons.question_answer,
               menuName: "F&Q",
-              callbackFunction: () {},
+              callbackFunction: () {
+                Navigator.pushNamed(
+                  context,
+                  "/adv/contactUsPage",
+                );
+              },
             ),
             ProfileOptionListTemplate(
               icon: Icons.extension,
