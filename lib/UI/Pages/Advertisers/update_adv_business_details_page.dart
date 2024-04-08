@@ -198,7 +198,9 @@ class _UpdateAdvBusinessDetailsPageState
                     updateAdvBusinessDetails();
                   } else {
                     UiHelper.customErrorSnackBar(
-                        context, "Please enter Required Fields");
+                      context,
+                      "Please enter Required Fields",
+                    );
                   }
                 },
                 color: const Color(0xffFFE501),

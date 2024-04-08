@@ -24,4 +24,7 @@ class APIConstant {
   static String getAdvTotalExpense = "/transaction/myTotalExpense";
   static String getPubTotalRevenue = "/transaction/myTotalEarning";
   static String getPubCurrentBalance = "/transaction/currentBalance";
+
+  // Contact Us Service
+  static String contactUsServiceEndPoint = "/message";
 }
