@@ -3,6 +3,7 @@ import 'package:ad_brokers/Services/auth_service.dart';
 import 'package:ad_brokers/UI/Pages/Advertisers/adv_edit_profile_page.dart';
 import 'package:ad_brokers/UI/Widgets/make_user_dp_card.dart';
 import 'package:ad_brokers/UI/Widgets/profile_option_list_template.dart';
+import 'package:ad_brokers/UI/Widgets/uihelper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -282,9 +283,18 @@ class _AdvProfilePageState extends State<AdvProfilePage> {
             ),
             GestureDetector(
               onTap: () {
-                authService.signOut();
-                Navigator.pushNamedAndRemoveUntil(
-                    context, "/checkUserStatus", (route) => false);
+                UiHelper.confirmationDialogBox(
+                  context,
+                  "you want to log out",
+                  () {
+                    authService.signOut();
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      "/checkUserStatus",
+                      (route) => false,
+                    );
+                  },
+                );
               },
               child: ListTile(
                 leading: const Icon(

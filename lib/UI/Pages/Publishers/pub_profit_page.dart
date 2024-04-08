@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:ad_brokers/Models/transaction_model.dart';
 import 'package:ad_brokers/Services/payment_service.dart';
 import 'package:ad_brokers/Services/wallet_service.dart';
 import 'package:ad_brokers/UI/Widgets/uihelper.dart';
@@ -75,11 +76,26 @@ class _ProfitPageState extends State<ProfitPage> {
     UiHelper.customSnackBar(context, 'External wallet ${response.walletName!}');
   }
 
+  List<PubTransactionModel> totalTransactions = [];
+
+  gettingTransactions() async {
+    try {
+      final platformResponse = await walletService.getAllPublishersTransactions(
+          FirebaseAuth.instance.currentUser!.uid.toString());
+      setState(() {
+        totalTransactions = platformResponse!;
+      });
+    } catch (e) {
+      debugPrint("Error :- ${e.toString()}");
+    }
+  }
+
   @override
   void initState() {
     isValidAmount = true;
     getCurrentBalance();
     getTotalRevenue();
+    gettingTransactions();
     razorpay = Razorpay();
     razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, handlePaymentSuccess);
     razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, handlePaymentEror);
@@ -252,6 +268,63 @@ class _ProfitPageState extends State<ProfitPage> {
                     ),
                   ),
                 ).centered(),
+                const SizedBox(
+                  height: 20,
+                ),
+                Divider(
+                  color: Theme.of(context).shadowColor,
+                  thickness: 0.5,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "Your All Withdrawals",
+                  style: Theme.of(context).textTheme.displayMedium,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                totalTransactions.isEmpty
+                    ? Center(
+                        child: Image.asset(
+                          "assets/images/No data-amico.png",
+                          height: 330,
+                          width: MediaQuery.of(context).size.width * 0.80,
+                          filterQuality: FilterQuality.high,
+                          fit: BoxFit.fill,
+                        ),
+                      )
+                    : ListView.builder(
+                        itemCount: totalTransactions.length,
+                        shrinkWrap: true,
+                        physics: const BouncingScrollPhysics(),
+                        scrollDirection: Axis.vertical,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            leading: Icon(
+                              Icons.currency_rupee,
+                              color: Theme.of(context).shadowColor,
+                            ),
+                            title: Text(
+                              totalTransactions[index].type,
+                              style: Theme.of(context).textTheme.displaySmall,
+                            ),
+                            subtitle: Text(
+                              totalTransactions[index].createdDate.toString(),
+                              maxLines: 1,
+                              style: Theme.of(context).textTheme.headlineSmall,
+                            ),
+                            trailing: Text(
+                              "${totalTransactions[index].amount}₹",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium!
+                                  .copyWith(color: Colors.green),
+                            ),
+                          );
+                        },
+                      ),
               ],
             ).p8(),
           ),

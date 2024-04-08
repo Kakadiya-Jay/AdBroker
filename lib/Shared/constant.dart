@@ -19,6 +19,8 @@ class APIConstant {
   static String registerNewPlatform = "/application";
 
   //Wallet
+  static String getAllAdvTransactions = "/transaction/advertiser";
+  static String getAllPubTransactions = "/transaction/publisher";
   static String getAdvTotalExpense = "/transaction/myTotalExpense";
   static String getPubTotalRevenue = "/transaction/myTotalEarning";
   static String getPubCurrentBalance = "/transaction/currentBalance";

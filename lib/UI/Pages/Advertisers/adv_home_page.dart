@@ -159,7 +159,7 @@ class _AdvHomePageState extends State<AdvHomePage> {
         toolbarHeight: 80,
         backgroundColor: const Color(0xFF3C096C),
         title: const Text(
-          "AdBrokers",
+          "AdBroker",
           style: TextStyle(
             fontSize: 28,
             fontWeight: FontWeight.w700,
