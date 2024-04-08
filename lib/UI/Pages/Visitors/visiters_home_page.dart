@@ -35,7 +35,7 @@ class _VisitorSideHomePageState extends State<VisitorSideHomePage> {
         backgroundColor: const Color(0xFF3C096C),
         iconTheme: const IconThemeData(color: Colors.white),
         title: const Text(
-          "AdBrokers",
+          "AdBroker",
           style: TextStyle(
             fontSize: 28,
             fontWeight: FontWeight.w700,
@@ -81,11 +81,11 @@ class _VisitorSideHomePageState extends State<VisitorSideHomePage> {
               curve: Curves.easeIn,
               child: UserAccountsDrawerHeader(
                 accountName: Text(
-                  "AdBrokers",
+                  "AdBroker",
                   style: Theme.of(context).textTheme.displayMedium,
                 ),
                 accountEmail: Text(
-                  "AdBrokers@gmail.com",
+                  "AdBroker@gmail.com",
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
                 currentAccountPictureSize: const Size.square(50),

@@ -1,6 +1,6 @@
-import 'package:ad_brokers/UI/Pages/Advertisers/adv_chat_page.dart';
 import 'package:ad_brokers/UI/Pages/Advertisers/adv_home_page.dart';
 import 'package:ad_brokers/UI/Pages/Advertisers/adv_profile_page.dart';
+import 'package:ad_brokers/UI/Pages/Advertisers/adv_total_expense_page.dart';
 import 'package:ad_brokers/UI/Pages/Advertisers/my_ads_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +18,7 @@ class _AdvNavigationBarTemplateState extends State<AdvNavigationBarTemplate> {
   List<Widget> pageList = [
     const AdvHomePage(),
     const MyAdsPage(),
-    const AdvChatPage(),
+    const AdvTotalExpansePage(),
     const AdvProfilePage(),
   ];
   @override
@@ -48,8 +48,10 @@ class _AdvNavigationBarTemplateState extends State<AdvNavigationBarTemplate> {
             label: "My Ads",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
-            label: "Chat",
+            icon: ImageIcon(
+              AssetImage("assets/icons/Expense.png"),
+            ),
+            label: "Expanse",
           ),
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.person),

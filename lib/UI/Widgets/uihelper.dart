@@ -31,6 +31,76 @@ class UiHelper {
     );
   }
 
+  static confirmationDialogBox(
+      BuildContext context, String text, Function callBackFunction) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return SimpleDialog(
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          title: Text(
+            "Are you sure",
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+          ),
+          surfaceTintColor: Colors.blueGrey,
+          shadowColor: Theme.of(context).canvasColor,
+          elevation: 4.0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(2),
+          ),
+          children: [
+            const SizedBox(
+              height: 10,
+            ),
+            Center(
+              child: Text(
+                text,
+                style: Theme.of(context).textTheme.displayMedium,
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    callBackFunction();
+                  },
+                  child: const Text(
+                    "yes",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.green,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text(
+                    "no",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.red,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ).p16();
+      },
+    );
+  }
+
   static customSnackBar(BuildContext context, String text) {
     return ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -38,10 +108,18 @@ class UiHelper {
           text,
           style: Theme.of(context).textTheme.displayMedium,
         ),
-        duration: const Duration(milliseconds: 1500),
+        duration: const Duration(milliseconds: 2000),
         elevation: 8.0,
-        
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        backgroundColor: Theme.of(context).canvasColor,
+        showCloseIcon: true,
+        closeIconColor: Theme.of(context).shadowColor,
+        dismissDirection: DismissDirection.up,
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).size.height - 150,
+          left: 10,
+          right: 10,
+        ),
+        behavior: SnackBarBehavior.floating,
       ),
     );
   }
@@ -51,11 +129,24 @@ class UiHelper {
       SnackBar(
         content: Text(
           text,
-          style: Theme.of(context).textTheme.displayMedium,
+          style: const TextStyle(
+            fontSize: 18,
+            color: Colors.white,
+            fontWeight: FontWeight.w700,
+          ),
         ),
-        duration: const Duration(milliseconds: 1500),
+        showCloseIcon: true,
+        duration: const Duration(milliseconds: 2000),
         backgroundColor: Colors.redAccent,
         elevation: 4.0,
+        closeIconColor: Colors.white,
+        dismissDirection: DismissDirection.up,
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).size.height - 150,
+          left: 10,
+          right: 10,
+        ),
+        behavior: SnackBarBehavior.floating,
         // backgroundColor: const Color.fromARGB(255, 242, 154, 154),
         //     elevation: 6.0,
       ),
